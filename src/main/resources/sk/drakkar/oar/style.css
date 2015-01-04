@@ -1,0 +1,131 @@
+body {
+	font-family: Georgia, serif;
+}
+
+.container p, .container li {
+	font-size: 12pt;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Trebuchet, "Trebuchet MS";
+}
+
+#article-title {
+	font-family: Trebuchet, "Trebuchet MS";
+	font-weight: bold;
+	font-size: 32pt;	
+}
+
+.article-authors {
+	margin-bottom: 8pt;
+	font-size: 12pt;	
+}
+
+.article-author {
+	
+}
+
+.article-text {
+	border-top: 6pt solid black;
+	padding-top: 24pt;
+}
+
+.issue-article-list-item-author {
+	font-style: italic;
+}
+
+.issue-article-list, ul.call-to-action {
+	font-family: Trebuchet, "Trebuchet MS";
+	margin: 0pt;
+	padding: 0pt;
+}
+
+li.issue-article-list-item, li.call-to-action-item {
+	display: block;
+	margin: 0pt;
+	padding: 0pt;
+
+	min-height: 120pt;
+	padding-left: 12pt;
+	margin-bottom: 6pt;
+
+	font-size: 14pt;
+}
+
+li.call-to-action-item {
+	border-left: solid 125pt black;
+	font-size: 18pt;
+}
+
+li.issue-article-list-item a {
+	color: black;
+}
+
+li.issue-article-list-item.red, li.issue-article-list-item .red {
+	border-left: solid 125pt #c13f35;
+}
+
+li.issue-article-list-item.green, li.issue-article-list-item .green {
+	border-left: solid 125pt #237238;
+}
+
+li.issue-article-list-item.blue, li.issue-article-list-item .blue {
+	border-left: solid 125pt #155985;
+}
+
+li.issue-article-list-item.gray, li.issue-article-list-item .gray {
+	border-left: solid 125pt #4b4b4b;
+}
+
+li.issue-article-list-item.missingColor, li.issue-article-list-item .missingColor {
+	border-left: solid 125pt #abb9d1;
+}
+
+
+
+.issue-article-list-item .article-summary {
+	color: #6A6A6A;
+}
+
+.article-tag {
+	color: #c0c2c1;
+}
+
+/* ------------------------------------------------------------- */
+
+.sidebar {
+	float: right;
+	width: 200pt;
+	padding: 0 6pt;
+}
+
+.sidebar, .sidebar li, .sidebar p, .sidebar ul {
+	font-size: 10pt;
+}
+
+.sidebar h1 {
+	font-size: 14pt;
+	margin-top: 0pt;
+}
+
+
+p code, li code {
+	font-family: Georgia, serif;
+	font-size: 12pt;
+	background: none;
+	font-variant: small-caps;
+	margin: 0pt;
+	padding: 0pt;
+	color: black;
+}
+
+div.floatquote {
+	float: right;
+	width: 120pt;
+	color: #c13f35;
+	text-align: center;
+	padding: 6pt;
+	margin: 6pt;
+}
+
+/* ------------------------------------------------------------- */

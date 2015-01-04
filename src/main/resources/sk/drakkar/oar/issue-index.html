@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Drakkar ${issue.number}</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+<link rel="stylesheet" href="../css/style.css">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+<link href='http://fonts.googleapis.com/css?family=Alegreya:700&subset=latin-ext' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 id="issue-title">Drakkar ${issue.number}</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<ul class="call-to-action">
+					<li class="call-to-action-item">
+					<a href="${issue.pdfFileName}">Stáhnout PDF</a>
+					<p>Kompletní číslo Drakkaru ve formátu PDF</p>
+					</li>					
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<h2>Články</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<ul class="issue-article-list">
+					<#list issue.articles as article>
+						<li class="issue-article-list-item ${article.metadata.color!'missingColor'}">
+	  						<a href="${article.slug}.html">${article.metadata.title}</a> (<span class="issue-article-list-item-author">${article.metadata.authorList}</span>)
+  						
+	  						<div class="article-summary">
+	  						${article.metadata.summary}
+	  						</div>
+	  					</li>
+					</#list>  				
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
