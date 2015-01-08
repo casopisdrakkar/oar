@@ -11,6 +11,7 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sk.drakkar.oar.authors.AuthorListBuilder;
 import sk.drakkar.oar.tags.TagCloudBuilder;
 
 import com.google.common.base.Charsets;
@@ -146,9 +147,14 @@ public class Oar {
 			Oar oar = new Oar(configuration);
 			
 			oar.addIssueArticlesProcessedListener(new IssueIndexBuilder(configuration));
+
 			TagCloudBuilder tagCloudBuilder = new TagCloudBuilder(configuration);
 			oar.addIssueArticlesProcessedListener(tagCloudBuilder);
 			oar.addPublicationCompleteListener(tagCloudBuilder);
+
+			AuthorListBuilder authorListBuilder = new AuthorListBuilder(configuration);
+			oar.addIssueArticlesProcessedListener(authorListBuilder);
+			oar.addPublicationCompleteListener(authorListBuilder);
 			
 			oar.publish();
 		} catch (CmdLineException e) {
