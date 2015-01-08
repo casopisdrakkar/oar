@@ -114,7 +114,8 @@ public class Oar {
 
 	private boolean isAllowedResource(File file) {
 		return file.getName().endsWith(".png")
-				|| file.getName().endsWith(".jpg");
+				|| file.getName().endsWith(".jpg")
+				|| file.getName().endsWith(".pdf");
 	}
 	
 	private void processAllowedResource(File file, Issue issue) {
