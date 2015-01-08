@@ -141,7 +141,7 @@ public class Oar {
 		try {
 			cmdLineParser.parseArgument(args);
 			
-			File projectFolder = new File(args[0]);
+			File projectFolder = commandLineConfiguration.getProjectFolder();
 			Configuration configuration = new Configuration(projectFolder);
 			Oar oar = new Oar(configuration);
 			
