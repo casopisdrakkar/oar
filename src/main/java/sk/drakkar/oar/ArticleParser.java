@@ -51,7 +51,7 @@ public class ArticleParser {
 			articleMetadata.setTitle((String) metadata.get("Title"));
 			articleMetadata.setAuthors(parseAuthors(metadata));
 			articleMetadata.setTags(parseTags(metadata));
-			articleMetadata.setSummary(summaryExtractor.getSummary(article));
+			articleMetadata.setSummary(summaryExtractor.getSummary(article, metadata));
 			articleMetadata.setColor((String) metadata.get("Color"));
 			
 			article.setMetadata(articleMetadata);
