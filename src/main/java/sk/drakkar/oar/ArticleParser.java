@@ -53,9 +53,9 @@ public class ArticleParser {
 			articleMetadata.setTags(parseTags(metadata));
 			articleMetadata.setSummary(summaryExtractor.getSummary(article, metadata));
 			articleMetadata.setColor((String) metadata.get("Color"));
-			
+			setHasFulltext(articleMetadata, metadata);
+
 			article.setMetadata(articleMetadata);
-			
 			
 			
 			logger.debug("Parsed an article from " + articleFile);
@@ -64,6 +64,14 @@ public class ArticleParser {
 		} catch (IOException e) {
 			throw new ArticleProcessException("Cannot read article from " + articleFile, e);
 		} 	
+	}
+
+	private void setHasFulltext(ArticleMetadata articleMetadata, Map<String, Object> rawMetadata) {
+		boolean hasFulltext = false;
+		if(rawMetadata.get("Fulltext") != null) {
+			hasFulltext = (boolean) rawMetadata.get("Fulltext");
+		}
+		articleMetadata.setFulltext(hasFulltext);
 	}
 
 	private List<String> parseAuthors(Map<String, Object> metadata) {

@@ -17,6 +17,8 @@ public class ArticleMetadata {
 	
 	private String color;
 	
+	private boolean fulltext;
+	
 	public String getTitle() {
 		return title;
 	}
@@ -65,6 +67,14 @@ public class ArticleMetadata {
 		this.color = color;
 	}
 	
+	public void setFulltext(boolean hasFulltext) {
+		this.fulltext = hasFulltext;
+	}	
+	
+	public boolean isFulltext() {
+		return fulltext;
+	}
+
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
@@ -72,4 +82,6 @@ public class ArticleMetadata {
 			.add("authors", this.authors)
 			.toString();
 	}
+
+
 }
