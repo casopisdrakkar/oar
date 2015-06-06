@@ -85,7 +85,11 @@ li.issue-article-list-item.missingColor, li.issue-article-list-item .missingColo
 
 .issue-article-list-item .article-summary {
 	color: #6A6A6A;
+	font-family: "Source Sans pro",sans-serif;
+    font-size: 13pt;
+    font-weight: normal;
 }
+
 
 .article-tag {
 	color: #c0c2c1;

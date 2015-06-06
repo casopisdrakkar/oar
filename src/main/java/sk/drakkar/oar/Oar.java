@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sk.drakkar.oar.authors.AuthorListBuilder;
+import sk.drakkar.oar.homepage.HomePageBuilder;
 import sk.drakkar.oar.tags.TagCloudBuilder;
 
 import com.google.common.base.Charsets;
@@ -155,6 +156,10 @@ public class Oar {
 			AuthorListBuilder authorListBuilder = new AuthorListBuilder(configuration);
 			oar.addIssueArticlesProcessedListener(authorListBuilder);
 			oar.addPublicationCompleteListener(authorListBuilder);
+
+			HomePageBuilder homePageBuilder = new HomePageBuilder(configuration);
+			oar.addIssueArticlesProcessedListener(homePageBuilder);
+			oar.addPublicationCompleteListener(homePageBuilder);
 			
 			oar.publish();
 		} catch (CmdLineException e) {
