@@ -10,6 +10,8 @@ public class Summary {
 	
 	private String tags = "èlánek";
 
+	private String shortSummary;
+	
 	public String getTitle() {
 		return title;
 	}
@@ -56,5 +58,17 @@ public class Summary {
 	
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+
+	public String getShortSummary() {
+		return shortSummary;
+	}
+
+	public void setShortSummary(String shortSummary) {
+		this.shortSummary = shortSummary;
+	}
+	
+	public boolean hasShortSummary() {
+		return this.shortSummary != null;
 	}
 }

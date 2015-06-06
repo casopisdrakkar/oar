@@ -63,10 +63,13 @@ public class SummaryExporter {
 
 	private void writeSummary(Summary summary, PrintWriter writer) {
 		writer.println("---");
-		writer.println("Title: " + summary.getTitle());
+		writer.println("Title: \"" + summary.getTitle() + "\"");
 		writer.println("Authors: " + summary.getAuthors());
 		writer.println("Tags: " + summary.getTags());
 		writer.println("Color: " + summary.getColor());
+		if(summary.hasShortSummary()) {
+			writer.println("Summary: " + summary.getShortSummary());
+		}
 
 		writer.println("---");
 		

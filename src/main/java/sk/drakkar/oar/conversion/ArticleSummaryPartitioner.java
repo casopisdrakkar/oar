@@ -22,15 +22,12 @@ public class ArticleSummaryPartitioner {
 	
 	private int articleLineNumber;
 
-	private SummaryExporter summaryExporter = new SummaryExporter();
-	
-	public void convert(String summary, File targetFolder) {
+	public List<Summary> convert(String summary) {
 		Scanner scanner = new Scanner(summary);
 		while(scanner.hasNextLine()) {
 			processLine(scanner.nextLine());
 		}
-		summaryExporter.writeSummaries(this.summaries, targetFolder);
-		summaryExporter.writeIssueMetadata(this.summaries, targetFolder);
+		return this.summaries;
 	}
 
 
