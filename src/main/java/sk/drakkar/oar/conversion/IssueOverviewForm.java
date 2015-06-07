@@ -1,16 +1,28 @@
 package sk.drakkar.oar.conversion;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -35,11 +47,14 @@ public class IssueOverviewForm extends JFrame {
 	private SummaryExporter summaryExporter = new SummaryExporter();
 
 	private JScrollPane metadataScrollPane;
+	
+	private File issueFile;
 
 	public IssueOverviewForm() {
 		setTitle("Drakkar");
 		
 		initializeTopPanel();
+		enableDropSupport();
 		
 		metadataTextField = new JTextArea();
 		metadataTextField.setBorder(BorderFactory.createEtchedBorder());
@@ -92,7 +107,7 @@ public class IssueOverviewForm extends JFrame {
 		addEditorial(summaries);
 		
 		summaryExporter.writeSummaries(summaries, targetFolder);
-		summaryExporter.writeIssueMetadata(summaries, targetFolder);
+		summaryExporter.writeIssueMetadata(summaries, this.issueFile, targetFolder);
 		
 	}
 
@@ -106,6 +121,67 @@ public class IssueOverviewForm extends JFrame {
 		summary.setSummary(this.editorialTextField.getText());
 
 		summaries.add(0, summary);
+	}
+
+	private void enableDropSupport() {
+		DropTargetListener listener = new DropTargetAdapter() {
+			@Override
+			public void dragOver(DropTargetDragEvent event) {
+				if (!event.getTransferable().isDataFlavorSupported(
+						DataFlavor.javaFileListFlavor)) {
+					event.rejectDrag();
+				}
+			}
+
+			@Override
+			public void drop(DropTargetDropEvent event) {
+				Transferable transferable = event.getTransferable();
+
+				try {
+					DataFlavor dataFlavor = DataFlavor.javaFileListFlavor;
+					// see
+					// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6759788
+					event.acceptDrop(event.getDropAction());
+					List<File> files = (List<File>) transferable
+							.getTransferData(dataFlavor);
+					File droppedFile = files.get(0);
+
+					handleDroppedFile(droppedFile);
+
+					event.dropComplete(true);
+				} catch (UnsupportedFlavorException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+
+		Component currentWindow = this;
+		DropTarget dropTarget = new DropTarget(currentWindow, listener);
+		currentWindow.setDropTarget(dropTarget);
+	}
+
+	
+	protected void handleDroppedFile(File droppedFile) {
+		try {
+			this.issueFile = droppedFile;
+			this.targetFolderTextField.setText(this.issueFile.getParentFile().getParent());
+			this.issueNumberTextField.setText(parseIssueNumber(this.issueFile));
+		} catch (ParseException e) {
+			JOptionPane.showConfirmDialog(this, "Zlý názov súboru s PDF", "Chyba", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private String parseIssueNumber(File issueFile) throws ParseException {
+		//drakkar_2012_35_prosinec.pdf
+		String fileName = issueFile.getName();
+		String[] components = fileName.split("_");
+		if(components.length < 3) {
+			throw new ParseException("Illegal filename", 0);
+		}
+		
+		return components[2];
 	}
 
 	public static void main(String[] args) {

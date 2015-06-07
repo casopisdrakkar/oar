@@ -12,12 +12,12 @@ import com.github.slugify.Slugify;
 public class SummaryExporter {
 	private static final String ENCODING_UTF_8 = "utf-8";
 
-	public void writeIssueMetadata(Collection<Summary> summaries, File targetFolder) {
+	public void writeIssueMetadata(Collection<Summary> summaries, File pdfFile, File targetFolder) {
 		File metadataFile = new File(targetFolder, "metadata.yaml");
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter(metadataFile, ENCODING_UTF_8);
-			writeIssueMetadata(summaries, writer);
+			writeIssueMetadata(summaries, pdfFile, writer);
 			writer.flush();
 		} catch (FileNotFoundException e) {
 			throw new ConversionException("Cannot save to file " + metadataFile, e);
@@ -30,9 +30,9 @@ public class SummaryExporter {
 		}
 	}
 
-	public void writeIssueMetadata(Collection<Summary> summaries, PrintWriter writer) {
+	public void writeIssueMetadata(Collection<Summary> summaries, File pdfFile, PrintWriter writer) {
 		writer.println("---");
-		writer.println("pdf: " + "???");
+		writer.println("pdf: " + pdfFile.getName());
 		writer.println("articles: ");
 		for (Summary summary : summaries) {
 			writer.println("- " + getFileName(summary) + ".md");
