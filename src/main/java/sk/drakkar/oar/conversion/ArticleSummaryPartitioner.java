@@ -27,6 +27,8 @@ public class ArticleSummaryPartitioner {
 		while(scanner.hasNextLine()) {
 			processLine(scanner.nextLine());
 		}
+		// handle last line in file
+		summaries.add(currentSummary);
 		return this.summaries;
 	}
 
