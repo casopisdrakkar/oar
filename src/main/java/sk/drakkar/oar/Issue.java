@@ -1,12 +1,12 @@
 package sk.drakkar.oar;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Issue {
+
+	private final String DEFAULT_ISSUE_COLOR = "missingColor";
+
 	private File folder;
 	
 	private int number;
@@ -18,6 +18,8 @@ public class Issue {
 	private String pdfFileName;
 	
 	private Comparator<Article> articleOrderComparator = new ArticleByOrderComparator();
+
+	private String color;
 	
 	public File getFolder() {
 		return folder;
@@ -58,6 +60,35 @@ public class Issue {
 	
 	public void setArticleOrder(List<String> articleOrder) {
 		this.articleOrder = articleOrder;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	/**
+	 * Updates Issue color. Issue color is defined as color of majority of Issue articles.
+	 */
+	public void updateIssueColor() {
+		Map<String,Integer> colors = new HashMap<>();
+
+		for(Article a : articles) {
+			String color = a.getMetadata().getColor();
+			if (colors.containsKey(color)) {
+				colors.put(color, colors.get(color) + 1);
+			} else {
+				colors.put(color, 1);
+			}
+		}
+
+		String issueColor = Collections.max(
+				colors.entrySet(), (entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).getKey();
+
+		color = (issueColor != null) ? issueColor : DEFAULT_ISSUE_COLOR;
 	}
 	
 	private class ArticleByOrderComparator implements Comparator<Article> {
