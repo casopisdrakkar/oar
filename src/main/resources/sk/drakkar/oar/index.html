@@ -22,7 +22,7 @@
       </div>      
       <div class="row">
         <#list issues as issue>
-          <div class="col-md-4 issue-box">
+          <div class="col-md-4 issue-box ${issue.color}">
             <h2><a href="/${issue.number}" class="issue-number">#${issue.number}</a></h2>
 
             <#list issue.articles as article>

@@ -1,12 +1,12 @@
 package sk.drakkar.oar;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Issue {
+
+	public static final String DEFAULT_ISSUE_COLOR = "missingColor";
+
 	private File folder;
 	
 	private int number;
@@ -18,6 +18,8 @@ public class Issue {
 	private String pdfFileName;
 	
 	private Comparator<Article> articleOrderComparator = new ArticleByOrderComparator();
+
+	private String color;
 	
 	public File getFolder() {
 		return folder;
@@ -59,7 +61,15 @@ public class Issue {
 	public void setArticleOrder(List<String> articleOrder) {
 		this.articleOrder = articleOrder;
 	}
-	
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	private class ArticleByOrderComparator implements Comparator<Article> {
 
 		@Override
