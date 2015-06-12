@@ -3,6 +3,7 @@ package sk.drakkar.oar;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,5 +58,27 @@ public class IssueParser {
 		} catch (IOException e) {
 			throw new IssueMetadataException("Cannot load issue metadata! Is the file " + ISSUE_METADATA_FILENAME + " present?", e);
 		}
+	}
+
+	/**
+	 * Updates Issue color. Issue color is defined as color of majority of Issue articles.
+	 */
+	public void updateIssueColor(Issue issue) {
+		Map<String,Integer> colors = new HashMap<>();
+
+		for(Article a : issue.getArticles()) {
+			String color = a.getMetadata().getColor();
+			if (colors.containsKey(color)) {
+				colors.put(color, colors.get(color) + 1);
+			} else {
+				colors.put(color, 1);
+			}
+		}
+
+		String issueColor = Collections.max(
+				colors.entrySet(), (entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).getKey();
+
+		String color = (issueColor != null) ? issueColor : Issue.DEFAULT_ISSUE_COLOR;
+		issue.setColor(color);
 	}
 }

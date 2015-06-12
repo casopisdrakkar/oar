@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Issue {
 
-	private final String DEFAULT_ISSUE_COLOR = "missingColor";
+	public static final String DEFAULT_ISSUE_COLOR = "missingColor";
 
 	private File folder;
 	
@@ -70,27 +70,6 @@ public class Issue {
 		this.color = color;
 	}
 
-	/**
-	 * Updates Issue color. Issue color is defined as color of majority of Issue articles.
-	 */
-	public void updateIssueColor() {
-		Map<String,Integer> colors = new HashMap<>();
-
-		for(Article a : articles) {
-			String color = a.getMetadata().getColor();
-			if (colors.containsKey(color)) {
-				colors.put(color, colors.get(color) + 1);
-			} else {
-				colors.put(color, 1);
-			}
-		}
-
-		String issueColor = Collections.max(
-				colors.entrySet(), (entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).getKey();
-
-		color = (issueColor != null) ? issueColor : DEFAULT_ISSUE_COLOR;
-	}
-	
 	private class ArticleByOrderComparator implements Comparator<Article> {
 
 		@Override

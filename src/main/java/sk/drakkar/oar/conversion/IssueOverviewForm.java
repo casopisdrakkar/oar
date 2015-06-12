@@ -113,10 +113,10 @@ public class IssueOverviewForm extends JFrame {
 
 	private void addEditorial(List<Summary> summaries) {
 		Summary summary = new Summary();
-		summary.setTitle("Úvodník");
+		summary.setTitle("ï¿½vodnï¿½k");
 		summary.setAuthors("redakce");
-		summary.setTags("úvodník");
-		summary.setShortSummary("Úvodní slovo");
+		summary.setTags("ï¿½vodnï¿½k");
+		summary.setShortSummary("ï¿½vodnï¿½ slovo");
 		summary.setColor("gray");
 		summary.setSummary(this.editorialTextField.getText());
 
@@ -169,7 +169,7 @@ public class IssueOverviewForm extends JFrame {
 			this.targetFolderTextField.setText(this.issueFile.getParentFile().getParent());
 			this.issueNumberTextField.setText(parseIssueNumber(this.issueFile));
 		} catch (ParseException e) {
-			JOptionPane.showConfirmDialog(this, "Zlý názov súboru s PDF", "Chyba", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(this, "Zlï¿½ nï¿½zov sï¿½boru s PDF", "Chyba", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -185,12 +185,9 @@ public class IssueOverviewForm extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				IssueOverviewForm issueOverviewForm = new IssueOverviewForm();
-				issueOverviewForm.setVisible(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> {
+            IssueOverviewForm issueOverviewForm = new IssueOverviewForm();
+            issueOverviewForm.setVisible(true);
+        });
 	}
 }

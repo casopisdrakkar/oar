@@ -68,7 +68,7 @@ public class Oar {
 				processAllowedResource(file, issue);
 			}
 		}
-		issue.updateIssueColor();
+		issueParser.updateIssueColor(issue);
 		fireOnIssueArticlesProcessed(issue);
 	}
 
