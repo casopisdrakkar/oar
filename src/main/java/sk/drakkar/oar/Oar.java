@@ -149,6 +149,9 @@ public class Oar {
 			
 			oar.addIssueArticlesProcessedListener(new IssueIndexBuilder(configuration));
 
+			IssueColorBuilder issueColorBuilder = new IssueColorBuilder();
+			oar.addIssueArticlesProcessedListener(issueColorBuilder);
+			
 			TagCloudBuilder tagCloudBuilder = new TagCloudBuilder(configuration);
 			oar.addIssueArticlesProcessedListener(tagCloudBuilder);
 			oar.addPublicationCompleteListener(tagCloudBuilder);
@@ -156,7 +159,7 @@ public class Oar {
 			AuthorListBuilder authorListBuilder = new AuthorListBuilder(configuration);
 			oar.addIssueArticlesProcessedListener(authorListBuilder);
 			oar.addPublicationCompleteListener(authorListBuilder);
-
+			
 			HomePageBuilder homePageBuilder = new HomePageBuilder(configuration);
 			oar.addIssueArticlesProcessedListener(homePageBuilder);
 			oar.addPublicationCompleteListener(homePageBuilder);

@@ -17,6 +17,8 @@ public class Issue {
 	
 	private String pdfFileName;
 	
+	private String color;
+	
 	private Comparator<Article> articleOrderComparator = new ArticleByOrderComparator();
 	
 	public File getFolder() {
@@ -64,6 +66,14 @@ public class Issue {
 	 */
 	public void setArticleOrder(List<String> articleOrder) {
 		this.articleOrder = articleOrder;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 	private class ArticleByOrderComparator implements Comparator<Article> {

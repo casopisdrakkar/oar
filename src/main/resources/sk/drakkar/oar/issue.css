@@ -16,6 +16,27 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 18pt;
 }
 
+.issue-box.red {
+	border-left: solid 18pt #c13f35;
+}
+
+.issue-box.green {
+	border-left: solid 18pt #237238;
+}
+
+.issue-box.blue {
+	border-left: solid 18pt #155985;
+}
+
+.issue-box.gray {
+	border-left: solid 18pt #4b4b4b;
+}
+
+.issue-box.missingColor {
+	border-left: solid 18pt #abb9d1;
+}
+
+
 .container .jumbotron {
 	background: white;
 	padding-left: 0pt;
