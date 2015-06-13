@@ -1,0 +1,42 @@
+li.issue-article-list-item a {
+    color: black;
+}
+
+li.issue-article-list-item.red, li.issue-article-list-item .red {
+    border-left: solid 18pt #c13f35;
+}
+
+li.issue-article-list-item.green, li.issue-article-list-item .green {
+    border-left: solid 18pt #237238;
+}
+
+li.issue-article-list-item.blue, li.issue-article-list-item .blue {
+    border-left: solid 18pt #155985;
+}
+
+li.issue-article-list-item.gray, li.issue-article-list-item .gray {
+    border-left: solid 18pt #4b4b4b;
+}
+
+li.issue-article-list-item.missingColor, li.issue-article-list-item .missingColor {
+    border-left: solid 18pt #abb9d1;
+}
+
+li.issue-article-list-item, li.call-to-action-item {
+    display: block;
+    margin: 0pt;
+    padding: 0pt;
+
+    min-height: 120pt;
+    padding-left: 12pt;
+    margin-bottom: 6pt;
+
+    font-size: 14pt;
+}
+
+.issue-article-list-item .article-summary {
+    color: #6A6A6A;
+    font-family: "Source Sans pro",sans-serif;
+    font-size: 13pt;
+    font-weight: normal;
+}

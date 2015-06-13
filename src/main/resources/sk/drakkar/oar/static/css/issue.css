@@ -1,15 +1,3 @@
-body {
-	font-family: 'Source Sans pro', sans-serif;
-}
-
-.container p, .container li {
-	font-size: 13pt;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	font-family: 'Alegreya', Trebuchet, "Trebuchet MS", serif;
-}
-
 .issue-box {
 	min-height: 15em;	
 	border-left: solid 18pt #c13f35;
@@ -35,7 +23,6 @@ h1, h2, h3, h4, h5, h6 {
 .issue-box.missingColor {
 	border-left: solid 18pt #abb9d1;
 }
-
 
 .container .jumbotron {
 	background: white;
