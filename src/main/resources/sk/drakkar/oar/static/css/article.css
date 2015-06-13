@@ -1,0 +1,69 @@
+#article-title {
+	font-weight: bold;
+	font-size: 32pt;	
+}
+
+.article-authors {
+	margin-bottom: 8pt;
+	font-size: 12pt;	
+}
+
+.article-text {
+	border-top: 6pt solid black;
+	padding-top: 24pt;
+}
+
+.issue-article-list-item-author {
+	font-style: italic;
+}
+
+.issue-article-list, ul.call-to-action {
+	margin: 0pt;
+	padding: 0pt;
+}
+
+
+
+li.call-to-action-item {
+	border-left: solid 125pt black;
+	font-size: 18pt;
+}
+
+.article-tag {
+	color: #c0c2c1;
+}
+
+.sidebar {
+	float: right;
+	width: 200pt;
+	padding: 0 6pt;
+}
+
+.sidebar, .sidebar li, .sidebar p, .sidebar ul {
+	font-size: 10pt;
+}
+
+.sidebar h1 {
+	font-size: 14pt;
+	margin-top: 0pt;
+}
+
+
+p code, li code {
+	font-family: Georgia, serif;
+	font-size: 12pt;
+	background: none;
+	font-variant: small-caps;
+	margin: 0pt;
+	padding: 0pt;
+	color: black;
+}
+
+div.floatquote {
+	float: right;
+	width: 120pt;
+	color: #c13f35;
+	text-align: center;
+	padding: 6pt;
+	margin: 6pt;
+}
