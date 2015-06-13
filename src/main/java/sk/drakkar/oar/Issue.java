@@ -56,6 +56,12 @@ public class Issue {
 		return articleOrder;
 	}
 	
+	/**
+	 * Nastaví poradie èlánkov v èísle. Súbory èlánkov
+	 * majú iné usporiadanie ne èlánky v PDF èísle.
+	 * Zoznam obsahuje názvy súborov èlánkov v takom poradí,
+	 * v akom sa majú vypublikova.
+	 */
 	public void setArticleOrder(List<String> articleOrder) {
 		this.articleOrder = articleOrder;
 	}
