@@ -20,10 +20,10 @@
       <div class="row">
         <#list issues as issue>
           <div class="col-md-4 issue-box ${issue.color}">
-            <h2><a href="/${issue.number}" class="issue-number">#${issue.number}</a></h2>
+            <h2><a href="${issue.number}" class="issue-number">#${issue.number}</a></h2>
 
             <#list issue.articles as article>
-              <span class="article-title"><a href="/${issue.number}/${article.slug}.html">${article.metadata.title}</a></span><#if article_has_next> | </#if>
+              <span class="article-title"><a href="${issue.number}/${article.slug}.html">${article.metadata.title}</a></span><#if article_has_next> | </#if>
             </#list>
           </div>   
         </#list>
