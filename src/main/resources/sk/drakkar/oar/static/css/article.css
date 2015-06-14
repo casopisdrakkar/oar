@@ -11,42 +11,45 @@
 .article-text {
 	border-top: 6pt solid black;
 	padding-top: 24pt;
-}
+	text-align: justify;
 
-.issue-article-list-item-author {
-	font-style: italic;
-}
-
-.issue-article-list, ul.call-to-action {
-	margin: 0pt;
-	padding: 0pt;
-}
-
-
-
-li.call-to-action-item {
-	border-left: solid 125pt black;
-	font-size: 18pt;
+	line-height: 19pt;
 }
 
 .article-tag {
 	color: #c0c2c1;
 }
 
+/* -------------------------- */
+.article-summary p, .article-summary {
+	font-weight: normal;
+	font-size: 13pt;
+	font-family: 'Source Sans pro', sans-serif;	
+}
+
+
+/* ------------------------------------------------------------- */
+
 .sidebar {
 	float: right;
 	width: 200pt;
-	padding: 0 6pt;
+	padding: 12pt;
+	margin-left: 14pt;
+
+	line-height: 15pt;
+
+	background-color: #EDEDED;
 }
 
 .sidebar, .sidebar li, .sidebar p, .sidebar ul {
-	font-size: 10pt;
+	font-size: 11pt;
 }
 
 .sidebar h1 {
 	font-size: 14pt;
 	margin-top: 0pt;
 }
+
 
 
 p code, li code {
@@ -66,4 +69,12 @@ div.floatquote {
 	text-align: center;
 	padding: 6pt;
 	margin: 6pt;
+}
+
+
+/* ------------------------------------------------------------- */
+
+.article-no-fulltext-banner a {
+	font-weight: bold;
+	color: black;
 }

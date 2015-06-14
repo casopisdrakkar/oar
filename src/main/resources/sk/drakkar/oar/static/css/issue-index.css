@@ -1,25 +1,52 @@
+.issue-article-list, ul.call-to-action {
+    margin: 0pt;    
+    padding: 0pt;
+}
+
+.call-to-action a {
+    font-family: 'Alegreya', Trebuchet, "Trebuchet MS", serif;
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+.call-to-action p {
+    font-weight: normal;
+}
+
 li.issue-article-list-item a {
     color: black;
 }
 
+h1.issue-title {
+    font-weight: bold;
+    font-size: 36pt;
+    margin-bottom: 24pt;
+}
+
+h2.issue-articles-heading {
+    font-weight: bold;
+}
+
+
+
 li.issue-article-list-item.red, li.issue-article-list-item .red {
-    border-left: solid 18pt #c13f35;
+    border-left: solid 25pt #c13f35;
 }
 
 li.issue-article-list-item.green, li.issue-article-list-item .green {
-    border-left: solid 18pt #237238;
+    border-left: solid 25pt #237238;
 }
 
 li.issue-article-list-item.blue, li.issue-article-list-item .blue {
-    border-left: solid 18pt #155985;
+    border-left: solid 25pt #155985;
 }
 
 li.issue-article-list-item.gray, li.issue-article-list-item .gray {
-    border-left: solid 18pt #4b4b4b;
+    border-left: solid 25pt #4b4b4b;
 }
 
 li.issue-article-list-item.missingColor, li.issue-article-list-item .missingColor {
-    border-left: solid 18pt #abb9d1;
+    border-left: solid 25pt #abb9d1;
 }
 
 li.issue-article-list-item, li.call-to-action-item {
@@ -31,8 +58,17 @@ li.issue-article-list-item, li.call-to-action-item {
     padding-left: 12pt;
     margin-bottom: 6pt;
 
-    font-size: 14pt;
+    font-size: 16pt;
 }
+
+li.call-to-action-item a {
+    color: black;
+}
+
+li.call-to-action-item {
+    border-left: solid 25pt black;
+}
+
 
 .issue-article-list-item .article-summary {
     color: #6A6A6A;
@@ -40,3 +76,27 @@ li.issue-article-list-item, li.call-to-action-item {
     font-size: 13pt;
     font-weight: normal;
 }
+
+.issue-article-list-item-author {
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+.issue-article-list-item .fulltext-info {
+    display: block;
+    font-family: 'Source Sans pro', sans-serif; 
+    font-size: 9pt;
+    margin-bottom: 6pt;
+    font-weight: normal;
+}
+
+
+.issue-article-list-item .article-metadata-title {
+    font-weight: bold;
+}
+
+.issue-article-list-item {
+    font-family: 'Alegreya', Trebuchet, "Trebuchet MS", serif;
+}
+

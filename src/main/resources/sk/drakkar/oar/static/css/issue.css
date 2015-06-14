@@ -24,16 +24,32 @@
 	border-left: solid 18pt #abb9d1;
 }
 
+/*--------------------*/
+
 .container .jumbotron {
-	background: white;
-	padding-left: 0pt;
-	margin-left: -15px;
+    background: white none repeat scroll 0 0;
+    margin-left: -15px;
+    padding-left: 0;
+}
+
+.container .jumbotron h1, .container .jumbotron h2 {
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 .container .jumbotron h1 {
-	font-weight: bold;	
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 5em;
 }
-
-.article-title {
-	color: blue;
+.container .jumbotron h2 {
+    color: #c0c0be;
+    margin-top: 0;
+}
+.article-title a {
+    color: #6a6a6a;
+    text-decoration: none;
+}
+.issue-number {
+    color: black;
+    font-family: 'Source Sans Pro', sans-serif;
 }
