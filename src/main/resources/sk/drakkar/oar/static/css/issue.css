@@ -1,5 +1,4 @@
 .issue-box {
-	min-height: 15em;	
 	border-left: solid 18pt #c13f35;
 	margin-bottom: 18pt;
 }
@@ -27,9 +26,9 @@
 /*--------------------*/
 
 .container .jumbotron {
-    background: white none repeat scroll 0 0;
-    margin-left: -15px;
-    padding-left: 0;
+	background: white;
+	padding-left: 0pt;
+	margin-left: -15px;
 }
 
 .container .jumbotron h1, .container .jumbotron h2 {
@@ -52,4 +51,16 @@
 .issue-number {
     color: black;
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+@media screen and (min-width: 768px) {
+	.issue-box {
+		min-height: 15em;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.issue-box {
+		min-height: 17.5em;
+	}
 }

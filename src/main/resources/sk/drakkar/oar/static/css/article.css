@@ -20,6 +20,15 @@
 	color: #c0c2c1;
 }
 
+.issue-article-list-item-author {
+	font-style: italic;
+}
+
+.issue-article-list, ul.call-to-action {
+	margin: 0pt;
+	padding: 0pt;
+}
+
 /* -------------------------- */
 .article-summary p, .article-summary {
 	font-weight: normal;
@@ -27,6 +36,9 @@
 	font-family: 'Source Sans pro', sans-serif;	
 }
 
+.article-tag {
+	color: #c0c2c1;
+}
 
 /* ------------------------------------------------------------- */
 
@@ -49,7 +61,6 @@
 	font-size: 14pt;
 	margin-top: 0pt;
 }
-
 
 
 p code, li code {
