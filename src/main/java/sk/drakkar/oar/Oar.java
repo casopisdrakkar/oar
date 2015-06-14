@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sk.drakkar.oar.authors.AuthorListBuilder;
+import sk.drakkar.oar.css.CopyCssPlugin;
 import sk.drakkar.oar.homepage.HomePageBuilder;
 import sk.drakkar.oar.tags.TagCloudBuilder;
 
@@ -163,7 +164,10 @@ public class Oar {
 			HomePageBuilder homePageBuilder = new HomePageBuilder(configuration);
 			oar.addIssueArticlesProcessedListener(homePageBuilder);
 			oar.addPublicationCompleteListener(homePageBuilder);
-			
+
+			CopyCssPlugin copyCssPlugin = new CopyCssPlugin(configuration);
+			oar.addPublicationCompleteListener(copyCssPlugin);
+
 			oar.publish();
 		} catch (CmdLineException e) {
 			System.err.println("Usage:");
