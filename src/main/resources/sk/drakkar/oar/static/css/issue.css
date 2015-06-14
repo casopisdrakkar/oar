@@ -1,5 +1,4 @@
 .issue-box {
-	min-height: 15em;	
 	border-left: solid 18pt #c13f35;
 	margin-bottom: 18pt;
 }
@@ -36,4 +35,16 @@
 
 .article-title {
 	color: blue;
+}
+
+@media screen and (min-width: 768px) {
+	.issue-box {
+		min-height: 15em;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.issue-box {
+		min-height: 17.5em;
+	}
 }
