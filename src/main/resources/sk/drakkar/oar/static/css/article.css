@@ -11,6 +11,7 @@
 .article-text {
 	border-top: 6pt solid black;
 	padding-top: 24pt;
+	text-align: justify;
 }
 
 .issue-article-list-item-author {
