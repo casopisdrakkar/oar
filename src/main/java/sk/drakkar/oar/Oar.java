@@ -146,6 +146,13 @@ public class Oar {
 			
 			File projectFolder = commandLineConfiguration.getProjectFolder();
 			Configuration configuration = new Configuration(projectFolder);
+
+			File outputFolder = commandLineConfiguration.getTargetFolder();
+			if(outputFolder == null) {
+				outputFolder = Configuration.OUTPUT_FOLDER;
+			}
+			configuration.setOutputFolder(outputFolder);
+
 			Oar oar = new Oar(configuration);
 			
 			oar.addIssueArticlesProcessedListener(new IssueIndexBuilder(configuration));
@@ -171,7 +178,7 @@ public class Oar {
 			oar.publish();
 		} catch (CmdLineException e) {
 			System.err.println("Usage:");
-			System.err.println("\tjava Oar FILE");
+			System.err.println("\tjava Oar FILE [OUTPUT_FOLDER]");
 			cmdLineParser.printUsage(System.err);
 		}
 		

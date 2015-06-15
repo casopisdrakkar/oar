@@ -3,13 +3,13 @@ package sk.drakkar.oar;
 import java.io.File;
 
 public class Configuration {
-	private static final String OUTPUT_FOLDER = "target/site";
+	public static final File OUTPUT_FOLDER = new File("target/site");
 
-	private static final String CONTENT_FOLDER_NAME = "content";
+	public static final String CONTENT_FOLDER_NAME = "content";
 
 	private File projectFolder;
 	
-	private String outputFolder = OUTPUT_FOLDER;
+	private File outputFolder = OUTPUT_FOLDER;
 	
 	private String contentFolderName = CONTENT_FOLDER_NAME;
 
@@ -35,11 +35,11 @@ public class Configuration {
 		this.projectFolder = projectFolder;
 	}
 	
-	public String getOutputFolder() {
+	public File getOutputFolder() {
 		return outputFolder;
 	}
 
-	public void setOutputFolder(String outputFolder) {
+	public void setOutputFolder(File outputFolder) {
 		this.outputFolder = outputFolder;
 	}
 
