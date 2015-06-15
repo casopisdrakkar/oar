@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.authors.AuthorListBuilder;
 import sk.drakkar.oar.css.CopyCssPlugin;
 import sk.drakkar.oar.homepage.HomePageBuilder;
+import sk.drakkar.oar.plugin.Plugin;
 import sk.drakkar.oar.tags.TagCloudBuilder;
 
 import com.google.common.base.Charsets;
@@ -30,10 +31,8 @@ public class Oar {
 	
 	private final IssueParser issueParser = new IssueParser();
 	
-	private List<IssueArticlesProcessedListener> issueArticlesProcessedListeners = new LinkedList<IssueArticlesProcessedListener>();
+	private List<Plugin> plugins = new LinkedList<Plugin>();
 	
-	private List<PublicationCompleteListener> publicationCompleteListeners = new LinkedList<PublicationCompleteListener>();
-
 	private final Configuration configuration;
 	
 	public Oar(Configuration configuration) {
@@ -73,14 +72,14 @@ public class Oar {
 	}
 
 	private void fireOnIssueArticlesProcessed(Issue issue) {
-		for (IssueArticlesProcessedListener issueArticlesProcessedListener : this.issueArticlesProcessedListeners) {
-			issueArticlesProcessedListener.issueArticlesProcessed(issue);
+		for (Plugin plugin : plugins) {
+			plugin.issueArticlesProcessed(issue);
 		}
 	}
 
 	private void fireOnPublicationComplete() {
-		for (PublicationCompleteListener listener : publicationCompleteListeners) {
-			listener.publicationComplete();
+		for (Plugin plugin : plugins) {
+			plugin.publicationComplete();
 		}
 	}
 	
@@ -129,15 +128,11 @@ public class Oar {
 			throw new ResourceException("Cannot copy resource " + file + " to target folder " + outputFolder, e);
 		}		
 	}
-	
-	public void addIssueArticlesProcessedListener(IssueArticlesProcessedListener listener) {
-		this.issueArticlesProcessedListeners.add(listener);
+
+	public void addPlugin(Plugin plugin) {
+		this.plugins.add(plugin);
 	}
 
-	public void addPublicationCompleteListener(PublicationCompleteListener listener) {
-		this.publicationCompleteListeners.add(listener);
-	}
-	
 	public static void main(String[] args) {
 		CommandLineConfiguration commandLineConfiguration = new CommandLineConfiguration();
 		CmdLineParser cmdLineParser = new CmdLineParser(commandLineConfiguration);
@@ -155,25 +150,22 @@ public class Oar {
 
 			Oar oar = new Oar(configuration);
 			
-			oar.addIssueArticlesProcessedListener(new IssueIndexBuilder(configuration));
+			oar.addPlugin(new IssueIndexBuilder(configuration));
 
 			IssueColorBuilder issueColorBuilder = new IssueColorBuilder();
-			oar.addIssueArticlesProcessedListener(issueColorBuilder);
+			oar.addPlugin(issueColorBuilder);
 			
 			TagCloudBuilder tagCloudBuilder = new TagCloudBuilder(configuration);
-			oar.addIssueArticlesProcessedListener(tagCloudBuilder);
-			oar.addPublicationCompleteListener(tagCloudBuilder);
+			oar.addPlugin(tagCloudBuilder);
 
 			AuthorListBuilder authorListBuilder = new AuthorListBuilder(configuration);
-			oar.addIssueArticlesProcessedListener(authorListBuilder);
-			oar.addPublicationCompleteListener(authorListBuilder);
-			
+			oar.addPlugin(authorListBuilder);
+
 			HomePageBuilder homePageBuilder = new HomePageBuilder(configuration);
-			oar.addIssueArticlesProcessedListener(homePageBuilder);
-			oar.addPublicationCompleteListener(homePageBuilder);
+			oar.addPlugin(homePageBuilder);
 
 			CopyCssPlugin copyCssPlugin = new CopyCssPlugin(configuration);
-			oar.addPublicationCompleteListener(copyCssPlugin);
+			oar.addPlugin(copyCssPlugin);
 
 			oar.publish();
 		} catch (CmdLineException e) {

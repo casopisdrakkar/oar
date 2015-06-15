@@ -8,18 +8,15 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sk.drakkar.oar.Article;
-import sk.drakkar.oar.Configuration;
-import sk.drakkar.oar.Issue;
-import sk.drakkar.oar.IssueArticlesProcessedListener;
-import sk.drakkar.oar.PublicationCompleteListener;
+import sk.drakkar.oar.*;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
 import com.google.common.io.Files;
+import sk.drakkar.oar.plugin.Plugin;
 
-public class AuthorListBuilder implements IssueArticlesProcessedListener, PublicationCompleteListener {
+public class AuthorListBuilder implements Plugin {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AuthorListBuilder.class);
 	

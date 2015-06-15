@@ -7,8 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Charsets;
+import sk.drakkar.oar.plugin.DefaultPlugin;
 
-public class IssueIndexBuilder implements IssueArticlesProcessedListener {
+public class IssueIndexBuilder extends DefaultPlugin {
 	private static final String ISSUE_INDEX_FILENAME = "index.html";
 
 	private IssueTemplater issueTemplater = new IssueTemplater();
