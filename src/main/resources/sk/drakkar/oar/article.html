@@ -27,12 +27,12 @@ Hyphenator.run();
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<h1 id="article-title">${article.metadata.title}</h1>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12 article-authors">
+			<div class="col-md-6 article-authors">
 				<#list article.metadata.authors as author>
 					<span class="article-author">
   						${author}<#if author_has_next>,</#if>
