@@ -35,7 +35,7 @@ Hyphenator.run();
 			<div class="col-sm-8 col-md-6 article-authors">
 				<#list article.metadata.authors as author>
 					<span class="article-author">
-  						${author}<#if author_has_next>,</#if>
+						<a href="../../authors.html#${author}">${author}</a><#if author_has_next>,</#if>
   					</span>
 				</#list>
 				<span> pro Drakkar #${article.issue.number} </span>
