@@ -4,7 +4,7 @@
 }
 
 .call-to-action a {
-    font-family: 'Alegreya', Trebuchet, "Trebuchet MS", serif;
+    font-family: 'Alegreya', serif;
     font-weight: bold;
     font-size: 16pt;
 }
@@ -27,8 +27,6 @@ h2.issue-articles-heading {
     font-weight: bold;
 }
 
-
-
 li.issue-article-list-item.red, li.issue-article-list-item .red {
     border-left: solid 25pt #c13f35;
 }
@@ -45,6 +43,14 @@ li.issue-article-list-item.gray, li.issue-article-list-item .gray {
     border-left: solid 25pt #4b4b4b;
 }
 
+li.issue-article-list-item.orange, li.issue-article-list-item .orange {
+    border-left: solid 25pt #F1610D;
+}
+
+li.issue-article-list-item.violet, li.issue-article-list-item .violet {
+    border-left: solid 25pt #A51C52;
+}
+
 li.issue-article-list-item.missingColor, li.issue-article-list-item .missingColor {
     border-left: solid 25pt #abb9d1;
 }
@@ -53,11 +59,9 @@ li.issue-article-list-item, li.call-to-action-item {
     display: block;
     margin: 0pt;
     padding: 0pt;
-
     min-height: 120pt;
     padding-left: 12pt;
     margin-bottom: 6pt;
-
     font-size: 16pt;
 }
 
@@ -82,7 +86,6 @@ li.call-to-action-item {
     font-weight: bold;
 }
 
-
 .issue-article-list-item .fulltext-info {
     display: block;
     font-family: 'Source Sans pro', sans-serif; 
@@ -91,12 +94,10 @@ li.call-to-action-item {
     font-weight: normal;
 }
 
-
 .issue-article-list-item .article-metadata-title {
     font-weight: bold;
 }
 
 .issue-article-list-item {
-    font-family: 'Alegreya', Trebuchet, "Trebuchet MS", serif;
+    font-family: 'Alegreya', serif;
 }
-
