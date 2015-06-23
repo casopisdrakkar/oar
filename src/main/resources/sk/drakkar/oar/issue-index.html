@@ -42,7 +42,11 @@
 							<span class="article-metadata-title">
 	  							<a href="${article.slug}.html">${article.metadata.title}</a>
 	  						</span>
-	  						(<span class="issue-article-list-item-author">${article.metadata.authorList}</span>)
+							(<span class="issue-article-list-item-author">
+								<#list article.metadata.authors as author>
+								<a href="../../authors.html#${author}">${author}</a><#if author_has_next>,</#if>
+								</#list>
+							</span>)
   		  					<div class="fulltext-info">
 		  						<#if ! article.metadata.fulltext>
 		  							zatím pouze v PDF
