@@ -67,15 +67,3 @@
 		min-height: 17.5em;
 	}
 }
-
-@media screen and (min-width: 768px) {
-	.issue-box {
-		min-height: 15em;
-	}
-}
-
-@media screen and (min-width: 992px) {
-	.issue-box {
-		min-height: 17.5em;
-	}
-}
