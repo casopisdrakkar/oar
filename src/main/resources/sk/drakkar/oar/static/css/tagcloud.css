@@ -1,0 +1,14 @@
+.tag-list li {
+	display: block;	
+	background: #EDEDED;
+	padding: 6pt;
+	margin: 6pt;
+}
+
+.tag-list li ul li {
+	font-size: 10pt;
+	padding: 0pt;
+	margin-left: 3pt;
+	margin-right: 3pt;
+	display: inline;
+}
