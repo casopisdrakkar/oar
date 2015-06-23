@@ -82,7 +82,7 @@ public class ArticleParser {
 
 	private List<String> parseTags(Map<String, Object> metadata) {
 		String tagsString = (String) metadata.get("Tags");
-		List<String> tags = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(tagsString);
+		List<String> tags = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(tagsString.toLowerCase());
 		return tags;
 	}
 	private String toString(List<String> articleMarkdownSourceLines) {

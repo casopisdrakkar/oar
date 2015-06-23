@@ -22,7 +22,7 @@
 			<div class="col-md-8">
 				<ul class="tag-list">
 					<#list authors?keys as author>
-						<li>${author}
+						<li><a name="${author}">${author}</a>
 							<ul>
 								<#list authors[author] as article>
 									<li>
