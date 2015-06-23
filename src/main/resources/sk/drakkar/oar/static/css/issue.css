@@ -19,6 +19,14 @@
 	border-left: solid 18pt #4b4b4b;
 }
 
+.issue-box.orange {
+    border-left: solid 18pt #F1610D;
+}
+
+.issue-box.violet {
+    border-left: solid 18pt #A51C52;
+}
+
 .issue-box.missingColor {
 	border-left: solid 18pt #abb9d1;
 }
@@ -54,18 +62,6 @@
 
 .article-title {
 	color: blue;
-}
-
-@media screen and (min-width: 768px) {
-	.issue-box {
-		min-height: 15em;
-	}
-}
-
-@media screen and (min-width: 992px) {
-	.issue-box {
-		min-height: 17.5em;
-	}
 }
 
 @media screen and (min-width: 768px) {
