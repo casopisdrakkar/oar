@@ -59,7 +59,6 @@ li.issue-article-list-item, li.call-to-action-item {
     display: block;
     margin: 0pt;
     padding: 0pt;
-    min-height: 120pt;
     padding-left: 12pt;
     margin-bottom: 6pt;
     font-size: 16pt;
@@ -100,4 +99,10 @@ li.call-to-action-item {
 
 .issue-article-list-item {
     font-family: 'Alegreya', serif;
+}
+
+@media screen and (min-width: 768px) {
+    li.issue-article-list-item, li.call-to-action-item {
+        min-height: 120pt;
+    }
 }
