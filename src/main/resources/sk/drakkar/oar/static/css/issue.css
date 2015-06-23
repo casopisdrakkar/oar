@@ -31,10 +31,6 @@
 	margin-left: -15px;
 }
 
-.container .jumbotron h1, .container .jumbotron h2 {
-    font-family: 'Source Sans Pro', sans-serif;
-}
-
 .container .jumbotron h1 {
     margin-bottom: 0;
     font-weight: bold;
