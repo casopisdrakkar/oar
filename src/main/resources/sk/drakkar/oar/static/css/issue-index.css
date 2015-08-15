@@ -51,6 +51,11 @@ li.issue-article-list-item.violet, li.issue-article-list-item .violet {
     border-left: solid 25pt #A51C52;
 }
 
+li.issue-article-list-item.maroon, li.issue-article-list-item .maroon {
+    border-left: solid 25pt #53171b;
+}
+
+
 li.issue-article-list-item.missingColor, li.issue-article-list-item .missingColor {
     border-left: solid 25pt #abb9d1;
 }

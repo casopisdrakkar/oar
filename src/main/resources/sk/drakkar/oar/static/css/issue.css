@@ -31,6 +31,10 @@
 	border-left: solid 18pt #abb9d1;
 }
 
+.issue-box.maroon {
+	border-left: solid 18pt #53171b;
+}
+
 /*--------------------*/
 
 .container .jumbotron {
