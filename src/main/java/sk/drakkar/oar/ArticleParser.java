@@ -12,6 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import org.yaml.snakeyaml.error.YAMLException;
 
 public class ArticleParser {
 	
@@ -63,7 +64,9 @@ public class ArticleParser {
 			return article;
 		} catch (IOException e) {
 			throw new ArticleProcessException("Cannot read article from " + articleFile, e);
-		} 	
+		} catch (YAMLException e) {
+			throw new ArticleProcessException("YAML error in article " + articleFile + ": " + e.getMessage(), e);
+		}
 	}
 
 	private void setHasFulltext(ArticleMetadata articleMetadata, Map<String, Object> rawMetadata) {
