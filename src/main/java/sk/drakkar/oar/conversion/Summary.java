@@ -1,12 +1,14 @@
 package sk.drakkar.oar.conversion;
 public class Summary {
+	public static final String DEFAULT_COLOR = "gray";
+
 	private String title;
 	
 	private String authors;
 	
 	private String summary;
 	
-	private String color = "gray";
+	private String color = DEFAULT_COLOR;
 	
 	private String tags = "èlánek";
 
@@ -49,7 +51,11 @@ public class Summary {
 	}
 
 	public void setColor(String color) {
-		this.color = color;
+		if(color == null || "-".equals(color) || color.trim().isEmpty()) {
+			this.color = DEFAULT_COLOR;
+		} else {
+			this.color = color;
+		}
 	}
 	
 	public String getTags() {
