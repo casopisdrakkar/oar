@@ -10,7 +10,7 @@ public class Summary {
 	
 	private String color = DEFAULT_COLOR;
 	
-	private String tags = "Ël·nek";
+	private String tags = "ƒçl√°nek";
 
 	private String shortSummary;
 	

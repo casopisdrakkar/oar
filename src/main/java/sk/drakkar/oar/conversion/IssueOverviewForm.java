@@ -113,10 +113,10 @@ public class IssueOverviewForm extends JFrame {
 
 	private void addEditorial(List<Summary> summaries) {
 		Summary summary = new Summary();
-		summary.setTitle("Úvodník");
+		summary.setTitle("ÃšvodnÃ­k");
 		summary.setAuthors("redakce");
-		summary.setTags("úvodník");
-		summary.setShortSummary("Úvodní slovo");
+		summary.setTags("ÃºvodnÃ­k");
+		summary.setShortSummary("ÃšvodnÃ­ slovo");
 		summary.setColor("gray");
 		summary.setSummary(this.editorialTextField.getText());
 
@@ -169,7 +169,7 @@ public class IssueOverviewForm extends JFrame {
 			this.targetFolderTextField.setText(this.issueFile.getParentFile().getParent());
 			this.issueNumberTextField.setText(parseIssueNumber(this.issueFile));
 		} catch (ParseException e) {
-			JOptionPane.showConfirmDialog(this, "Zlý názov súboru s PDF", "Chyba", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(this, "ZlÃ½ nÃ¡zov sÃºboru s PDF", "Chyba", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
