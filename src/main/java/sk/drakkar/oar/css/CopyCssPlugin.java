@@ -19,7 +19,8 @@ public class CopyCssPlugin extends DefaultPlugin {
             "bootstrap-theme.min.css",
             "drakkar.css",
             "issue.css",
-            "issue-index.css"
+            "issue-index.css",
+            "author-list.css"
     };
 
     private Configuration configuration;

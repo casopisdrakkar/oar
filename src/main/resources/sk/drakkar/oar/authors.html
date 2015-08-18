@@ -4,38 +4,35 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
-<title>Drakkar</title>
+    <title>Drakkar :: internetový dvouměsíčník o RPG hrách</title>
 
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/drakkar.css">
+    <link rel="stylesheet" href="css/author-list.css" >
 </head>
 
 <body>
 	<div class="container">
+	      <div class="jumbotron">
+	        <h1>Drakkar</h1>
+	        <h2>autoři</h2>
+	      </div> 		
 		<div class="row">
-			<div class="col-md-12">
-				<h1 id="issue-title">Drakkar: autoři</h1>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-8">
-				<ul class="tag-list">
-					<#list authors?keys as author>
-						<li><a name="${author}">${author}</a>
-							<ul>
-								<#list authors[author] as article>
-									<li>
-										<a href="${article.issue.number}/${article.slug}.html">
-											${article.metadata.title} (#${article.issue.number})
-										</a>
-									</li>
-								</#list>  						
-							</ul>
-						</li>
-					</#list>  				
-				</ul>
-			</div>
+			<#list authors?keys as author>
+				<div class="col-sm-6 col-md-4 author-box missingColor">
+					<h2><a name="${author}" class="author-name">${author}</a></h2>
+					<#assign articles = authors[author]>
+					<#list articles[0..*5] as article>
+       					<span class="article-title">
+       						<a href="${article.issue.number}/${article.slug}.html">
+       							${article.metadata.title} (#${article.issue.number})
+       						</a>
+       					</span>
+       					<#sep> | </#sep>
+					</#list>  						
+				</div>
+			</#list>  				
 		</div>
 	</div>
 </body>
