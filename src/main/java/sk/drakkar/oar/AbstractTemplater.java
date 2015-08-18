@@ -15,9 +15,9 @@ public abstract class AbstractTemplater {
 			freemarkerConfiguration.getTemplate(templateName).process(model, buffer);
 			return buffer.toString();
 		} catch (TemplateException e) {
-			throw new TemplatingException("Cannot build template due to error in template resolution " + templateName);
+			throw new TemplatingException("Cannot build template due to error in template resolution " + templateName, e);
 		} catch (IOException e) {
-			throw new TemplatingException("Cannot read template or write to the result file " + templateName);
+			throw new TemplatingException("Cannot read template or write to the result file " + templateName, e);
 		}
 		
 	}
