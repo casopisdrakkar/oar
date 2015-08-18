@@ -25,6 +25,8 @@ public class AuthorListBuilder implements Plugin {
 	private AuthorTemplater authorTemplater = new AuthorTemplater();
 	
 	private Multimap<String, Article> authorMap;
+
+	private boolean removingNicknameNames = true;
 	
 	public AuthorListBuilder(Configuration configuration) {
 		this.configuration = configuration;
@@ -58,9 +60,19 @@ public class AuthorListBuilder implements Plugin {
 		
 		for (Article article : issue.getArticles()) {
 			for(String author : article.getMetadata().getAuthors()) {
-				authorMap.put(author, article);
+				String sanitizedAuthor = sanitizeAuthor(author);
+				authorMap.put(sanitizedAuthor, article);
 			}
 		}
+	}
+
+	private String sanitizeAuthor(String author) {
+		if(isRemovingNicknameNames()) {
+			if(author.startsWith("„") && author.endsWith("“")) {
+				return author.substring(1, author.length() - 1);
+			}
+		}
+		return author;
 	}
 
 	@Override
@@ -69,5 +81,20 @@ public class AuthorListBuilder implements Plugin {
 		write(html);
 		
 		logger.info("Written author list.");
-	}	
+	}
+
+	/**
+	 * Remove introductory quotes from authors with a nickname, e. g.
+	 * <code>„Alhmar”</code> becomes <code>Alhmar</code>.
+	 * <p>
+	 *     This option is turned on by default.
+	 * </p>
+	 */
+	public void setRemovingNicknameNames(boolean nicknamesQuoteRemoval) {
+		this.removingNicknameNames = nicknamesQuoteRemoval;
+	}
+
+	public boolean isRemovingNicknameNames() {
+		return removingNicknameNames;
+	}
 }
