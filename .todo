@@ -1,2 +1,9 @@
-uvodnik
-logo
+prepojit link Viac... s profilom autora
+generovat slug pre autora
+
+informacie o projekte
+mesiac vydania cisla
+zvyraznit clanky, ktore maju fulltext
+zobrazit profily autorov so vsetkymi clankami, v prehlade je len prvych 5
+implementovat top produktivnych autorov
+zafarbenie autora v clanku
