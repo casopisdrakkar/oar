@@ -22,7 +22,7 @@ public class AuthorListBuilder implements Plugin {
 	
 	private Configuration configuration;
 
-	private AuthorTemplater authorTemplater = new AuthorTemplater();
+	private AuthorListTemplater authorListTemplater = new AuthorListTemplater();
 	
 	private Multimap<String, Article> authorMap;
 
@@ -77,7 +77,7 @@ public class AuthorListBuilder implements Plugin {
 
 	@Override
 	public void publicationComplete() {
-		String html = authorTemplater.convert(this.authorMap);
+		String html = authorListTemplater.convert(this.authorMap);
 		write(html);
 		
 		logger.info("Written author list.");
