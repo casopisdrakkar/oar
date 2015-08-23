@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sk.drakkar.oar.authors.AuthorListBuilder;
+import sk.drakkar.oar.authors.AuthorProfilePageBuilder;
 import sk.drakkar.oar.css.CopyCssPlugin;
 import sk.drakkar.oar.homepage.HomePageBuilder;
 import sk.drakkar.oar.plugin.Plugin;
@@ -160,6 +161,9 @@ public class Oar {
 
 			AuthorListBuilder authorListBuilder = new AuthorListBuilder(configuration);
 			oar.addPlugin(authorListBuilder);
+
+			AuthorProfilePageBuilder authorProfilePageBuilder = new AuthorProfilePageBuilder(configuration);
+			oar.addPlugin(authorProfilePageBuilder);
 
 			HomePageBuilder homePageBuilder = new HomePageBuilder(configuration);
 			oar.addPlugin(homePageBuilder);
