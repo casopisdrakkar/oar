@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.Map;
 
 public class AuthorProfilePageTemplater extends AbstractTemplater {
-    public String convert(String author, Collection<Article> articles) {
+    public String convert(Author author, Collection<Article> articles) {
         Map<String, Object> model = Maps.newHashMap();
-        model.put("author", author);
+        model.put("author", author.getFullName());
         model.put("articles", articles);
 
         return super.resolveTemplate("author-profile.html", model);

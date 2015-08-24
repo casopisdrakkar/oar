@@ -21,8 +21,8 @@
 		<div class="row">
 			<#list authors?keys as author>
 				<div class="col-sm-6 col-md-4 author-box missingColor">
-					<h2><a name="${author}" class="author-name">${author}</a></h2>
-					<#assign articles = authors[author]>
+					<h2><a href="authors/${author.slug}.html" name="${author.slug}" class="author-name">${author}</a></h2>
+					<#assign articles = authors?api.get(author)>
 					<#list articles[0..*5] as article>
        					<span class="article-title">
        						<a href="${article.issue.number}/${article.slug}.html">
@@ -32,7 +32,7 @@
        					<#sep> | </#sep>
 					</#list>  						
 					<#if (articles?size >= 5) >
-						<span> | Viac...</span>
+						<span> | <a href="authors/${author.slug}.html" class="author-articles-more">Viac...</a></span>
 					</#if>					
 				</div>
 			</#list>  				

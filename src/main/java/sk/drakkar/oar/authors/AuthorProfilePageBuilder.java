@@ -28,7 +28,7 @@ public class AuthorProfilePageBuilder implements Plugin {
 
     private Slugger slugger = new Slugger();
 
-    private Multimap<String, Article> authorMap;
+    private Multimap<Author, Article> authorMap;
 
     private File authorProfilesFolder;
 
@@ -36,7 +36,7 @@ public class AuthorProfilePageBuilder implements Plugin {
         this.configuration = configuration;
 
         this.authorMap = MultimapBuilder.ListMultimapBuilder
-                .treeKeys(getCaseInsensitiveCzechCollator())
+                .treeKeys(AuthorByNameComparator.INSTANCE)
                 .arrayListValues()
                 .build();
 
@@ -46,13 +46,37 @@ public class AuthorProfilePageBuilder implements Plugin {
         }
     }
 
-    private Collator getCaseInsensitiveCzechCollator() {
-        Collator collator = Collator.getInstance(new Locale("cz"));
-        collator.setStrength(Collator.SECONDARY);
-        collator.setDecomposition(Collator.CANONICAL_DECOMPOSITION);
 
-        return collator;
+
+    @Override
+    public void issueArticlesProcessed(Issue issue) {
+        logger.info("Building author profile page list " + issue.getNumber());
+
+        for (Article article : issue.getArticles()) {
+            for(String authorFullName : article.getMetadata().getAuthors()) {
+                authorMap.put(Author.parse(authorFullName), article);
+            }
+        }
     }
+
+    @Override
+    public void publicationComplete() {
+        for (Map.Entry<Author, Collection<Article>> entry : authorMap.asMap().entrySet()) {
+            Author author = entry.getKey();
+            Collection<Article> articles = entry.getValue();
+
+            writeProfilePage(author, articles);
+        }
+        logger.info("Written author profile pages.");
+    }
+
+    private void writeProfilePage(Author author, Collection<Article> articles) {
+        String html = this.authorProfilePageTemplater.convert(author, articles);
+        String authorSlug = this.slugger.toSlug(author.getFullName());
+
+        write(authorSlug, html);
+    }
+
 
     private void write(String authorSlug, String html) {
         try {
@@ -64,31 +88,4 @@ public class AuthorProfilePageBuilder implements Plugin {
             throw new AuthorListBuildingException("Unable to write author list", e);
         }
     }
-
-    @Override
-    public void issueArticlesProcessed(Issue issue) {
-        logger.info("Building author profile page list " + issue.getNumber());
-
-        for (Article article : issue.getArticles()) {
-            for(String author : article.getMetadata().getAuthors()) {
-                authorMap.put(author, article);
-            }
-        }
-    }
-
-    @Override
-    public void publicationComplete() {
-        for (Map.Entry<String, Collection<Article>> entry : authorMap.asMap().entrySet()) {
-            String author = entry.getKey();
-            Collection<Article> articles = entry.getValue();
-
-            String html = this.authorProfilePageTemplater.convert(author, articles);
-            String authorSlug = slugger.toSlug(author);
-
-            write(authorSlug, html);
-        }
-
-        logger.info("Written author profile pages.");
-    }
-
 }
