@@ -35,6 +35,12 @@
 	border-left: solid 18pt #53171b;
 }
 
+.issue-box ul {
+	list-style: square;
+	padding-left: 0pt;
+	margin-left: 14pt;
+}
+
 /*--------------------*/
 
 .container .jumbotron {

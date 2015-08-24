@@ -19,28 +19,57 @@
         <h2>internetový dvouměsíčník o RPG hrách</h2>
       </div>      
       <div class="row">
-        <#list issues as issue>
+        <#list issues[0..*1] as issue>
           <div class="col-sm-6 col-md-4 issue-box ${issue.color}">
             <h2><a href="${issue.number}" class="issue-number">#${issue.number}</a></h2>
 
             <#list issue.articles as article>
               <#if article.metadata.fulltext>
                 <#assign cssFullText = "article-has-fulltext" />
-                <#assign fullTextSymbol = "» " />
+                <#assign fullTextSymbol = "»" />
+                <#else />
+                <#assign cssFullText = "article-no-fulltext" />
+                <#assign fullTextSymbol = "" />
+              </#if>
+              <span class="article-title"><a href="${issue.number}/${article.slug}.html" class="${cssFullText}">${fullTextSymbol} ${article.metadata.title}</a></span><#if article_has_next> | </#if>
+            </#list>
+          </div>
+        </#list>
+
+        <div class="col-sm-6 col-md-4 issue-box">
+          <h2 class="issue-number">O projektu</h2>
+          Drakkar je internetový časopis zaměřený na fantasy obecně a RPG hry
+          vydáván od roku 2007 jakou dvouměsíčník ve formě PDF souborů. Můžete
+          očekávat teoretické články o hraní RPG, recenze systémů, her i deskových
+          her, doplňky ke hrám a dobrodružství, či povídky. Přidat se může kdokoliv,
+          stačí napsat článek.
+        </div>
+
+        <div class="col-sm-6 col-md-4 issue-box">
+          <h2 class="issue-number">Odkazy</h2>
+          <ul>
+            <li><a href="authors.html" class="issue-number">Autoři</a></li>
+            <li><a href="tags.html" class="issue-number">Nálepky článků</a></li>
+          </ul>
+        </div>
+
+        <#list issues[1..] as issue>
+          <div class="col-sm-6 col-md-4 issue-box ${issue.color}">
+            <h2><a href="${issue.number}" class="issue-number">#${issue.number}</a></h2>
+
+            <#list issue.articles as article>
+              <#if article.metadata.fulltext>
+                <#assign cssFullText = "article-has-fulltext" />
+                <#assign fullTextSymbol = "»" />
               <#else />
                 <#assign cssFullText = "article-no-fulltext" />
-                <#assign fullTextSymbol = " " />
+                <#assign fullTextSymbol = "" />
               </#if>
-              <span class="article-title"><a href="${issue.number}/${article.slug}.html" class="${cssFullText}">${fullTextSymbol}${article.metadata.title}</a></span><#if article_has_next> | </#if>
+              <span class="article-title"><a href="${issue.number}/${article.slug}.html" class="${cssFullText}">${fullTextSymbol} ${article.metadata.title}</a></span><#if article_has_next> | </#if>
             </#list>
           </div>   
         </#list>
-        <div class="col-sm-6 col-md-4 issue-box">
-          <h2><a href="authors.html" class="issue-number">Autoři</a></h2>
-          <h2><a href="tags.html" class="issue-number">Tagy</a></h2>
-          <h2><a href="http://drakkar.sk/o-projektu" class="issue-number">Starší čísla</a></h2>
-        </div>             
-      </div>      
+      </div>
     </div>
   </body>
 </html>
