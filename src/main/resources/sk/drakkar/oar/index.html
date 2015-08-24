@@ -24,7 +24,14 @@
             <h2><a href="${issue.number}" class="issue-number">#${issue.number}</a></h2>
 
             <#list issue.articles as article>
-              <span class="article-title"><a href="${issue.number}/${article.slug}.html">${article.metadata.title}</a></span><#if article_has_next> | </#if>
+              <#if article.metadata.fulltext>
+                <#assign cssFullText = "article-has-fulltext" />
+                <#assign fullTextSymbol = "» " />
+              <#else />
+                <#assign cssFullText = "article-no-fulltext" />
+                <#assign fullTextSymbol = " " />
+              </#if>
+              <span class="article-title"><a href="${issue.number}/${article.slug}.html" class="${cssFullText}">${fullTextSymbol}${article.metadata.title}</a></span><#if article_has_next> | </#if>
             </#list>
           </div>   
         </#list>

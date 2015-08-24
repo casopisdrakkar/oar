@@ -38,11 +38,11 @@ Hyphenator.run();
 						<a href="../authors/${author.slug}.html" class="${article.metadata.color!'missingColor'}">${author}</a><#if author_has_next>,</#if>
   					</span>
 				</#list>
-				<span> pro <a href="./">Drakkar #${article.issue.number}</a> </span>
+				<span> pro <a href="./" class="${article.metadata.color!'missingColor'}">Drakkar #${article.issue.number}</a> </span>
 				<span>&nbsp;</span>  
 				<#list article.metadata.tags as tag>
 					<span class="article-tag">
-						<a href="../../tags.html#${tag}">#${tag}</a><#if tag_has_next> </#if>
+						<a href="../../tags.html#${tag}" class="${article.metadata.color!'missingColor'}">#${tag}</a><#if tag_has_next> </#if>
   					</span>
 				</#list>  
 			</div>

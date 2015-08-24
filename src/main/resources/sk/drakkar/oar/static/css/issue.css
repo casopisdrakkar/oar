@@ -55,9 +55,14 @@
 }
 
 .article-title a {
-    color: #6a6a6a;
+    color: #888888;
     text-decoration: none;
 }
+
+.article-title .article-has-fulltext {
+	color: #000000;
+}
+
 
 .issue-number {
 	color: black;
@@ -79,3 +84,4 @@
 		min-height: 17.5em;
 	}
 }
+
