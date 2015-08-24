@@ -82,6 +82,32 @@ div.floatquote {
 	margin: 6pt;
 }
 
+/* --------------------------------------------------------------*/
+
+.red {
+	color: #c13f35;
+}
+.green {
+	color: #237238;
+}
+.blue {
+	color: #155985;
+}
+.gray {
+	color: #4b4b4b;
+}
+.orange {
+	color: #F1610D;
+}
+.violet {
+	color: #A51C52;
+}
+.maroon {
+	color: #53171b;
+}
+.missingColor {
+	color: #abb9d1;
+}
 
 /* ------------------------------------------------------------- */
 
