@@ -53,8 +53,8 @@ public class AuthorProfilePageBuilder implements Plugin {
         logger.info("Building author profile page list " + issue.getNumber());
 
         for (Article article : issue.getArticles()) {
-            for(String authorFullName : article.getMetadata().getAuthors()) {
-                authorMap.put(Author.parse(authorFullName), article);
+            for(Author author : article.getMetadata().getAuthors()) {
+                authorMap.put(author, article);
             }
         }
     }

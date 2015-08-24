@@ -5,11 +5,12 @@ import java.util.List;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects;
+import sk.drakkar.oar.authors.Author;
 
 public class ArticleMetadata {
 	private String title;
 	
-	private List<String> authors = new LinkedList<String>();
+	private List<Author> authors = new LinkedList<Author>();
 	
 	private List<String> tags = new LinkedList<String>();
 
@@ -27,7 +28,7 @@ public class ArticleMetadata {
 		this.title = title;
 	}
 
-	public List<String> getAuthors() {
+	public List<Author> getAuthors() {
 		return authors;
 	}
 	
@@ -35,7 +36,7 @@ public class ArticleMetadata {
 		return Joiner.on(", ").join(this.authors).toString();
 	}
 
-	public void setAuthors(List<String> authors) {
+	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
 	}
 	

@@ -2,6 +2,7 @@ package sk.drakkar.oar;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import org.yaml.snakeyaml.error.YAMLException;
+import sk.drakkar.oar.authors.Author;
 
 public class ArticleParser {
 	
@@ -21,7 +23,9 @@ public class ArticleParser {
 	private static final String YAML_DOCUMENT_SEPARATOR = "---";
 
 	private SummaryExtractor summaryExtractor = new SummaryExtractor();
-	
+
+	private boolean removeNickNameQuotes = true;
+
 	public Article parse(File articleFile) {
 		try {
 			Article article = new Article();
@@ -77,9 +81,15 @@ public class ArticleParser {
 		articleMetadata.setFulltext(hasFulltext);
 	}
 
-	private List<String> parseAuthors(Map<String, Object> metadata) {
+	private List<Author> parseAuthors(Map<String, Object> metadata) {
 		String authorsString = (String) metadata.get("Authors");
-		List<String> authors = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(authorsString);
+		List<String> authorFullNames = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(authorsString);
+
+		List<Author> authors = new ArrayList<>(authorFullNames.size());
+		for (String authorFullName : authorFullNames) {
+			authors.add(Author.parse(authorFullName, this.removeNickNameQuotes));
+		}
+
 		return authors;
 	}
 
@@ -90,5 +100,9 @@ public class ArticleParser {
 	}
 	private String toString(List<String> articleMarkdownSourceLines) {
 		return Joiner.on("\n").join(articleMarkdownSourceLines);
+	}
+
+	public void setRemoveNickNameQuotes(boolean removeNickNameQuotes) {
+		this.removeNickNameQuotes = removeNickNameQuotes;
 	}
 }

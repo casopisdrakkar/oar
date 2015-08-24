@@ -44,7 +44,7 @@
 	  						</span>
 							(<span class="issue-article-list-item-author">
 								<#list article.metadata.authors as author>
-								<a href="../../authors.html#${author}">${author}</a><#if author_has_next>,</#if>
+								<a href="../authors/${author.slug}.html">${author}</a><#if author_has_next>,</#if>
 								</#list>
 							</span>)
   		  					<div class="fulltext-info">
