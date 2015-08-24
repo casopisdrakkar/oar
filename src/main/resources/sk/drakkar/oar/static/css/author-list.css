@@ -1,0 +1,86 @@
+.author-box {
+	border-left: solid 18pt #c13f35;
+	margin-bottom: 18pt;
+}
+
+.author-box.red {
+	border-left: solid 18pt #c13f35;
+}
+
+.author-box.green {
+	border-left: solid 18pt #237238;
+}
+
+.author-box.blue {
+	border-left: solid 18pt #155985;
+}
+
+.author-box.gray {
+	border-left: solid 18pt #4b4b4b;
+}
+
+.author-box.orange {
+    border-left: solid 18pt #F1610D;
+}
+
+.author-box.violet {
+    border-left: solid 18pt #A51C52;
+}
+
+.author-box.maroon {
+	border-left: solid 18pt #53171b;
+}
+
+.author-box.missingColor {
+	border-left: solid 18pt #abb9d1;
+}
+
+
+/*--------------------*/
+
+.container .jumbotron {
+	background: white;
+	padding-left: 0pt;
+	margin-left: -15px;
+}
+
+.container .jumbotron h1 {
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 5em;
+}
+
+.container .jumbotron h2 {
+    color: #c0c0be;
+    margin-top: 0;
+}
+
+.article-title a {
+    color: #6a6a6a;
+    text-decoration: none;
+}
+
+.author-name {
+	color: black;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.article-title {
+	color: blue;
+}
+
+.author-articles-more {
+	color: #abb9d1;
+}
+
+@media screen and (min-width: 768px) {
+	.author-box {
+		min-height: 15em;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.author-box {
+		min-height: 17.5em;
+	}
+}
