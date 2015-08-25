@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+    <title>Drakkar :: internetový dvouměsíčník o RPG hrách</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../css/drakkar.css">
+    <link rel="stylesheet" href="../css/author-list.css" >
+	<link rel="stylesheet" href="../css/issue-index.css">    
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="issue-title">${tag}</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<ul class="issue-article-list">
+					<#list articles as article>
+						<li class="issue-article-list-item ${article.metadata.color!'missingColor'}">
+							<span class="article-metadata-title">
+	  							<a href="../${article.issue.number}/${article.slug}.html">${article.metadata.title}</a>
+	  						</span>
+							(<span class=""><a href="../${article.issue.number}">#${article.issue.number}</a></span>)
+  		  					<div class="fulltext-info">
+		  						<#if ! article.metadata.fulltext>
+		  							zatím pouze v PDF
+		  						</#if>
+	  						</div>		
+	  						<div class="article-summary">
+	  						${article.metadata.summary}
+	  						</div>
+	  					</li>
+					</#list>  				
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

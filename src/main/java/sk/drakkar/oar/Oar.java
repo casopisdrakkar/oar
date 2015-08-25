@@ -19,6 +19,7 @@ import sk.drakkar.oar.plugin.Plugin;
 import sk.drakkar.oar.tags.TagCloudBuilder;
 
 import com.google.common.base.Charsets;
+import sk.drakkar.oar.tags.TagDetailPageBuilder;
 
 public class Oar {
 
@@ -158,6 +159,9 @@ public class Oar {
 			
 			TagCloudBuilder tagCloudBuilder = new TagCloudBuilder(configuration);
 			oar.addPlugin(tagCloudBuilder);
+
+			TagDetailPageBuilder tagDetailPageBuilder = new TagDetailPageBuilder(configuration);
+			oar.addPlugin(tagDetailPageBuilder);
 
 			AuthorListBuilder authorListBuilder = new AuthorListBuilder(configuration);
 			oar.addPlugin(authorListBuilder);
