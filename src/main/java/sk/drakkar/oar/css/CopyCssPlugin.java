@@ -20,7 +20,8 @@ public class CopyCssPlugin extends DefaultPlugin {
             "drakkar.css",
             "issue.css",
             "issue-index.css",
-            "author-list.css"
+            "author-list.css",
+            "tag-list.css"
     };
 
     private Configuration configuration;

@@ -8,34 +8,34 @@
 
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/drakkar.css">
+<link rel="stylesheet" href="css/tag-list.css">
 </head>
 
 <body>
 	<div class="container">
+	      <div class="jumbotron">
+	        <h1>Drakkar</h1>
+	        <h2>Štítky článků</h2>
+	      </div> 		
 		<div class="row">
-			<div class="col-md-12">
-				<h1 id="issue-title">Drakkar: seznam značek</h1>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-8">
-				<ul class="tag-list">
-					<#list tags?keys as tag>
-						<li><a name="${tag}">${tag}</a>
-							<ul>
-								<#list tags[tag] as article>
-									<li>
-										<a href="${article.issue.number}/${article.slug}.html">
-											${article.metadata.title} (#${article.issue.number})
-										</a>
-									</li>
-								</#list>  						
-							</ul>
-						</li>
-					</#list>  				
-				</ul>
-			</div>
+			<#list tags?keys as tag>
+				<div class="col-sm-6 col-md-4 tag-box ${colorize(tag)}">
+					<h2 class="tag-name">#<a href="tags/${slugify(tag)}.html">${tag}</a></h2>
+					<#assign articles = tags[tag]>
+					<#list articles[0..*5] as article>
+       					<span class="article-title">
+       						<a href="${article.issue.number}/${article.slug}.html">
+       							${article.metadata.title} (#${article.issue.number})
+       						</a>
+       					</span>
+       					<#sep> | </#sep>
+					</#list>  						
+					<#if (articles?size >= 5) >
+						<span> | <a href="tags/${slugify(tag)}.html" class="tags-articles-more">Viac...</a></span>
+					</#if>					
+				</div>
+			</#list>  				
 		</div>
 	</div>
 </body>

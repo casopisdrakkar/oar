@@ -1,0 +1,90 @@
+.tag-box {
+	border-left: solid 18pt #c13f35;
+	margin-bottom: 18pt;
+}
+
+.tag-box.red {
+	border-left: solid 18pt #c13f35;
+}
+
+.tag-box.green {
+	border-left: solid 18pt #237238;
+}
+
+.tag-box.blue {
+	border-left: solid 18pt #155985;
+}
+
+.tag-box.gray {
+	border-left: solid 18pt #4b4b4b;
+}
+
+.tag-box.orange {
+    border-left: solid 18pt #F1610D;
+}
+
+.tag-box.violet {
+    border-left: solid 18pt #A51C52;
+}
+
+.tag-box.maroon {
+	border-left: solid 18pt #53171b;
+}
+
+.tag-box.missingColor {
+	border-left: solid 18pt #abb9d1;
+}
+
+
+/*--------------------*/
+
+.container .jumbotron {
+	background: white;
+	padding-left: 0pt;
+	margin-left: -15px;
+}
+
+.container .jumbotron h1 {
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 5em;
+}
+
+.container .jumbotron h2 {
+    color: #c0c0be;
+    margin-top: 0;
+}
+
+.article-title a {
+    color: #6a6a6a;
+    text-decoration: none;
+}
+
+.tag-name {
+	color: black;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.tag-name a {
+	color: black;
+}
+
+.article-title {
+	color: blue;
+}
+
+.author-articles-more {
+	color: #abb9d1;
+}
+
+@media screen and (min-width: 768px) {
+	.tag-box {
+		min-height: 15em;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.tag-box {
+		min-height: 17.5em;
+	}
+}
