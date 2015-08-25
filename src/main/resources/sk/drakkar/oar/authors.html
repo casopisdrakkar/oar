@@ -20,7 +20,7 @@
 	      </div> 		
 		<div class="row">
 			<#list authors?keys as author>
-				<div class="col-sm-6 col-md-4 author-box missingColor">
+				<div class="col-sm-6 col-md-4 author-box ${colorize(author)}">
 					<h2><a href="authors/${author.slug}.html" name="${author.slug}" class="author-name">${author}</a></h2>
 					<#assign articles = authors?api.get(author)>
 					<#list articles[0..*5] as article>

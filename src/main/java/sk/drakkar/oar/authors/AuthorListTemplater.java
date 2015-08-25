@@ -12,6 +12,7 @@ import freemarker.template.utility.ObjectWrapperWithAPISupport;
 import sk.drakkar.oar.AbstractTemplater;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.TemplatingException;
+import sk.drakkar.oar.template.ColorizeMethod;
 
 public class AuthorListTemplater extends AbstractTemplater {
 	private static final ObjectWrapperWithAPISupport NO_WRAPPER = null;
@@ -19,6 +20,8 @@ public class AuthorListTemplater extends AbstractTemplater {
 	public String convert(Multimap<Author, Article> authorMap) {
 		Map<String, Object> model = Maps.newHashMap();
 		model.put("authors", DefaultMapAdapter.adapt(authorMap.asMap(), NO_WRAPPER));
+
+		model.put("colorize", new ColorizeMethod());
 
 		return super.resolveTemplate("authors.html", model);
 	}
