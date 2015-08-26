@@ -54,8 +54,11 @@ Hyphenator.run();
 		</div>
 		<div class="row">
 			<div class="col-sm-8 col-md-6 article-bottom-print">
-				Článek je zatím k dispozici pouze v PDF vydání, na webové verzi pracujeme. Děkujeme za pochopení.
-				(<a href="${article.issue.pdfFileName}">Stáhněte si PDF</a>).
+				<#if ! article.metadata.fulltext>
+					Článek je zatím k dispozici <a href="${article.issue.pdfFileName}">pouze v PDF vydání</a>, na webové verzi pracujeme. Děkujeme za pochopení.
+				<#else/>
+					Článek je k dispozici <a href="${article.issue.pdfFileName}">i v PDF vydání</a>.
+				</#if>
 				<span>
 					Licence <a href="https://creativecommons.org/licenses/by-nd/2.0/">CC BY-ND 2.0</a>
 				</span>
