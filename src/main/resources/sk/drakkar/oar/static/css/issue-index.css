@@ -17,10 +17,11 @@ li.issue-article-list-item a {
     color: black;
 }
 
-h1.issue-title {
+h1.issue-title, h1.issue-title a {
     font-weight: bold;
     font-size: 36pt;
     margin-bottom: 24pt;
+    color: black;
 }
 
 h2.issue-articles-heading {
