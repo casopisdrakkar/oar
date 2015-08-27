@@ -42,7 +42,7 @@ Hyphenator.run();
 				<span>&nbsp;</span>  
 				<#list article.metadata.tags as tag>
 					<span class="article-tag">
-						<a href="../../tags.html#${tag}" class="${article.metadata.color!'missingColor'}">#${tag}</a><#if tag_has_next> </#if>
+						<a href="../tags/${tag}.html" class="${article.metadata.color!'missingColor'}">#${tag}</a><#if tag_has_next> </#if>
   					</span>
 				</#list>  
 			</div>
