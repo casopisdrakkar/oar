@@ -1,4 +1,12 @@
+#article-masthead, #article-masthead a {
+	font-weight: bold;
+	font-size: 32pt;
+	color: #adadad;
+	font-family: "Alegreya", serif;
+}
+
 #article-title {
+	margin-top: 0pt;
 	font-weight: bold;
 	font-size: 32pt;	
 }
