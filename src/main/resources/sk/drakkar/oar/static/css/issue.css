@@ -41,6 +41,10 @@
 	margin-left: 14pt;
 }
 
+.issue-box a.generic-link {
+	color: #888;
+}
+
 /*--------------------*/
 
 .container .jumbotron {
