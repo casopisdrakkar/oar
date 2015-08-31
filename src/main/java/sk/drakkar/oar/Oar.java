@@ -15,6 +15,7 @@ import sk.drakkar.oar.authors.AuthorListBuilder;
 import sk.drakkar.oar.authors.AuthorProfilePageBuilder;
 import sk.drakkar.oar.css.CopyCssPlugin;
 import sk.drakkar.oar.homepage.HomePageBuilder;
+import sk.drakkar.oar.pages.PagePlugin;
 import sk.drakkar.oar.plugin.Plugin;
 import sk.drakkar.oar.tags.TagCloudBuilder;
 
@@ -153,6 +154,9 @@ public class Oar {
 			Oar oar = new Oar(configuration);
 			
 			oar.addPlugin(new IssueIndexBuilder(configuration));
+
+			PagePlugin pagePlugin = new PagePlugin(configuration);
+			oar.addPlugin(pagePlugin);
 
 			IssueColorBuilder issueColorBuilder = new IssueColorBuilder();
 			oar.addPlugin(issueColorBuilder);
