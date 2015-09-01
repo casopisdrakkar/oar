@@ -20,8 +20,15 @@ li.issue-article-list-item a {
 h1.issue-title, h1.issue-title a {
     font-weight: bold;
     font-size: 36pt;
-    margin-bottom: 24pt;
     color: black;
+}
+
+.issue-masthead-secondary {
+    color: #C0C0BE;
+    font-size: 24pt;
+    font-family: "Alegreya",serif;
+    margin-top: -6pt;
+    margin-bottom: 8pt;
 }
 
 h2.issue-articles-heading {

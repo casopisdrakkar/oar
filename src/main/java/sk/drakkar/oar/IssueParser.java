@@ -22,6 +22,8 @@ public class IssueParser {
 	
 	public static final String ISSUE_METADATA_FILENAME = "metadata.yaml";
 
+	private ReleaseDateParser releaseDateParser = new ReleaseDateParser();
+
 	public Issue toIssue(File issueFolder) {
 		Issue issue = new Issue();
 		issue.setFolder(issueFolder);
@@ -53,9 +55,18 @@ public class IssueParser {
 				articleFileNames = Collections.emptyList();
 			}
 			issue.setArticleOrder(articleFileNames);
-			
+			configureReleaseDate(issue);
 		} catch (IOException e) {
 			throw new IssueMetadataException("Cannot load issue metadata! Is the file " + ISSUE_METADATA_FILENAME + " present?", e);
 		}
+	}
+
+	protected void configureReleaseDate(Issue issue) {
+		ReleaseDate releaseDate = releaseDateParser.parse(issue);
+		issue.setReleaseDate(releaseDate);
+	}
+
+	public void setReleaseDateParser(ReleaseDateParser releaseDateParser) {
+		this.releaseDateParser = releaseDateParser;
 	}
 }

@@ -45,6 +45,13 @@
 	color: #888;
 }
 
+
+.issue-box .release-date {
+	color: #C0C0BE;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 14px;
+}
+
 /*--------------------*/
 
 .container .jumbotron {

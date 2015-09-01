@@ -18,9 +18,19 @@ public class Issue {
 	private String pdfFileName;
 	
 	private String color;
+
+	private ReleaseDate releaseDate;
 	
 	private Comparator<Article> articleOrderComparator = new ArticleByOrderComparator();
-	
+
+	public Issue() {
+		// empty constructor
+	}
+
+	public Issue(int number) {
+		this.number = number;
+	}
+
 	public File getFolder() {
 		return folder;
 	}
@@ -59,10 +69,10 @@ public class Issue {
 	}
 	
 	/**
-	 * Nastaví poradie èlánkov v èísle. Súbory èlánkov
-	 * majú iné usporiadanie ne èlánky v PDF èísle.
-	 * Zoznam obsahuje názvy súborov èlánkov v takom poradí,
-	 * v akom sa majú vypublikova.
+	 * NastavÃ­ poradie ÄlÃ¡nkov v ÄÃ­sle. SÃºbory ÄlÃ¡nkov
+	 * majÃº inÃ© usporiadanie neÅ¾ ÄlÃ¡nky v PDF ÄÃ­sle.
+	 * Zoznam obsahuje nÃ¡zvy sÃºborov ÄlÃ¡nkov v takom
+	 * poradÃ­, v akom majÃº byÅ¥ vypublikovanÃ©.
 	 */
 	public void setArticleOrder(List<String> articleOrder) {
 		this.articleOrder = articleOrder;
@@ -75,7 +85,15 @@ public class Issue {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
+
+	public ReleaseDate getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(ReleaseDate releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
 	private class ArticleByOrderComparator implements Comparator<Article> {
 
 		@Override

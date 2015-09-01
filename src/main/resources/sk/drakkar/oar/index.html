@@ -21,7 +21,7 @@
       <div class="row">
         <#list issues[0..*1] as issue>
           <div class="col-sm-6 col-md-4 issue-box ${issue.color}">
-            <h2><a href="${issue.number}" class="issue-number">#${issue.number}</a></h2>
+            <h2><a href="${issue.number}" class="issue-number">#${issue.number}</a> <span class="release-date">| ${issue.releaseDate}</span></h2>
 
             <#list issue.articles as article>
               <#if article.metadata.fulltext>
@@ -57,7 +57,7 @@
 
         <#list issues[1..] as issue>
           <div class="col-sm-6 col-md-4 issue-box ${issue.color}">
-            <h2><a href="${issue.number}" class="issue-number">#${issue.number}</a></h2>
+            <h2><a href="${issue.number}" class="issue-number">#${issue.number}</a> <span class="release-date">| ${issue.releaseDate}</span></h2>
 
             <#list issue.articles as article>
               <#if article.metadata.fulltext>
