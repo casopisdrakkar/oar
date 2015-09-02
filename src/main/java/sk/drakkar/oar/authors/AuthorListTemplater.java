@@ -1,5 +1,6 @@
 package sk.drakkar.oar.authors;
 
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
@@ -17,9 +18,12 @@ import sk.drakkar.oar.template.ColorizeMethod;
 public class AuthorListTemplater extends AbstractTemplater {
 	private static final ObjectWrapperWithAPISupport NO_WRAPPER = null;
 
+	private MostProductiveAuthorsBuilder mostProductiveAuthorsBuilder = new MostProductiveAuthorsBuilder();
+
 	public String convert(Multimap<Author, Article> authorMap) {
 		Map<String, Object> model = Maps.newHashMap();
 		model.put("authors", DefaultMapAdapter.adapt(authorMap.asMap(), NO_WRAPPER));
+		model.put("authorProductivity", mostProductiveAuthorsBuilder.build(authorMap));
 
 		model.put("colorize", new ColorizeMethod());
 
@@ -30,5 +34,13 @@ public class AuthorListTemplater extends AbstractTemplater {
 		DefaultObjectWrapperBuilder builder = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_23);
 		builder.setExposureLevel(BeansWrapper.EXPOSE_ALL);
 		return builder.build();
+	}
+
+	public void setMostProductiveAuthorsBuilder(MostProductiveAuthorsBuilder mostProductiveAuthorsBuilder) {
+		this.mostProductiveAuthorsBuilder = mostProductiveAuthorsBuilder;
+	}
+
+	public void setIgnoredMostProductiveAuthorNames(List<String> ignoredMostProductiveAuthorNames) {
+		this.mostProductiveAuthorsBuilder.setIgnoredMostProductiveAuthorNames(ignoredMostProductiveAuthorNames);
 	}
 }

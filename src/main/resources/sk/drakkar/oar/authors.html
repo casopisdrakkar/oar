@@ -19,6 +19,16 @@
 			  <h1>Autoři</h1>
 	      </div> 		
 		<div class="row">
+			<div class="col-sm-6 col-md-4 author-box">
+				<h2 class="top-authors-heading">Nej autoři</h2>
+				<#list authorProductivity[0..*10] as singleAuthorProductivity>
+					<#assign author = singleAuthorProductivity.author />
+					<a href="authors/${author.slug}.html" name="${author.slug}" class="author-name">${author}</a>
+					(${singleAuthorProductivity.productivity})
+					<#sep> | </#sep>
+				</#list>
+			</div>
+
 			<#list authors?keys as author>
 				<div class="col-sm-6 col-md-4 author-box ${colorize(author)}">
 					<h2><a href="authors/${author.slug}.html" name="${author.slug}" class="author-name">${author}</a></h2>

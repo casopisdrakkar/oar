@@ -3,6 +3,7 @@ package sk.drakkar.oar.authors;
 import java.io.File;
 import java.io.IOException;
 import java.text.Collator;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -63,6 +64,10 @@ public class AuthorListBuilder implements Plugin {
 		write(html);
 		
 		logger.info("Written author list.");
+	}
+
+	public void setIgnoredMostProductiveAuthorNames(List<String> authorNames) {
+		this.authorListTemplater.setIgnoredMostProductiveAuthorNames(authorNames);
 	}
 
 }

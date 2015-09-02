@@ -81,6 +81,10 @@ h1 a:hover {
 	color: #abb9d1;
 }
 
+.top-authors-heading {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
 @media screen and (min-width: 768px) {
 	.author-box {
 		min-height: 15em;

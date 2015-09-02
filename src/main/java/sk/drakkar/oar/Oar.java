@@ -3,6 +3,7 @@ package sk.drakkar.oar;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -168,6 +169,7 @@ public class Oar {
 			oar.addPlugin(tagDetailPageBuilder);
 
 			AuthorListBuilder authorListBuilder = new AuthorListBuilder(configuration);
+			authorListBuilder.setIgnoredMostProductiveAuthorNames(Arrays.asList("redakce"));
 			oar.addPlugin(authorListBuilder);
 
 			AuthorProfilePageBuilder authorProfilePageBuilder = new AuthorProfilePageBuilder(configuration);
