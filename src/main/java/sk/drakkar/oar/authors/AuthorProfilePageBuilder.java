@@ -6,10 +6,7 @@ import com.google.common.collect.MultimapBuilder;
 import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.drakkar.oar.Article;
-import sk.drakkar.oar.Configuration;
-import sk.drakkar.oar.Issue;
-import sk.drakkar.oar.Slugger;
+import sk.drakkar.oar.*;
 import sk.drakkar.oar.plugin.Plugin;
 
 import java.io.File;
@@ -37,7 +34,7 @@ public class AuthorProfilePageBuilder implements Plugin {
 
         this.authorMap = MultimapBuilder.ListMultimapBuilder
                 .treeKeys(AuthorByNameComparator.INSTANCE)
-                .arrayListValues()
+                .treeSetValues(ArticleByIssueComparator.INSTANCE)
                 .build();
 
         this.authorProfilesFolder = new File(this.configuration.getOutputFolder(), "authors");

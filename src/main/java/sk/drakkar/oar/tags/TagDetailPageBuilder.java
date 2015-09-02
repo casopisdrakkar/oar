@@ -6,10 +6,7 @@ import com.google.common.collect.MultimapBuilder;
 import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.drakkar.oar.Article;
-import sk.drakkar.oar.Configuration;
-import sk.drakkar.oar.Issue;
-import sk.drakkar.oar.Slugger;
+import sk.drakkar.oar.*;
 import sk.drakkar.oar.authors.AuthorListBuildingException;
 import sk.drakkar.oar.plugin.Plugin;
 
@@ -38,7 +35,7 @@ public class TagDetailPageBuilder implements Plugin {
 
         this.tagMap = MultimapBuilder.ListMultimapBuilder
                 .treeKeys(getCaseInsensitiveCzechCollator())
-                .arrayListValues()
+                .treeSetValues(ArticleByIssueComparator.INSTANCE)
                 .build();
 
         this.tagPagesFolder = new File(this.configuration.getOutputFolder(), "tags");

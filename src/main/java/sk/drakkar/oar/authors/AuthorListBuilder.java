@@ -34,8 +34,8 @@ public class AuthorListBuilder implements Plugin {
 		
 		authorMap = ListMultimapBuilder
 			.treeKeys(AuthorByNameComparator.INSTANCE)
-			.arrayListValues()
-			.build();		
+			.treeSetValues(ArticleByIssueComparator.INSTANCE)
+			.build();
 	}
 
 	private void write(String html) {

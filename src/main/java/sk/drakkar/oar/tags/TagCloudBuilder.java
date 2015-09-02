@@ -30,7 +30,7 @@ public class TagCloudBuilder extends DefaultPlugin {
 		
 		tagMap = ListMultimapBuilder
 			.treeKeys(getCaseInsensitiveCzechCollator())
-			.arrayListValues()
+			.treeSetValues(ArticleByIssueComparator.INSTANCE)
 			.build();		
 	}
 	
