@@ -3,6 +3,8 @@ package sk.drakkar.oar.search;
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
 import org.reflections.util.ClasspathHelper;
@@ -67,13 +69,20 @@ public class TipueSearchPlugin extends DefaultPlugin {
             Document document = new Document();
             document.setTitle(article.getMetadata().getTitle());
             document.setTags(Joiner.on(" ").join(article.getMetadata().getTags()));
-            document.setText(article.getSource());
+            document.setText(getPlainText(article.getHtmlSource()));
             document.setUrl(new URL("http://drakkar.sk/" + article.getIssue().getNumber() + "/" + article.getSlug() + ".html"));
             return document;
         } catch (MalformedURLException e) {
             logger.error("Malformed URL for article " + article);
             return null;
         }
+    }
+
+    /**
+     * Returns a plain unformatted deHTMLized text from HTML source
+     */
+    private String getPlainText(String htmlSource) {
+        return Jsoup.clean(htmlSource, Whitelist.none());
     }
 
     @Override
