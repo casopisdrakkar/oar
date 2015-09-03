@@ -56,6 +56,11 @@
 			<artifactId>reflections</artifactId>
 			<version>0.9.10</version>
 		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20141113</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
