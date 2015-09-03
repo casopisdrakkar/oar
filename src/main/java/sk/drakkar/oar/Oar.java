@@ -18,6 +18,7 @@ import sk.drakkar.oar.css.CopyCssPlugin;
 import sk.drakkar.oar.homepage.HomePageBuilder;
 import sk.drakkar.oar.pages.PagePlugin;
 import sk.drakkar.oar.plugin.Plugin;
+import sk.drakkar.oar.search.TipueSearchPlugin;
 import sk.drakkar.oar.tags.TagCloudBuilder;
 
 import com.google.common.base.Charsets;
@@ -180,6 +181,9 @@ public class Oar {
 
 			CopyCssPlugin copyCssPlugin = new CopyCssPlugin(configuration);
 			oar.addPlugin(copyCssPlugin);
+
+			TipueSearchPlugin tipueSearchPlugin = new TipueSearchPlugin(configuration);
+			oar.addPlugin(tipueSearchPlugin);
 
 			oar.publish();
 		} catch (CmdLineException e) {

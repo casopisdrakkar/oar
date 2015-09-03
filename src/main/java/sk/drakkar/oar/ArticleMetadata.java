@@ -52,6 +52,9 @@ public class ArticleMetadata {
 		return tags;
 	}
 
+	/**
+	 * Return comma separated tag list.
+	 */
 	public String getTagList() {
 		return Joiner.on(", ").join(this.tags).toString();
 	}
