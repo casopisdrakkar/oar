@@ -1,23 +1,21 @@
 package sk.drakkar.oar.authors;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.Collator;
-import java.util.List;
-import java.util.Locale;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import sk.drakkar.oar.*;
-
 import com.google.common.base.Charsets;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
 import com.google.common.io.Files;
-import sk.drakkar.oar.plugin.Plugin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sk.drakkar.oar.Article;
+import sk.drakkar.oar.ArticleByIssueComparator;
+import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.plugin.DefaultPlugin;
 
-public class AuthorListBuilder implements Plugin {
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+public class AuthorListBuilder extends DefaultPlugin {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AuthorListBuilder.class);
 	
@@ -48,13 +46,9 @@ public class AuthorListBuilder implements Plugin {
 	}
 
 	@Override
-	public void issueArticlesProcessed(Issue issue) {
-		logger.info("Building author list " + issue.getNumber());
-		
-		for (Article article : issue.getArticles()) {
-			for(Author author : article.getMetadata().getAuthors()) {
-				authorMap.put(author, article);
-			}
+	public void articleProcessed(Article article) {
+		for(Author author : article.getMetadata().getAuthors()) {
+			authorMap.put(author, article);
 		}
 	}
 

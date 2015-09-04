@@ -14,11 +14,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.Configuration;
-import sk.drakkar.oar.Issue;
 import sk.drakkar.oar.ResourceException;
 import sk.drakkar.oar.plugin.DefaultPlugin;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -55,12 +58,10 @@ public class TipueSearchPlugin extends DefaultPlugin {
     }
 
     @Override
-    public void issueArticlesProcessed(Issue issue) {
-        for(Article article : issue.getArticles()) {
-            Document document = toDocument(article);
-            if(document != null) {
-                documents.add(document);
-            }
+    public void articleProcessed(Article article) {
+        Document document = toDocument(article);
+        if(document != null) {
+            documents.add(document);
         }
     }
 

@@ -1,20 +1,20 @@
 package sk.drakkar.oar.tags;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.Collator;
-import java.util.Locale;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import sk.drakkar.oar.*;
-
 import com.google.common.base.Charsets;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
 import com.google.common.io.Files;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sk.drakkar.oar.Article;
+import sk.drakkar.oar.ArticleByIssueComparator;
+import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.plugin.DefaultPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.Collator;
+import java.util.Locale;
 
 public class TagCloudBuilder extends DefaultPlugin {
 	
@@ -52,13 +52,9 @@ public class TagCloudBuilder extends DefaultPlugin {
 	}
 
 	@Override
-	public void issueArticlesProcessed(Issue issue) {
-		logger.info("Building tag cloud for " + issue.getNumber());
-		
-		for (Article article : issue.getArticles()) {
-			for(String tag : article.getMetadata().getTags()) {
-				tagMap.put(tag, article);
-			}
+	public void articleProcessed(Article article) {
+		for(String tag : article.getMetadata().getTags()) {
+			tagMap.put(tag, article);
 		}
 	}
 

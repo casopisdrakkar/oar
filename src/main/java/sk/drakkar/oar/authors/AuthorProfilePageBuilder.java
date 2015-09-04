@@ -6,17 +6,18 @@ import com.google.common.collect.MultimapBuilder;
 import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.drakkar.oar.*;
-import sk.drakkar.oar.plugin.Plugin;
+import sk.drakkar.oar.Article;
+import sk.drakkar.oar.ArticleByIssueComparator;
+import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.Slugger;
+import sk.drakkar.oar.plugin.DefaultPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.Collator;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.Map;
 
-public class AuthorProfilePageBuilder implements Plugin {
+public class AuthorProfilePageBuilder extends DefaultPlugin {
     private static final Logger logger = LoggerFactory.getLogger(AuthorProfilePageBuilder.class);
 
     private Configuration configuration;
@@ -43,16 +44,10 @@ public class AuthorProfilePageBuilder implements Plugin {
         }
     }
 
-
-
     @Override
-    public void issueArticlesProcessed(Issue issue) {
-        logger.info("Building author profile page list " + issue.getNumber());
-
-        for (Article article : issue.getArticles()) {
-            for(Author author : article.getMetadata().getAuthors()) {
-                authorMap.put(author, article);
-            }
+    public void articleProcessed(Article article) {
+        for(Author author : article.getMetadata().getAuthors()) {
+            authorMap.put(author, article);
         }
     }
 

@@ -1,17 +1,10 @@
 package sk.drakkar.oar;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
+import com.google.common.base.Charsets;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import sk.drakkar.oar.authors.AuthorListBuilder;
 import sk.drakkar.oar.authors.AuthorProfilePageBuilder;
 import sk.drakkar.oar.css.CopyCssPlugin;
@@ -20,9 +13,14 @@ import sk.drakkar.oar.pages.PagePlugin;
 import sk.drakkar.oar.plugin.Plugin;
 import sk.drakkar.oar.search.TipueSearchPlugin;
 import sk.drakkar.oar.tags.TagCloudBuilder;
-
-import com.google.common.base.Charsets;
 import sk.drakkar.oar.tags.TagDetailPageBuilder;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Oar {
 
@@ -95,8 +93,15 @@ public class Oar {
 		article.setIssue(issue);
 		
 		saveMarkdown(article);
-		
 		issue.addArticle(article);
+
+		fireOnArticleProcessed(article);
+	}
+
+	private void fireOnArticleProcessed(Article article) {
+		for (Plugin plugin : plugins) {
+			plugin.articleProcessed(article);
+		}
 	}
 
 	private void saveMarkdown(Article article) {

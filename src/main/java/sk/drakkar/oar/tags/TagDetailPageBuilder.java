@@ -6,9 +6,12 @@ import com.google.common.collect.MultimapBuilder;
 import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.drakkar.oar.*;
+import sk.drakkar.oar.Article;
+import sk.drakkar.oar.ArticleByIssueComparator;
+import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.Slugger;
 import sk.drakkar.oar.authors.AuthorListBuildingException;
-import sk.drakkar.oar.plugin.Plugin;
+import sk.drakkar.oar.plugin.DefaultPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +20,7 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
 
-public class TagDetailPageBuilder implements Plugin {
+public class TagDetailPageBuilder extends DefaultPlugin {
     private static final Logger logger = LoggerFactory.getLogger(TagDetailPageBuilder.class);
 
     private Configuration configuration;
@@ -52,16 +55,10 @@ public class TagDetailPageBuilder implements Plugin {
         return collator;
     }
 
-
-
     @Override
-    public void issueArticlesProcessed(Issue issue) {
-        logger.info("Building tag detail page list " + issue.getNumber());
-
-        for (Article article : issue.getArticles()) {
-            for(String tag : article.getMetadata().getTags()) {
-                tagMap.put(tag, article);
-            }
+    public void articleProcessed(Article article) {
+        for(String tag : article.getMetadata().getTags()) {
+            tagMap.put(tag, article);
         }
     }
 
