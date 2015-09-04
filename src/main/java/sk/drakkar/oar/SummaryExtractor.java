@@ -1,10 +1,10 @@
 package sk.drakkar.oar;
 
-import java.util.Map;
-import java.util.Scanner;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.Scanner;
 
 public class SummaryExtractor {
 	
@@ -16,7 +16,7 @@ public class SummaryExtractor {
 
 	public String getSummary(Article article, Map<String, Object> rawMetadata) {
 		if(rawMetadata.containsKey(METADATA_KEY_SUMMARY)) {
-			logger.info("Extracted summary from article metadata");
+			logger.debug("Extracted summary from article metadata");
 			return (String) rawMetadata.get(METADATA_KEY_SUMMARY);
 		}
 		
