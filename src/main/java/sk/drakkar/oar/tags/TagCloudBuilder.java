@@ -9,19 +9,22 @@ import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.ArticleByIssueComparator;
 import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.CzechCollatorUtils;
 import sk.drakkar.oar.plugin.DefaultPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.Collator;
-import java.util.Locale;
 
 public class TagCloudBuilder extends DefaultPlugin {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TagCloudBuilder.class);
 	
 	private TagCloudTemplater tagCloudTemplater = new TagCloudTemplater();
+
 	private Configuration configuration;
+
+	public static final Collator tagCollator = CzechCollatorUtils.getCaseInsensitiveCzechCollator();
 
 	private Multimap<String, Article> tagMap;
 
@@ -29,19 +32,11 @@ public class TagCloudBuilder extends DefaultPlugin {
 		this.configuration = configuration;
 		
 		tagMap = ListMultimapBuilder
-			.treeKeys(getCaseInsensitiveCzechCollator())
+			.treeKeys(tagCollator)
 			.treeSetValues(ArticleByIssueComparator.INSTANCE)
 			.build();		
 	}
-	
-	private Collator getCaseInsensitiveCzechCollator() {
-		Collator collator = Collator.getInstance(new Locale("cz"));
-		collator.setStrength(Collator.SECONDARY);
-		collator.setDecomposition(Collator.CANONICAL_DECOMPOSITION);
-		
-		return collator;
-	}
-	
+
 	private void write(String html) {
 		try {
 			File outputFile = new File(this.configuration.getOutputFolder(), "tags.html");

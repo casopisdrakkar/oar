@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.ArticleByIssueComparator;
 import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.CzechCollatorUtils;
 import sk.drakkar.oar.Slugger;
 import sk.drakkar.oar.authors.AuthorListBuildingException;
 import sk.drakkar.oar.plugin.DefaultPlugin;
@@ -17,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.Collator;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.Map;
 
 public class TagDetailPageBuilder extends DefaultPlugin {
@@ -26,6 +26,8 @@ public class TagDetailPageBuilder extends DefaultPlugin {
     private Configuration configuration;
 
     private TagDetailPageTemplater tagDetailPageTemplater = new TagDetailPageTemplater();
+
+    private Collator tagCollator = CzechCollatorUtils.getCaseInsensitiveCzechCollator();
 
     private Slugger slugger = new Slugger();
 
@@ -37,7 +39,7 @@ public class TagDetailPageBuilder extends DefaultPlugin {
         this.configuration = configuration;
 
         this.tagMap = MultimapBuilder.ListMultimapBuilder
-                .treeKeys(getCaseInsensitiveCzechCollator())
+                .treeKeys(tagCollator)
                 .treeSetValues(ArticleByIssueComparator.INSTANCE)
                 .build();
 
@@ -45,14 +47,6 @@ public class TagDetailPageBuilder extends DefaultPlugin {
         if(!this.tagPagesFolder.exists()) {
             this.tagPagesFolder.mkdirs();
         }
-    }
-
-    private Collator getCaseInsensitiveCzechCollator() {
-        Collator collator = Collator.getInstance(new Locale("cz"));
-        collator.setStrength(Collator.SECONDARY);
-        collator.setDecomposition(Collator.CANONICAL_DECOMPOSITION);
-
-        return collator;
     }
 
     @Override
