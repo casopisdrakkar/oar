@@ -112,7 +112,7 @@ public class Oar {
 			String articleHtml = articleTemplater.convert(article);
 			com.google.common.io.Files.write(articleHtml, articleOutputFile, Charsets.UTF_8);
 			
-			logger.info("Exported Markdown to " + articleOutputFile);
+			logger.debug("Exported Markdown to " + articleOutputFile);
 		} catch (IOException e) {
 			throw new ArticleExportException("Cannot read article source from " + article.getSourceFile(), e);
 		}
