@@ -92,7 +92,7 @@ public class Oar {
 		article.setHtmlSource(htmlSource);
 		article.setIssue(issue);
 		
-		saveMarkdown(article);
+		publish(article);
 		issue.addArticle(article);
 
 		fireOnArticleProcessed(article);
@@ -104,7 +104,7 @@ public class Oar {
 		}
 	}
 
-	private void saveMarkdown(Article article) {
+	private void publish(Article article) {
 		try {
 			File outputFolder = this.configuration.getOutputFolder(article.getIssue());
 			String articleHtmlFileName = com.google.common.io.Files.getNameWithoutExtension(article.getSourceFile().getName()) + ".html";
