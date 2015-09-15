@@ -7,7 +7,7 @@ public class PegdownConverter implements ToHtmlConverter{
 	private PegDownProcessor markdownProcessor;
 
 	public PegdownConverter() {
-		markdownProcessor = new PegDownProcessor(Extensions.ALL - Extensions.HARDWRAPS);
+		markdownProcessor = new PegDownProcessor(Extensions.ALL - Extensions.HARDWRAPS - Extensions.ANCHORLINKS);
 	}
 	
 	@Override
