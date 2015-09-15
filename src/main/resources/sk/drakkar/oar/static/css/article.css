@@ -123,3 +123,15 @@ div.floatquote {
 	font-weight: bold;
 	color: black;
 }
+
+/* ------------------------------------------------------------- */
+.sample {
+	margin-left: 18pt;
+	margin-top: 12pt;
+	margin-bottom: 12pt;
+	line-height: 1.2;
+}
+
+.article-text-green .sample {
+	color: #237238;
+}
