@@ -58,6 +58,7 @@ public class ArticleParser {
 			articleMetadata.setTags(parseTags(metadata));
 			articleMetadata.setSummary(summaryExtractor.getSummary(article, metadata));
 			articleMetadata.setColor((String) metadata.get("Color"));
+			articleMetadata.setDiscussionUrl((String) metadata.get("Discussion"));
 			setHasFulltext(articleMetadata, metadata);
 
 			article.setMetadata(articleMetadata);
