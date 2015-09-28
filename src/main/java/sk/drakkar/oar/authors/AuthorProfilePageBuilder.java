@@ -33,9 +33,9 @@ public class AuthorProfilePageBuilder extends DefaultPlugin {
     public AuthorProfilePageBuilder(Configuration configuration) {
         this.configuration = configuration;
 
-        this.authorMap = MultimapBuilder.ListMultimapBuilder
+        this.authorMap = MultimapBuilder
                 .treeKeys(AuthorByNameComparator.INSTANCE)
-                .treeSetValues(ArticleByIssueComparator.INSTANCE)
+                .arrayListValues()
                 .build();
 
         this.authorProfilesFolder = new File(this.configuration.getOutputFolder(), "authors");
@@ -47,19 +47,22 @@ public class AuthorProfilePageBuilder extends DefaultPlugin {
     @Override
     public void articleProcessed(Article article) {
         for(Author author : article.getMetadata().getAuthors()) {
-            authorMap.put(author, article);
+            this.authorMap.put(author, article);
         }
     }
 
     @Override
     public void publicationComplete() {
-        for (Map.Entry<Author, Collection<Article>> entry : authorMap.asMap().entrySet()) {
+        for (Map.Entry<Author, Collection<Article>> entry : this.authorMap.asMap().entrySet()) {
             Author author = entry.getKey();
-            Collection<Article> articles = entry.getValue();
-
+            Collection<Article> articles = sortByIssue(entry.getValue());
             writeProfilePage(author, articles);
         }
         logger.info("Written author profile pages.");
+    }
+
+    private Collection<Article> sortByIssue(Collection<Article> articles) {
+        return ArticleByIssueComparator.sortByIssue(articles);
     }
 
     private void writeProfilePage(Author author, Collection<Article> articles) {
@@ -68,7 +71,6 @@ public class AuthorProfilePageBuilder extends DefaultPlugin {
 
         write(authorSlug, html);
     }
-
 
     private void write(String authorSlug, String html) {
         try {

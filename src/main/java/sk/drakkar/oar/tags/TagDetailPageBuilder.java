@@ -40,7 +40,7 @@ public class TagDetailPageBuilder extends DefaultPlugin {
 
         this.tagMap = MultimapBuilder.ListMultimapBuilder
                 .treeKeys(tagCollator)
-                .treeSetValues(ArticleByIssueComparator.INSTANCE)
+                .arrayListValues()
                 .build();
 
         this.tagPagesFolder = new File(this.configuration.getOutputFolder(), "tags");
@@ -60,11 +60,15 @@ public class TagDetailPageBuilder extends DefaultPlugin {
     public void publicationComplete() {
         for (Map.Entry<String, Collection<Article>> entry : tagMap.asMap().entrySet()) {
             String tag = entry.getKey();
-            Collection<Article> articles = entry.getValue();
+            Collection<Article> articles = sortByIssue(entry.getValue());
 
             writeTagDetailPage(tag, articles);
         }
         logger.info("Written tag detail pages.");
+    }
+
+    private Collection<Article> sortByIssue(Collection<Article> articles) {
+        return ArticleByIssueComparator.sortByIssue(articles);
     }
 
     private void writeTagDetailPage(String tag, Collection<Article> articles) {
