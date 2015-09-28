@@ -1,11 +1,12 @@
 package sk.drakkar.oar;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects;
 import sk.drakkar.oar.authors.Author;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 public class ArticleMetadata {
 	private String title;
@@ -87,5 +88,21 @@ public class ArticleMetadata {
 			.toString();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ArticleMetadata that = (ArticleMetadata) o;
+		return Objects.equals(isFulltext(), that.isFulltext()) &&
+				Objects.equals(getTitle(), that.getTitle()) &&
+				Objects.equals(getAuthors(), that.getAuthors()) &&
+				Objects.equals(getTags(), that.getTags()) &&
+				Objects.equals(getSummary(), that.getSummary()) &&
+				Objects.equals(getColor(), that.getColor());
+	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(getTitle(), getAuthors(), getTags(), getSummary(), getColor(), isFulltext());
+	}
 }

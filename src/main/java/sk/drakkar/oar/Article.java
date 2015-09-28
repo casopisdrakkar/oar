@@ -1,8 +1,9 @@
 package sk.drakkar.oar;
 
-import java.io.File;
-
 import com.google.common.io.Files;
+
+import java.io.File;
+import java.util.Objects;
 
 public class Article {
 	private String source;
@@ -57,5 +58,31 @@ public class Article {
 	
 	public void setHtmlSource(String htmlSource) {
 		this.htmlSource = htmlSource;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Article article = (Article) o;
+		return Objects.equals(getSource(), article.getSource()) &&
+				Objects.equals(getSourceFile(), article.getSourceFile()) &&
+				Objects.equals(getMetadata(), article.getMetadata()) &&
+				Objects.equals(getHtmlSource(), article.getHtmlSource());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getSource(), getSourceFile(), getMetadata(), getHtmlSource());
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder()
+				.append(getMetadata().getTitle())
+				.append(" (#")
+				.append(getIssue().getNumber())
+				.append(")")
+				.toString();
 	}
 }
