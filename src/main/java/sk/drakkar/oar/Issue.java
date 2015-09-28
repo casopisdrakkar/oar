@@ -1,5 +1,8 @@
 package sk.drakkar.oar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -95,6 +98,7 @@ public class Issue {
 	}
 
 	private class ArticleByOrderComparator implements Comparator<Article> {
+		private Logger logger = LoggerFactory.getLogger(ArticleByOrderComparator.class);
 
 		@Override
 		public int compare(Article article1, Article article2) {
@@ -111,6 +115,7 @@ public class Issue {
 				}
 				index++;
 			}
+			logger.error("Unable to find article {} in article order. Is file missing in YAML definition?", article.toString());
 			return -1;
 		}
 		
