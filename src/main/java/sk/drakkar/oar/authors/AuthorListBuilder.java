@@ -13,6 +13,7 @@ import sk.drakkar.oar.plugin.DefaultPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 public class AuthorListBuilder extends DefaultPlugin {
@@ -32,7 +33,7 @@ public class AuthorListBuilder extends DefaultPlugin {
 		
 		authorMap = ListMultimapBuilder
 			.treeKeys(AuthorByNameComparator.INSTANCE)
-			.treeSetValues(ArticleByIssueComparator.INSTANCE)
+			.arrayListValues()
 			.build();
 	}
 
@@ -54,10 +55,19 @@ public class AuthorListBuilder extends DefaultPlugin {
 
 	@Override
 	public void publicationComplete() {
+		sortAuthorArticlesByIssueNumber();
+
 		String html = authorListTemplater.convert(this.authorMap);
 		write(html);
 		
 		logger.info("Written author list.");
+	}
+
+	private void sortAuthorArticlesByIssueNumber() {
+		for(Author author : this.authorMap.keySet()) {
+			Collection<Article> articles = this.authorMap.get(author);
+			ArticleByIssueComparator.sortByIssue(articles);
+		}
 	}
 
 	public void setIgnoredMostProductiveAuthorNames(List<String> authorNames) {
