@@ -26,7 +26,7 @@
             <#list issue.articles as article>
               <#if article.metadata.fulltext>
                 <#assign cssFullText = "article-has-fulltext" />
-                <#assign fullTextSymbol = "»" />
+                <#assign fullTextSymbol = "" />
                 <#else />
                 <#assign cssFullText = "article-no-fulltext" />
                 <#assign fullTextSymbol = "" />
@@ -67,7 +67,7 @@
             <#list issue.articles as article>
               <#if article.metadata.fulltext>
                 <#assign cssFullText = "article-has-fulltext" />
-                <#assign fullTextSymbol = "»" />
+                  <#assign fullTextSymbol = "" />
               <#else />
                 <#assign cssFullText = "article-no-fulltext" />
                 <#assign fullTextSymbol = "" />
