@@ -22,6 +22,10 @@
 	text-align: justify;
 
 	line-height: 19pt;
+
+	border-bottom: 3pt solid #000;
+	padding-bottom: 24pt;
+	margin-bottom: 12pt
 }
 
 .article-tag {
