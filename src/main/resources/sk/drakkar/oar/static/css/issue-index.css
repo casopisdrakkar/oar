@@ -36,36 +36,36 @@ h2.issue-articles-heading {
 }
 
 li.issue-article-list-item.red, li.issue-article-list-item .red {
-    border-left: solid 25pt #c13f35;
+    border-left: solid 25pt #E74C3C;
 }
 
 li.issue-article-list-item.green, li.issue-article-list-item .green {
-    border-left: solid 25pt #237238;
+    border-left: solid 25pt #1ABC9C;
 }
 
 li.issue-article-list-item.blue, li.issue-article-list-item .blue {
-    border-left: solid 25pt #155985;
+    border-left: solid 25pt #3498DB;
 }
 
 li.issue-article-list-item.gray, li.issue-article-list-item .gray {
-    border-left: solid 25pt #4b4b4b;
+    border-left: solid 25pt #95A5A6;
 }
 
 li.issue-article-list-item.orange, li.issue-article-list-item .orange {
-    border-left: solid 25pt #F1610D;
+    border-left: solid 25pt #F39C12;
 }
 
 li.issue-article-list-item.violet, li.issue-article-list-item .violet {
-    border-left: solid 25pt #A51C52;
+    border-left: solid 25pt #9B59B6;
 }
 
 li.issue-article-list-item.maroon, li.issue-article-list-item .maroon {
-    border-left: solid 25pt #53171b;
+    border-left: solid 25pt #C0392B;
 }
 
 
 li.issue-article-list-item.missingColor, li.issue-article-list-item .missingColor {
-    border-left: solid 25pt #abb9d1;
+    border-left: solid 25pt #34495E;
 }
 
 li.issue-article-list-item, li.call-to-action-item {

@@ -1,38 +1,38 @@
 .issue-box {
-	border-left: solid 18pt #c13f35;
+	border-left: solid 18pt #E74C3C;
 	margin-bottom: 18pt;
 }
 
 .issue-box.red {
-	border-left: solid 18pt #c13f35;
+	border-left: solid 18pt #E74C3C;
 }
 
 .issue-box.green {
-	border-left: solid 18pt #237238;
+	border-left: solid 18pt #1ABC9C;
 }
 
 .issue-box.blue {
-	border-left: solid 18pt #155985;
+	border-left: solid 18pt #3498DB;
 }
 
 .issue-box.gray {
-	border-left: solid 18pt #4b4b4b;
+	border-left: solid 18pt #95A5A6;
 }
 
 .issue-box.orange {
-    border-left: solid 18pt #F1610D;
+    border-left: solid 18pt #F39C12;
 }
 
 .issue-box.violet {
-    border-left: solid 18pt #A51C52;
+    border-left: solid 18pt #9B59B6;
 }
 
 .issue-box.missingColor {
-	border-left: solid 18pt #abb9d1;
+	border-left: solid 18pt #34495E;
 }
 
 .issue-box.maroon {
-	border-left: solid 18pt #53171b;
+	border-left: solid 18pt #C0392B;
 }
 
 .issue-box ul {
