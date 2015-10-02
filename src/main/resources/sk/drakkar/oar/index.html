@@ -61,7 +61,7 @@
         </div>
 
         <#list issues[1..] as issue>
-          <div class="col-sm-6 col-md-4 issue-box ${issue.color}">
+          <div class="col-sm-6 col-md-4 issue-box ${issue.color!'missingColor'}">
             <h2><a href="${issue.number}" class="issue-number">#${issue.number}</a> <span class="release-date">| ${issue.releaseDate}</span></h2>
 
             <#list issue.articles as article>
