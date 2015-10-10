@@ -22,7 +22,15 @@ public class Configuration {
 		outputFolder.mkdirs();
 		return outputFolder;
 	}
-	
+
+	public File getOrCreateOutputSubfolder(String subfolderName) {
+		File subfolder = new File(getOutputFolder(), subfolderName);
+		if(!subfolder.exists()) {
+			subfolder.mkdirs();
+		}
+		return subfolder;
+	}
+
 	public File getContentFolder() {
 		return new File(projectFolder, this.contentFolderName);
 	}

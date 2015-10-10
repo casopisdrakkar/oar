@@ -19,6 +19,8 @@ import java.util.Map;
 public class AuthorProfilePageBuilder extends ConfigurablePlugin {
     private static final Logger logger = LoggerFactory.getLogger(AuthorProfilePageBuilder.class);
 
+    public static final String AUTHOR_PROFILES_FOLDER = "authors";
+
     private AuthorProfilePageTemplater authorProfilePageTemplater = new AuthorProfilePageTemplater();
 
     private Slugger slugger = new Slugger();
@@ -28,10 +30,7 @@ public class AuthorProfilePageBuilder extends ConfigurablePlugin {
     public AuthorProfilePageBuilder(Configuration configuration) {
         super(configuration);
 
-        this.authorProfilesFolder = new File(getConfiguration().getOutputFolder(), "authors");
-        if(!this.authorProfilesFolder.exists()) {
-            this.authorProfilesFolder.mkdirs();
-        }
+        this.authorProfilesFolder = configuration.getOrCreateOutputSubfolder(AUTHOR_PROFILES_FOLDER);
     }
 
     @Override

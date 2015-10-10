@@ -24,6 +24,8 @@ import java.util.Map;
 public class TagDetailPageBuilder extends ConfigurablePlugin {
     private static final Logger logger = LoggerFactory.getLogger(TagDetailPageBuilder.class);
 
+    public static final String TAGS_OUTPUT_FOLDER = "tags";
+
     private TagDetailPageTemplater tagDetailPageTemplater = new TagDetailPageTemplater();
 
     private Collator tagCollator = CzechCollatorUtils.getCaseInsensitiveCzechCollator();
@@ -42,10 +44,7 @@ public class TagDetailPageBuilder extends ConfigurablePlugin {
                 .arrayListValues()
                 .build();
 
-        this.tagPagesFolder = new File(getConfiguration().getOutputFolder(), "tags");
-        if(!this.tagPagesFolder.exists()) {
-            this.tagPagesFolder.mkdirs();
-        }
+        this.tagPagesFolder = getConfiguration().getOrCreateOutputSubfolder(TAGS_OUTPUT_FOLDER);
     }
 
     @Override

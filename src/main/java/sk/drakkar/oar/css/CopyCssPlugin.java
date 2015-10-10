@@ -34,10 +34,7 @@ public class CopyCssPlugin extends ConfigurablePlugin {
 
     @Override
     public void publicationComplete(Context context) {
-        File cssOutputFolder = new File(getConfiguration().getOutputFolder(), CSS_FOLDER_NAME);
-        if (!cssOutputFolder.exists()) {
-            cssOutputFolder.mkdirs();
-        }
+        File cssOutputFolder = getConfiguration().getOrCreateOutputSubfolder(CSS_FOLDER_NAME);
 
         for (String cssFileName : CSS_FILES) {
             try {

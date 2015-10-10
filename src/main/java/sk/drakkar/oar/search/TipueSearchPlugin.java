@@ -139,14 +139,6 @@ public class TipueSearchPlugin extends ConfigurablePlugin {
         }
     }
 
-    private File getTipueOutputFolder() {
-        File outputFolder = new File(getConfiguration().getOutputFolder(), TIPUE_OUTPUT_FOLDER);
-        if (!outputFolder.exists()) {
-            outputFolder.mkdirs();
-        }
-        return outputFolder;
-    }
-
     private String addRootPrefix(String resource) {
         if(resource.startsWith("/")) {
             return resource;
@@ -171,4 +163,7 @@ public class TipueSearchPlugin extends ConfigurablePlugin {
         return reflections.getResources(Pattern.compile(".*"));
     }
 
+    public File getTipueOutputFolder() {
+        return getConfiguration().getOrCreateOutputSubfolder(TIPUE_OUTPUT_FOLDER);
+    }
 }
