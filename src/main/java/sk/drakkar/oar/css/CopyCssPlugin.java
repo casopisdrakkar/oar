@@ -1,6 +1,7 @@
 package sk.drakkar.oar.css;
 
 import sk.drakkar.oar.*;
+import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.plugin.DefaultPlugin;
 
 import java.io.File;
@@ -31,7 +32,7 @@ public class CopyCssPlugin extends DefaultPlugin {
     }
 
     @Override
-    public void publicationComplete() {
+    public void publicationComplete(Context context) {
         File cssOutputFolder = new File(this.configuration.getOutputFolder(), CSS_FOLDER_NAME);
         if (!cssOutputFolder.exists()) {
             cssOutputFolder.mkdirs();

@@ -1,13 +1,12 @@
 package sk.drakkar.oar;
 
-import java.io.File;
-import java.io.IOException;
-
+import com.google.common.base.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Charsets;
 import sk.drakkar.oar.plugin.DefaultPlugin;
+
+import java.io.File;
+import java.io.IOException;
 
 public class IssueIndexBuilder extends DefaultPlugin {
 	private static final String ISSUE_INDEX_FILENAME = "index.html";

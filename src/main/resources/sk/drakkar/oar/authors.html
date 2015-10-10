@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-sm-6 col-md-4 author-box">
 				<h2 class="top-authors-heading">Nej autoři</h2>
-				<#list authorProductivity[0..*10] as singleAuthorProductivity>
+				<#list mostProductiveAuthorsCollector.authorProductivityList[0..*10] as singleAuthorProductivity>
 					<#assign author = singleAuthorProductivity.author />
 					<a href="authors/${author.slug}.html" name="${author.slug}" class="author-name">${author}</a>
 					(${singleAuthorProductivity.productivity})

@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.ResourceException;
 import sk.drakkar.oar.plugin.DefaultPlugin;
 
@@ -58,7 +59,7 @@ public class TipueSearchPlugin extends DefaultPlugin {
     }
 
     @Override
-    public void articleProcessed(Article article) {
+    public void articleProcessed(Article article, Context context) {
         Document document = toDocument(article);
         if(document != null) {
             documents.add(document);
@@ -87,7 +88,7 @@ public class TipueSearchPlugin extends DefaultPlugin {
     }
 
     @Override
-    public void publicationComplete() {
+    public void publicationComplete(Context context) {
         copySearchPage();
         copyTipueSearchJavaScriptAndCss();
         saveDocumentsToJson();

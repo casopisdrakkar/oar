@@ -2,6 +2,7 @@ package sk.drakkar.oar.search;
 
 import org.junit.Test;
 import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.pipeline.Context;
 
 import java.io.File;
 import java.util.Arrays;
@@ -17,7 +18,8 @@ public class TipueSearchPluginTest {
 
         configuration.setOutputFolder(targetFolder);
         TipueSearchPlugin tipueSearchPlugin = new TipueSearchPlugin(configuration);
-        tipueSearchPlugin.publicationComplete();
+        Context context = new Context();
+        tipueSearchPlugin.publicationComplete(context);
 
         assertTrue(Arrays
                 .stream(targetFolder.list())

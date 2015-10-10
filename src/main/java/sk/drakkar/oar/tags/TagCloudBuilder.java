@@ -10,27 +10,26 @@ import sk.drakkar.oar.Article;
 import sk.drakkar.oar.ArticleByIssueComparator;
 import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.CzechCollatorUtils;
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.pipeline.Context;
+import sk.drakkar.oar.plugin.ConfigurablePlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.Collator;
 
-public class TagCloudBuilder extends DefaultPlugin {
+public class TagCloudBuilder extends ConfigurablePlugin {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TagCloudBuilder.class);
 	
 	private TagCloudTemplater tagCloudTemplater = new TagCloudTemplater();
-
-	private Configuration configuration;
 
 	public static final Collator tagCollator = CzechCollatorUtils.getCaseInsensitiveCzechCollator();
 
 	private Multimap<String, Article> tagMap;
 
 	public TagCloudBuilder(Configuration configuration) {
-		this.configuration = configuration;
-		
+		super(configuration);
+
 		tagMap = ListMultimapBuilder
 			.treeKeys(tagCollator)
 			.treeSetValues(ArticleByIssueComparator.INSTANCE)
@@ -39,7 +38,7 @@ public class TagCloudBuilder extends DefaultPlugin {
 
 	private void write(String html) {
 		try {
-			File outputFile = new File(this.configuration.getOutputFolder(), "tags.html");
+			File outputFile = new File(getConfiguration().getOutputFolder(), "tags.html");
 			Files.write(html, outputFile, Charsets.UTF_8);
 		} catch (IOException e) {
 			throw new TagCloudException("Unable to write tag cloud", e);
@@ -47,14 +46,14 @@ public class TagCloudBuilder extends DefaultPlugin {
 	}
 
 	@Override
-	public void articleProcessed(Article article) {
+	public void articleProcessed(Article article, Context context) {
 		for(String tag : article.getMetadata().getTags()) {
 			tagMap.put(tag, article);
 		}
 	}
 
 	@Override
-	public void publicationComplete() {
+	public void publicationComplete(Context context) {
 		String html = tagCloudTemplater.convert(tagMap);
 		write(html);
 		
