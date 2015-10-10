@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.*;
+import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.plugin.DefaultPlugin;
 
 import java.io.File;
@@ -27,7 +28,7 @@ public class PagePlugin extends DefaultPlugin {
     }
 
     @Override
-    public void publicationComplete() {
+    public void publicationComplete(Context context) {
         File contentFolder = configuration.getContentFolder();
         for (File file : contentFolder.listFiles()) {
             if(isPageFile(file)) {

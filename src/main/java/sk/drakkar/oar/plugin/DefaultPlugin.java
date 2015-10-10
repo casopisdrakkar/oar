@@ -1,11 +1,12 @@
 package sk.drakkar.oar.plugin;
 
 import sk.drakkar.oar.Article;
+import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.Issue;
 
 public class DefaultPlugin implements Plugin {
     @Override
-    public void articleProcessed(Article article) {
+    public void articleProcessed(Article article, Context context) {
 
     }
 
@@ -15,7 +16,7 @@ public class DefaultPlugin implements Plugin {
     }
 
     @Override
-    public void publicationComplete() {
+    public void publicationComplete(Context context) {
         // NO-OP
     }
 }

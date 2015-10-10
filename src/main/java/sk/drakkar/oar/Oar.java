@@ -1,15 +1,21 @@
 package sk.drakkar.oar;
 
-import com.google.common.base.Charsets;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sk.drakkar.oar.authors.AuthorArticlesCollector;
 import sk.drakkar.oar.authors.AuthorListBuilder;
 import sk.drakkar.oar.authors.AuthorProfilePageBuilder;
+import sk.drakkar.oar.authors.MostProductiveAuthorsCollector;
 import sk.drakkar.oar.css.CopyCssPlugin;
 import sk.drakkar.oar.homepage.HomePageBuilder;
 import sk.drakkar.oar.pages.PagePlugin;
+import sk.drakkar.oar.pipeline.Context;
+import sk.drakkar.oar.pipeline.GlobalContextVariables;
+import sk.drakkar.oar.pipeline.IssueAssetPipeline;
+import sk.drakkar.oar.pipeline.IssuePipeline;
+import sk.drakkar.oar.pipeline.PortalAssemblyPipeline;
 import sk.drakkar.oar.plugin.Plugin;
 import sk.drakkar.oar.search.TipueSearchPlugin;
 import sk.drakkar.oar.tags.TagCloudBuilder;
@@ -19,25 +25,21 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Oar {
-
 	private static final Logger logger = LoggerFactory.getLogger(Oar.class);
-	
-	private final ArticleParser articleParser = new ArticleParser();
-	
-	private final ArticleTemplater articleTemplater = new ArticleTemplater();
-	
-	private final ToHtmlConverter toHtmlConverter = new PegdownConverter();
-	
+
 	private final IssueParser issueParser = new IssueParser();
 	
-	private List<Plugin> plugins = new LinkedList<Plugin>();
-	
 	private final Configuration configuration;
-	
+
+	private final IssueAssetPipeline issueAssetPipeline = new IssueAssetPipeline();
+
+	private final IssuePipeline issuePipeline = new IssuePipeline();
+
+	private final PortalAssemblyPipeline portalAssemblyPipeline = new PortalAssemblyPipeline();
+
 	public Oar(Configuration configuration) {
 		this.configuration = configuration;
 	}
@@ -52,96 +54,46 @@ public class Oar {
 				processIssueFolder(issueFolder);
 			}
 			
-			fireOnPublicationComplete();
+			executePortalAssemblyPipeline();
 
 			logger.info("Done.");
 		} catch (IOException e) {
 			throw new ProjectHierarchyException(e);
 		}
-		
 	}
 
 
 	private void processIssueFolder(File issueFolder) {
 		Issue issue = issueParser.toIssue(issueFolder);
-		for (File file : issueFolder.listFiles()) {
-			if(isArticle(file)) {
-				processArticle(issue, file);
-			} else if(isAllowedResource(file)) {
-				processAllowedResource(file, issue);
-			}
+
+		for (File issueAssetFile : issueFolder.listFiles()) {
+			Context issueAssetContext = Context
+					.of(GlobalContextVariables.issue, issue)
+					.andOf(GlobalContextVariables.issueAsset, issueAssetFile);
+			executeIssueAssetPipeline(issueAssetContext);
 		}
-		fireOnIssueArticlesProcessed(issue);
+		executeIssuePipeline(issue);
 	}
 
-	private void fireOnIssueArticlesProcessed(Issue issue) {
-		for (Plugin plugin : plugins) {
-			plugin.issueArticlesProcessed(issue);
-		}
+	private void executeIssueAssetPipeline(Context context) {
+		issueAssetPipeline.execute(context);
 	}
 
-	private void fireOnPublicationComplete() {
-		for (Plugin plugin : plugins) {
-			plugin.publicationComplete();
-		}
+	private void executeIssuePipeline(Issue issue) {
+		issuePipeline.execute(Context.of(GlobalContextVariables.issue, issue));
+	}
+
+	private void executePortalAssemblyPipeline() {
+		portalAssemblyPipeline.execute(new Context());
 	}
 	
-	private void processArticle(Issue issue, File articleFile) {
-		Article article = articleParser.parse(articleFile);
-		String htmlSource = toHtmlConverter.convert(article.getSource());
-		article.setHtmlSource(htmlSource);
-		article.setIssue(issue);
-		
-		publish(article);
-		issue.addArticle(article);
-
-		fireOnArticleProcessed(article);
-	}
-
-	private void fireOnArticleProcessed(Article article) {
-		for (Plugin plugin : plugins) {
-			plugin.articleProcessed(article);
-		}
-	}
-
-	private void publish(Article article) {
-		try {
-			File outputFolder = this.configuration.getOutputFolder(article.getIssue());
-			String articleHtmlFileName = com.google.common.io.Files.getNameWithoutExtension(article.getSourceFile().getName()) + ".html";
-			File articleOutputFile = new File(outputFolder, articleHtmlFileName);
-			String articleHtml = articleTemplater.convert(article);
-			com.google.common.io.Files.write(articleHtml, articleOutputFile, Charsets.UTF_8);
-			
-			logger.debug("Exported Markdown to " + articleOutputFile);
-		} catch (IOException e) {
-			throw new ArticleExportException("Cannot read article source from " + article.getSourceFile(), e);
-		}
-	}
-
-
-	private boolean isArticle(File file) {
-		return file.getName().endsWith(".md");
-	}
-
-
-	private boolean isAllowedResource(File file) {
-		return file.getName().endsWith(".png")
-				|| file.getName().endsWith(".jpg")
-				|| file.getName().endsWith(".pdf");
-	}
-	
-	private void processAllowedResource(File file, Issue issue) {
-		File outputFolder = this.configuration.getOutputFolder(issue);
-		try {
-			FileUtils.copyAndOverwrite(file, outputFolder);
-		} catch (IOException e) {
-			throw new ResourceException("Cannot copy resource " + file + " to target folder " + outputFolder, e);
-		}		
-	}
 
 	public void addPlugin(Plugin plugin) {
-		this.plugins.add(plugin);
+		this.issueAssetPipeline.add(plugin);
+		this.issuePipeline.add(plugin);
+		this.portalAssemblyPipeline.add(plugin);
 	}
+
 
 	public static void main(String[] args) {
 		CommandLineConfiguration commandLineConfiguration = new CommandLineConfiguration();
@@ -159,7 +111,9 @@ public class Oar {
 			configuration.setOutputFolder(outputFolder);
 
 			Oar oar = new Oar(configuration);
-			
+
+			oar.addPlugin(new IssueAssetPlugin(configuration));
+
 			oar.addPlugin(new IssueIndexBuilder(configuration));
 
 			PagePlugin pagePlugin = new PagePlugin(configuration);
@@ -174,9 +128,16 @@ public class Oar {
 			TagDetailPageBuilder tagDetailPageBuilder = new TagDetailPageBuilder(configuration);
 			oar.addPlugin(tagDetailPageBuilder);
 
-			AuthorListBuilder authorListBuilder = new AuthorListBuilder(configuration);
-			authorListBuilder.setIgnoredMostProductiveAuthorNames(Arrays.asList("redakce"));
-			oar.addPlugin(authorListBuilder);
+			AuthorArticlesCollector authorArticlesCollectorPlugin
+					= new AuthorArticlesCollector(configuration);
+			oar.addPlugin(authorArticlesCollectorPlugin);
+
+			MostProductiveAuthorsCollector mostProductiveAuthorsPlugin = new MostProductiveAuthorsCollector();
+			mostProductiveAuthorsPlugin.setIgnoredMostProductiveAuthorNames(Arrays.asList("redakce"));
+			oar.addPlugin(mostProductiveAuthorsPlugin);
+
+			AuthorListBuilder authorListWriter = new AuthorListBuilder(configuration);
+			oar.addPlugin(authorListWriter);
 
 			AuthorProfilePageBuilder authorProfilePageBuilder = new AuthorProfilePageBuilder(configuration);
 			oar.addPlugin(authorProfilePageBuilder);

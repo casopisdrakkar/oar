@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.ArticleByIssueComparator;
 import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.CzechCollatorUtils;
 import sk.drakkar.oar.Slugger;
 import sk.drakkar.oar.authors.AuthorListBuildingException;
@@ -50,14 +51,14 @@ public class TagDetailPageBuilder extends DefaultPlugin {
     }
 
     @Override
-    public void articleProcessed(Article article) {
+    public void articleProcessed(Article article, Context context) {
         for(String tag : article.getMetadata().getTags()) {
             tagMap.put(tag, article);
         }
     }
 
     @Override
-    public void publicationComplete() {
+    public void publicationComplete(Context context) {
         for (Map.Entry<String, Collection<Article>> entry : tagMap.asMap().entrySet()) {
             String tag = entry.getKey();
             Collection<Article> articles = sortByIssue(entry.getValue());
