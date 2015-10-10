@@ -22,8 +22,6 @@ import java.util.regex.Pattern;
 public class CopyCssPlugin extends ConfigurablePlugin {
     public static final String CSS_FOLDER_NAME = "css";
 
-    public static final String CSS_FOLDER_SOURCE = "sk/drakkar/oar/static/css";
-
     private static final String CSS_RESOURCE_PACKAGE = "sk.drakkar.oar.static.css";
 
     private Reflections reflections;
@@ -40,14 +38,18 @@ public class CopyCssPlugin extends ConfigurablePlugin {
 
         for (String cssFileName : getCssFiles()) {
             try {
-                String cssFile = "/" + CSS_FOLDER_SOURCE + "/" + cssFileName;
-                InputStream cssStream = CopyCssPlugin.class.getResourceAsStream(cssFile);
-                Path cssOutputPath = cssOutputFolder.toPath().resolve(cssFileName);
+                String cssResourceFullName = addRootPrefix(cssFileName);
+                InputStream cssStream = CopyCssPlugin.class.getResourceAsStream(cssResourceFullName);
+                Path cssOutputPath = cssOutputFolder.toPath().resolve(getBaseName(cssFileName));
                 Files.copy(cssStream, cssOutputPath, StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
                 throw new ResourceException("Unable to copy resource to target folder", e);
             }
         }
+    }
+
+    private String getBaseName(String fileName) {
+        return new File(fileName).getName();
     }
 
     private void configureReflections() {
@@ -59,5 +61,12 @@ public class CopyCssPlugin extends ConfigurablePlugin {
 
     public Set<String> getCssFiles() {
         return reflections.getResources(Pattern.compile(".*\\.css"));
+    }
+
+    private String addRootPrefix(String resource) {
+        if(resource.startsWith("/")) {
+            return resource;
+        }
+        return "/" + resource;
     }
 }
