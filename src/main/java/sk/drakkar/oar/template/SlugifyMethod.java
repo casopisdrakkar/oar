@@ -1,7 +1,9 @@
 package sk.drakkar.oar.template;
 
-import freemarker.ext.beans.StringModel;
-import freemarker.template.*;
+import freemarker.template.SimpleScalar;
+import freemarker.template.TemplateMethodModelEx;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
 import sk.drakkar.oar.Slugger;
 
 import java.util.List;

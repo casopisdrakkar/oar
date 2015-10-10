@@ -2,7 +2,7 @@ package sk.drakkar.oar;
 
 import sk.drakkar.oar.plugin.DefaultPlugin;
 
-import java.util.*;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

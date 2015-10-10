@@ -1,13 +1,13 @@
 package sk.drakkar.oar.conversion;
 
+import com.github.slugify.Slugify;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
-
-import com.github.slugify.Slugify;
 
 public class SummaryExporter {
 	private static final String ENCODING_UTF_8 = "utf-8";

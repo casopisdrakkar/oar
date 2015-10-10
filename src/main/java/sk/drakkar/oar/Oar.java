@@ -128,9 +128,7 @@ public class Oar {
 			TagDetailPageBuilder tagDetailPageBuilder = new TagDetailPageBuilder(configuration);
 			oar.addPlugin(tagDetailPageBuilder);
 
-			AuthorArticlesCollector authorArticlesCollectorPlugin
-					= new AuthorArticlesCollector(configuration);
-			oar.addPlugin(authorArticlesCollectorPlugin);
+			oar.addPlugin(new AuthorArticlesCollector());
 
 			MostProductiveAuthorsCollector mostProductiveAuthorsPlugin = new MostProductiveAuthorsCollector();
 			mostProductiveAuthorsPlugin.setIgnoredMostProductiveAuthorNames(Arrays.asList("redakce"));

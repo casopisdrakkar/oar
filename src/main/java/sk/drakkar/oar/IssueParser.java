@@ -1,17 +1,16 @@
 package sk.drakkar.oar;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.yaml.snakeyaml.Yaml;
-
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
 
 public class IssueParser {
 	

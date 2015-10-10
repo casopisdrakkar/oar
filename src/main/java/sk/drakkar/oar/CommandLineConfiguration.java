@@ -1,8 +1,8 @@
 package sk.drakkar.oar;
 
-import java.io.File;
-
 import org.kohsuke.args4j.Argument;
+
+import java.io.File;
 
 public class CommandLineConfiguration {
 	@Argument(required = true, index = 0, usage = "A project folder with input files")

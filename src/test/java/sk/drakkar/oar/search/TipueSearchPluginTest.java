@@ -7,7 +7,7 @@ import sk.drakkar.oar.pipeline.Context;
 import java.io.File;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class TipueSearchPluginTest {
     @Test

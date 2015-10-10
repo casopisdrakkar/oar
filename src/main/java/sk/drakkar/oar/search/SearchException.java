@@ -1,7 +1,5 @@
 package sk.drakkar.oar.search;
 
-import java.io.IOException;
-
 public class SearchException extends RuntimeException {
 
     public SearchException() {

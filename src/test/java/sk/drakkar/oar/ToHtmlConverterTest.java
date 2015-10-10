@@ -1,13 +1,9 @@
 package sk.drakkar.oar;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import org.junit.Test;
 import org.pegdown.Extensions;
 import org.pegdown.PegDownProcessor;
-import sun.security.x509.Extension;
-
-import java.io.File;
 
 public class ToHtmlConverterTest {
 

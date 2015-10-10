@@ -22,6 +22,10 @@ public class ColorGenerator {
         Color(String hexColor) {
             this.hexColor = hexColor;
         }
+
+        public String getHexColor() {
+            return hexColor;
+        }
     }
 
     public String getColor(String input) {

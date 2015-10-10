@@ -1,7 +1,6 @@
 package sk.drakkar.oar.authors;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
 import sk.drakkar.oar.AbstractTemplater;
 import sk.drakkar.oar.Article;
 

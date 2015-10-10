@@ -1,8 +1,11 @@
 package sk.drakkar.oar.template;
 
-import freemarker.template.*;
+import freemarker.template.SimpleScalar;
+import freemarker.template.TemplateMethodModelEx;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateScalarModel;
 import sk.drakkar.oar.ColorGenerator;
-import sk.drakkar.oar.Slugger;
 
 import java.util.List;
 

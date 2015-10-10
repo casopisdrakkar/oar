@@ -1,8 +1,8 @@
 package sk.drakkar.oar.plugin;
 
 import sk.drakkar.oar.Article;
-import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.Issue;
+import sk.drakkar.oar.pipeline.Context;
 
 public class DefaultPlugin implements Plugin {
     @Override
