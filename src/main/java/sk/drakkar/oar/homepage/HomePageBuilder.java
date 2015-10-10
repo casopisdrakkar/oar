@@ -8,7 +8,7 @@ import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.Issue;
 import sk.drakkar.oar.IssueByReversedNumberComparator;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.plugin.ConfigurablePlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,18 +16,16 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HomePageBuilder extends DefaultPlugin {
+public class HomePageBuilder extends ConfigurablePlugin {
 
     private static final Logger logger = LoggerFactory.getLogger(HomePageBuilder.class);
-
-    private Configuration configuration;
 
     private List<Issue> issues = new LinkedList<Issue>();
 
     private HomePageTemplater homePageTemplater = new HomePageTemplater();
 
     public HomePageBuilder(Configuration configuration) {
-        this.configuration = configuration;
+        super(configuration);
     }
 
     @Override
@@ -41,7 +39,7 @@ public class HomePageBuilder extends DefaultPlugin {
 
     private void write(String html) {
         try {
-            File outputFile = new File(this.configuration.getOutputFolder(), "index.html");
+            File outputFile = new File(getConfiguration().getOutputFolder(), "index.html");
             Files.write(html, outputFile, Charsets.UTF_8);
         } catch (IOException e) {
             throw new HomePageBuildingException("Unable to write home page", e);

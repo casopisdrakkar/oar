@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.ArticleByIssueComparator;
-import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.pipeline.GlobalContextVariables;
 import sk.drakkar.oar.plugin.DefaultPlugin;
@@ -22,13 +21,9 @@ public class AuthorArticlesCollector extends DefaultPlugin {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthorArticlesCollector.class);
 
-    private final Configuration configuration;
-
     private Multimap<Author, Article> authorArticles;
 
-    public AuthorArticlesCollector(Configuration configuration) {
-        this.configuration = configuration;
-
+    public AuthorArticlesCollector() {
         authorArticles = MultimapBuilder.ListMultimapBuilder
                 .treeKeys(AuthorByNameComparator.INSTANCE)
                 .arrayListValues()

@@ -3,14 +3,19 @@ package sk.drakkar.oar.pages;
 import com.google.common.base.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.drakkar.oar.*;
+import sk.drakkar.oar.Article;
+import sk.drakkar.oar.ArticleExportException;
+import sk.drakkar.oar.ArticleParser;
+import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.PegdownConverter;
+import sk.drakkar.oar.ToHtmlConverter;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.plugin.ConfigurablePlugin;
 
 import java.io.File;
 import java.io.IOException;
 
-public class PagePlugin extends DefaultPlugin {
+public class PagePlugin extends ConfigurablePlugin {
     private static final Logger logger = LoggerFactory.getLogger(PagePlugin.class);
 
     public static final String MARKDOWN_FILE_SUFFIX = ".md";
@@ -21,15 +26,13 @@ public class PagePlugin extends DefaultPlugin {
 
     private final ToHtmlConverter toHtmlConverter = new PegdownConverter();
 
-    private Configuration configuration;
-
     public PagePlugin(Configuration configuration) {
-        this.configuration = configuration;
+        super(configuration);
     }
 
     @Override
     public void publicationComplete(Context context) {
-        File contentFolder = configuration.getContentFolder();
+        File contentFolder = getConfiguration().getContentFolder();
         for (File file : contentFolder.listFiles()) {
             if(isPageFile(file)) {
                 processPage(file);
@@ -52,7 +55,7 @@ public class PagePlugin extends DefaultPlugin {
 
     private void saveMarkdown(Article article) {
         try {
-            File outputFolder = this.configuration.getOutputFolder();
+            File outputFolder = getConfiguration().getOutputFolder();
             String articleHtmlFileName = com.google.common.io.Files.getNameWithoutExtension(article.getSourceFile().getName()) + ".html";
             File articleOutputFile = new File(outputFolder, articleHtmlFileName);
             String pageHtml = pageTemplater.convert(article);

@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.ArticleByIssueComparator;
 import sk.drakkar.oar.Configuration;
-import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.CzechCollatorUtils;
 import sk.drakkar.oar.Slugger;
 import sk.drakkar.oar.authors.AuthorListBuildingException;
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.pipeline.Context;
+import sk.drakkar.oar.plugin.ConfigurablePlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,10 +21,8 @@ import java.text.Collator;
 import java.util.Collection;
 import java.util.Map;
 
-public class TagDetailPageBuilder extends DefaultPlugin {
+public class TagDetailPageBuilder extends ConfigurablePlugin {
     private static final Logger logger = LoggerFactory.getLogger(TagDetailPageBuilder.class);
-
-    private Configuration configuration;
 
     private TagDetailPageTemplater tagDetailPageTemplater = new TagDetailPageTemplater();
 
@@ -37,14 +35,14 @@ public class TagDetailPageBuilder extends DefaultPlugin {
     private File tagPagesFolder;
 
     public TagDetailPageBuilder(Configuration configuration) {
-        this.configuration = configuration;
+        super(configuration);
 
         this.tagMap = MultimapBuilder.ListMultimapBuilder
                 .treeKeys(tagCollator)
                 .arrayListValues()
                 .build();
 
-        this.tagPagesFolder = new File(this.configuration.getOutputFolder(), "tags");
+        this.tagPagesFolder = new File(getConfiguration().getOutputFolder(), "tags");
         if(!this.tagPagesFolder.exists()) {
             this.tagPagesFolder.mkdirs();
         }

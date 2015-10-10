@@ -7,16 +7,14 @@ import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.pipeline.AbortPipelineException;
 import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.pipeline.GlobalContextVariables;
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.plugin.ConfigurablePlugin;
 
 import java.io.File;
 import java.io.IOException;
 
-public class IssueAssetPlugin extends DefaultPlugin {
+public class IssueAssetPlugin extends ConfigurablePlugin {
 
     private static final Logger logger = LoggerFactory.getLogger(IssueAssetPlugin.class);
-
-    private final Configuration configuration;
 
     private final ArticleTemplater articleTemplater = new ArticleTemplater();
 
@@ -25,7 +23,7 @@ public class IssueAssetPlugin extends DefaultPlugin {
     private final ToHtmlConverter toHtmlConverter = new PegdownConverter();
 
     public IssueAssetPlugin(Configuration configuration) {
-        this.configuration = configuration;
+        super(configuration);
     }
 
     @Override
@@ -65,7 +63,7 @@ public class IssueAssetPlugin extends DefaultPlugin {
 
     private void publish(Article article) {
         try {
-            File outputFolder = this.configuration.getOutputFolder(article.getIssue());
+            File outputFolder = getConfiguration().getOutputFolder(article.getIssue());
             String articleHtmlFileName = com.google.common.io.Files.getNameWithoutExtension(article.getSourceFile().getName()) + ".html";
             File articleOutputFile = new File(outputFolder, articleHtmlFileName);
             String articleHtml = articleTemplater.convert(article);
@@ -80,7 +78,7 @@ public class IssueAssetPlugin extends DefaultPlugin {
 
 
     private void processAllowedResource(File file, Issue issue, Context context) {
-        File outputFolder = this.configuration.getOutputFolder(issue);
+        File outputFolder = getConfiguration().getOutputFolder(issue);
         try {
             FileUtils.copyAndOverwrite(file, outputFolder);
         } catch (IOException e) {

@@ -1,15 +1,18 @@
 package sk.drakkar.oar.css;
 
-import sk.drakkar.oar.*;
+import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.ResourceException;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.plugin.ConfigurablePlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
-public class CopyCssPlugin extends DefaultPlugin {
+public class CopyCssPlugin extends ConfigurablePlugin {
     public static final String CSS_FOLDER_NAME = "css";
 
     public static final String CSS_FOLDER_SOURCE = "sk/drakkar/oar/static/css";
@@ -25,15 +28,13 @@ public class CopyCssPlugin extends DefaultPlugin {
             "tag-list.css"
     };
 
-    private Configuration configuration;
-
     public CopyCssPlugin(Configuration configuration) {
-        this.configuration = configuration;
+        super(configuration);
     }
 
     @Override
     public void publicationComplete(Context context) {
-        File cssOutputFolder = new File(this.configuration.getOutputFolder(), CSS_FOLDER_NAME);
+        File cssOutputFolder = new File(getConfiguration().getOutputFolder(), CSS_FOLDER_NAME);
         if (!cssOutputFolder.exists()) {
             cssOutputFolder.mkdirs();
         }

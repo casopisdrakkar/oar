@@ -14,9 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.Configuration;
-import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.ResourceException;
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.pipeline.Context;
+import sk.drakkar.oar.plugin.ConfigurablePlugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class TipueSearchPlugin extends DefaultPlugin {
+public class TipueSearchPlugin extends ConfigurablePlugin {
     public static final Logger logger = LoggerFactory.getLogger(TipueSearchPlugin.class);
 
     public static final String TIPUE_OUTPUT_FOLDER = "tipuesearch";
@@ -44,8 +44,6 @@ public class TipueSearchPlugin extends DefaultPlugin {
 
     public static final int JSON_INDENT_FACTOR = 4;
 
-    private Configuration configuration;
-
     private Reflections reflections;
 
     private SearchTemplater searchTemplater =  new SearchTemplater();
@@ -53,8 +51,7 @@ public class TipueSearchPlugin extends DefaultPlugin {
     private List<Document> documents = new LinkedList<>();
 
     public TipueSearchPlugin(Configuration configuration) {
-        this.configuration = configuration;
-
+        super(configuration);
         configureReflections();
     }
 
@@ -97,7 +94,7 @@ public class TipueSearchPlugin extends DefaultPlugin {
     private void copySearchPage() {
         try {
             String html = searchTemplater.getSearchPage();
-            File outputFile = new File(this.configuration.getOutputFolder(), "search.html");
+            File outputFile = new File(getConfiguration().getOutputFolder(), "search.html");
             com.google.common.io.Files.write(html, outputFile, Charsets.UTF_8);
         } catch (IOException e) {
             throw new SearchException("Unable to write author list", e);
@@ -143,7 +140,7 @@ public class TipueSearchPlugin extends DefaultPlugin {
     }
 
     private File getTipueOutputFolder() {
-        File outputFolder = new File(this.configuration.getOutputFolder(), TIPUE_OUTPUT_FOLDER);
+        File outputFolder = new File(getConfiguration().getOutputFolder(), TIPUE_OUTPUT_FOLDER);
         if (!outputFolder.exists()) {
             outputFolder.mkdirs();
         }
