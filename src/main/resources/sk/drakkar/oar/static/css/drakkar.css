@@ -1,4 +1,30 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Alegreya:400,700|Alegreya+SC:400,700&subset=latin,latin-ext);
+@font-face {
+  font-family: 'Alegreya';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Alegreya.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Alegreya';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/Alegreya-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/SourceSansPro-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/SourceSansPro-Bold.woff2') format('woff2');
+}
 
 body {
     font-family: 'Source Sans Pro', sans-serif;

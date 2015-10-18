@@ -8,7 +8,7 @@ import sk.drakkar.oar.authors.AuthorArticlesCollector;
 import sk.drakkar.oar.authors.AuthorListBuilder;
 import sk.drakkar.oar.authors.AuthorProfilePageBuilder;
 import sk.drakkar.oar.authors.MostProductiveAuthorsCollector;
-import sk.drakkar.oar.css.CopyCssPlugin;
+import sk.drakkar.oar.resources.CopyCssPlugin;
 import sk.drakkar.oar.homepage.HomePageBuilder;
 import sk.drakkar.oar.pages.PagePlugin;
 import sk.drakkar.oar.pipeline.Context;
@@ -17,6 +17,7 @@ import sk.drakkar.oar.pipeline.IssueAssetPipeline;
 import sk.drakkar.oar.pipeline.IssuePipeline;
 import sk.drakkar.oar.pipeline.PortalAssemblyPipeline;
 import sk.drakkar.oar.plugin.Plugin;
+import sk.drakkar.oar.resources.CopyFontsPlugin;
 import sk.drakkar.oar.search.TipueSearchPlugin;
 import sk.drakkar.oar.tags.TagCloudBuilder;
 import sk.drakkar.oar.tags.TagDetailPageBuilder;
@@ -145,6 +146,9 @@ public class Oar {
 
 			CopyCssPlugin copyCssPlugin = new CopyCssPlugin(configuration);
 			oar.addPlugin(copyCssPlugin);
+
+			CopyFontsPlugin copyFontsPlugin = new CopyFontsPlugin(configuration);
+			oar.addPlugin(copyFontsPlugin);
 
 			TipueSearchPlugin tipueSearchPlugin = new TipueSearchPlugin(configuration);
 			oar.addPlugin(tipueSearchPlugin);

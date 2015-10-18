@@ -1,4 +1,4 @@
-package sk.drakkar.oar.css;
+package sk.drakkar.oar.resources;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
