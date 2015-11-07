@@ -30,7 +30,7 @@ Pipelines and Contexts
 =======================
 There are three independent pipelines for the data in the publication process.
 
-*   **issue asset pipeline** is independently executed for each asset
+*   **issue asset pipeline** (also known as *article pipeline* ) is independently executed for each asset
 (article text file, metadata, PDF etc) that is present in the issue folder
 *   **issue pipeline** is independently executed for each issue, after the issue
 asset pipeline completes its execution
@@ -51,7 +51,7 @@ during the pipeline execution.
 The `Oar` class is responsible for managing and executing the pipelines and for
 registering the plugins into the pipelines.
 
-Most importantly, it iterates over issue folders, executes
+Most importantly, it iterates over issue folders and executes
 issue pipeline. Within this process, an issue asset pipeline
 is executed on each asset in the issue folder. Finally,
 the portal assembly pipeline is executed.
