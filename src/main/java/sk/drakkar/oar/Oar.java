@@ -68,12 +68,16 @@ public class Oar {
 		Issue issue = issueParser.toIssue(issueFolder);
 
 		for (File issueAssetFile : issueFolder.listFiles()) {
-			Context issueAssetContext = Context
-					.of(GlobalContextVariables.issue, issue)
-					.andOf(GlobalContextVariables.issueAsset, issueAssetFile);
+			Context issueAssetContext = newIssueAssetContext(issueAssetFile, issue);
 			executeIssueAssetPipeline(issueAssetContext);
 		}
 		executeIssuePipeline(issue);
+	}
+
+	private Context newIssueAssetContext(File issueAssetFile, Issue issue) {
+		return Context
+                .of(GlobalContextVariables.issue, issue)
+                .andOf(GlobalContextVariables.issueAsset, issueAssetFile);
 	}
 
 	private void executeIssueAssetPipeline(Context context) {
