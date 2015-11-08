@@ -1,12 +1,12 @@
 package sk.drakkar.oar;
 
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.plugin.IssueAssemblyPlugin;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class IssueColorBuilder extends DefaultPlugin {
+public class IssueColorBuilder implements IssueAssemblyPlugin {
 	
 	@Override
 	public void issueArticlesProcessed(Issue issue) {

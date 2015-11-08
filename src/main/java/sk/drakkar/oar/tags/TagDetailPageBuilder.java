@@ -6,14 +6,11 @@ import com.google.common.collect.MultimapBuilder;
 import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.drakkar.oar.Article;
-import sk.drakkar.oar.ArticleByIssueComparator;
-import sk.drakkar.oar.Configuration;
-import sk.drakkar.oar.CzechCollatorUtils;
-import sk.drakkar.oar.Slugger;
+import sk.drakkar.oar.*;
 import sk.drakkar.oar.authors.AuthorListBuildingException;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.ConfigurablePlugin;
+import sk.drakkar.oar.plugin.ConfigurableArticleAssemblyPlugin;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +18,7 @@ import java.text.Collator;
 import java.util.Collection;
 import java.util.Map;
 
-public class TagDetailPageBuilder extends ConfigurablePlugin {
+public class TagDetailPageBuilder extends ConfigurableArticleAssemblyPlugin implements PortalAssemblyPlugin {
     private static final Logger logger = LoggerFactory.getLogger(TagDetailPageBuilder.class);
 
     public static final String TAGS_OUTPUT_FOLDER = "tags";

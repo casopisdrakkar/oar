@@ -9,14 +9,15 @@ import sk.drakkar.oar.Article;
 import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.Slugger;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.ConfigurablePlugin;
+import sk.drakkar.oar.plugin.ConfigurationSupport;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
-public class AuthorProfilePageBuilder extends ConfigurablePlugin {
+public class AuthorProfilePageBuilder extends ConfigurationSupport implements PortalAssemblyPlugin {
     private static final Logger logger = LoggerFactory.getLogger(AuthorProfilePageBuilder.class);
 
     public static final String AUTHOR_PROFILES_FOLDER = "authors";

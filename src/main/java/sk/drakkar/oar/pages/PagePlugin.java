@@ -3,19 +3,15 @@ package sk.drakkar.oar.pages;
 import com.google.common.base.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.drakkar.oar.Article;
-import sk.drakkar.oar.ArticleExportException;
-import sk.drakkar.oar.ArticleParser;
-import sk.drakkar.oar.Configuration;
-import sk.drakkar.oar.PegdownConverter;
-import sk.drakkar.oar.ToHtmlConverter;
+import sk.drakkar.oar.*;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.ConfigurablePlugin;
+import sk.drakkar.oar.plugin.ConfigurationSupport;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
 import java.io.File;
 import java.io.IOException;
 
-public class PagePlugin extends ConfigurablePlugin {
+public class PagePlugin extends ConfigurationSupport implements PortalAssemblyPlugin {
     private static final Logger logger = LoggerFactory.getLogger(PagePlugin.class);
 
     public static final String MARKDOWN_FILE_SUFFIX = ".md";

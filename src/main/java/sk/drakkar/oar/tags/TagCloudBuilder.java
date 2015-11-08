@@ -11,13 +11,14 @@ import sk.drakkar.oar.ArticleByIssueComparator;
 import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.CzechCollatorUtils;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.ConfigurablePlugin;
+import sk.drakkar.oar.plugin.ConfigurableArticleAssemblyPlugin;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.Collator;
 
-public class TagCloudBuilder extends ConfigurablePlugin {
+public class TagCloudBuilder extends ConfigurableArticleAssemblyPlugin implements PortalAssemblyPlugin {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TagCloudBuilder.class);
 	

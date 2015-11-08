@@ -8,12 +8,13 @@ import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.ConfigurablePlugin;
+import sk.drakkar.oar.plugin.ConfigurationSupport;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
 import java.io.File;
 import java.io.IOException;
 
-public class AuthorListBuilder extends ConfigurablePlugin {
+public class AuthorListBuilder extends ConfigurationSupport implements PortalAssemblyPlugin {
     private static final Logger logger = LoggerFactory.getLogger(AuthorListBuilder.class);
 
     private AuthorListTemplater authorListTemplater = new AuthorListTemplater();

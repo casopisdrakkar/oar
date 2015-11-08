@@ -8,7 +8,9 @@ import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.Issue;
 import sk.drakkar.oar.IssueByReversedNumberComparator;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.ConfigurablePlugin;
+import sk.drakkar.oar.plugin.ConfigurationSupport;
+import sk.drakkar.oar.plugin.IssueAssemblyPlugin;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +18,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HomePageBuilder extends ConfigurablePlugin {
+public class HomePageBuilder extends ConfigurationSupport implements IssueAssemblyPlugin, PortalAssemblyPlugin {
 
     private static final Logger logger = LoggerFactory.getLogger(HomePageBuilder.class);
 

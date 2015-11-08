@@ -3,12 +3,13 @@ package sk.drakkar.oar;
 import com.google.common.base.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.drakkar.oar.plugin.ConfigurablePlugin;
+import sk.drakkar.oar.plugin.ConfigurationSupport;
+import sk.drakkar.oar.plugin.IssueAssemblyPlugin;
 
 import java.io.File;
 import java.io.IOException;
 
-public class IssueIndexBuilder extends ConfigurablePlugin {
+public class IssueIndexBuilder extends ConfigurationSupport implements IssueAssemblyPlugin {
 	private static final String ISSUE_INDEX_FILENAME = "index.html";
 
 	private IssueTemplater issueTemplater = new IssueTemplater();

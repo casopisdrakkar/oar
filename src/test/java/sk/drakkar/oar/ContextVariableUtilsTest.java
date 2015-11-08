@@ -3,6 +3,7 @@ package sk.drakkar.oar;
 import org.junit.Assert;
 import org.junit.Test;
 import sk.drakkar.oar.authors.AuthorArticlesCollector;
+import sk.drakkar.oar.pipeline.Context;
 
 import java.util.Map;
 
@@ -19,4 +20,10 @@ public class ContextVariableUtilsTest {
         Assert.assertEquals("{authorArticlesCollector={authorArticles=Test}}", model.toString());
     }
 
+    @Test
+    public void testGetVariableName() throws Exception {
+        Context context = new Context();
+        context.put(AuthorArticlesCollector.ContextVariables.authorArticles, "Test");
+        Assert.assertEquals("AuthorArticles=Test", context.toString());
+    }
 }

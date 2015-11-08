@@ -8,7 +8,8 @@ import org.reflections.util.FilterBuilder;
 import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.ResourceException;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.ConfigurablePlugin;
+import sk.drakkar.oar.plugin.ConfigurationSupport;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class CopyCssPlugin extends ConfigurablePlugin {
+public class CopyCssPlugin extends ConfigurationSupport implements PortalAssemblyPlugin {
     public static final String CSS_FOLDER_NAME = "css";
 
     private static final String CSS_RESOURCE_PACKAGE = "sk.drakkar.oar.static.css";

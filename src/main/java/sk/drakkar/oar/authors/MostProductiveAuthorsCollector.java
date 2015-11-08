@@ -4,15 +4,11 @@ import com.google.common.collect.Multimap;
 import sk.drakkar.oar.Article;
 import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.pipeline.GlobalContextVariables;
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class MostProductiveAuthorsCollector extends DefaultPlugin {
+public class MostProductiveAuthorsCollector implements PortalAssemblyPlugin {
     public static class ContextVariables {
         public static class AuthorProductivityListVariable implements GlobalContextVariables.Variable<List<AuthorProductivity>> {}
 

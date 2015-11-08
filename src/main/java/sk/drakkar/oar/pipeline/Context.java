@@ -1,5 +1,6 @@
 package sk.drakkar.oar.pipeline;
 
+import sk.drakkar.oar.ContextVariableUtils;
 import sk.drakkar.oar.pipeline.GlobalContextVariables.Variable;
 
 import java.util.HashMap;
@@ -41,6 +42,15 @@ public class Context {
 
     @Override
     public String toString() {
-        return this.internalContext.toString();
+        StringBuilder sb = new StringBuilder();
+        for (Entry<Variable<? extends Object>, Object> entry : internalContext.entrySet()) {
+            Variable<?> variable = entry.getKey();
+            Object value = entry.getValue();
+
+            sb.append(ContextVariableUtils.getVariableName(variable))
+                    .append("=")
+                    .append(value);
+        }
+        return sb.toString();
     }
 }

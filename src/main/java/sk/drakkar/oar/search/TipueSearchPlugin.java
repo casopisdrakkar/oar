@@ -16,13 +16,10 @@ import sk.drakkar.oar.Article;
 import sk.drakkar.oar.Configuration;
 import sk.drakkar.oar.ResourceException;
 import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.plugin.ConfigurablePlugin;
+import sk.drakkar.oar.plugin.ConfigurableArticleAssemblyPlugin;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -33,7 +30,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class TipueSearchPlugin extends ConfigurablePlugin {
+public class TipueSearchPlugin extends ConfigurableArticleAssemblyPlugin implements PortalAssemblyPlugin {
     public static final Logger logger = LoggerFactory.getLogger(TipueSearchPlugin.class);
 
     public static final String TIPUE_OUTPUT_FOLDER = "tipuesearch";

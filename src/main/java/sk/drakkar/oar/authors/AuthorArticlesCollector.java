@@ -8,11 +8,12 @@ import sk.drakkar.oar.Article;
 import sk.drakkar.oar.ArticleByIssueComparator;
 import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.pipeline.GlobalContextVariables;
-import sk.drakkar.oar.plugin.DefaultPlugin;
+import sk.drakkar.oar.plugin.ArticleAssemblyPlugin;
+import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
 import java.util.Collection;
 
-public class AuthorArticlesCollector extends DefaultPlugin {
+public class AuthorArticlesCollector extends ArticleAssemblyPlugin implements PortalAssemblyPlugin {
     public static class ContextVariables {
         public static class AuthorArticlesVariable implements GlobalContextVariables.Variable<Multimap<Author, Article>> {}
 

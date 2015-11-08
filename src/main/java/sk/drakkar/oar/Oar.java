@@ -8,15 +8,11 @@ import sk.drakkar.oar.authors.AuthorArticlesCollector;
 import sk.drakkar.oar.authors.AuthorListBuilder;
 import sk.drakkar.oar.authors.AuthorProfilePageBuilder;
 import sk.drakkar.oar.authors.MostProductiveAuthorsCollector;
+import sk.drakkar.oar.pipeline.*;
+import sk.drakkar.oar.plugin.*;
 import sk.drakkar.oar.resources.CopyCssPlugin;
 import sk.drakkar.oar.homepage.HomePageBuilder;
 import sk.drakkar.oar.pages.PagePlugin;
-import sk.drakkar.oar.pipeline.Context;
-import sk.drakkar.oar.pipeline.GlobalContextVariables;
-import sk.drakkar.oar.pipeline.IssueAssetPipeline;
-import sk.drakkar.oar.pipeline.IssuePipeline;
-import sk.drakkar.oar.pipeline.PortalAssemblyPipeline;
-import sk.drakkar.oar.plugin.Plugin;
 import sk.drakkar.oar.resources.CopyFontsPlugin;
 import sk.drakkar.oar.search.TipueSearchPlugin;
 import sk.drakkar.oar.tags.TagCloudBuilder;
@@ -35,9 +31,9 @@ public class Oar {
 	
 	private final Configuration configuration;
 
-	private final IssueAssetPipeline issueAssetPipeline = new IssueAssetPipeline();
+	private final AssetAssemblyPipeline assetAssemblyPipeline = new AssetAssemblyPipeline();
 
-	private final IssuePipeline issuePipeline = new IssuePipeline();
+	private final IssueAssemblyPipeline issueAssemblyPipeline = new IssueAssemblyPipeline();
 
 	private final PortalAssemblyPipeline portalAssemblyPipeline = new PortalAssemblyPipeline();
 
@@ -69,7 +65,7 @@ public class Oar {
 
 		for (File issueAssetFile : issueFolder.listFiles()) {
 			Context issueAssetContext = newIssueAssetContext(issueAssetFile, issue);
-			executeIssueAssetPipeline(issueAssetContext);
+			executeAssetAssemblyPipeline(issueAssetContext);
 		}
 		executeIssuePipeline(issue);
 	}
@@ -80,25 +76,58 @@ public class Oar {
                 .andOf(GlobalContextVariables.issueAsset, issueAssetFile);
 	}
 
-	private void executeIssueAssetPipeline(Context context) {
-		issueAssetPipeline.execute(context);
+	private PipelineResult executeAssetAssemblyPipeline(Context context) {
+		return assetAssemblyPipeline.execute(context);
 	}
 
-	private void executeIssuePipeline(Issue issue) {
-		issuePipeline.execute(Context.of(GlobalContextVariables.issue, issue));
+	private PipelineResult executeIssuePipeline(Issue issue) {
+		return issueAssemblyPipeline.execute(Context.of(GlobalContextVariables.issue, issue));
 	}
 
-	private void executePortalAssemblyPipeline() {
-		portalAssemblyPipeline.execute(new Context());
+	private PipelineResult executePortalAssemblyPipeline() {
+		return portalAssemblyPipeline.execute(new Context());
 	}
 	
 
-	public void addPlugin(Plugin plugin) {
-		this.issueAssetPipeline.add(plugin);
-		this.issuePipeline.add(plugin);
-		this.portalAssemblyPipeline.add(plugin);
+	public Oar addPlugin(Plugin plugin) {
+		if(plugin instanceof AssetAssemblyPlugin) {
+			withAssetAssemblyPlugin((AssetAssemblyPlugin) plugin);
+		}
+		if(plugin instanceof IssueAssemblyPlugin) {
+			withIssueCompletedListener((IssueAssemblyPlugin) plugin);
+		}
+		if(plugin instanceof PortalAssemblyPlugin) {
+			withPortalCompletedListener((PortalAssemblyPlugin) plugin);
+		}
+
+		return this;
 	}
 
+	public Oar withAssetAssemblyPlugin(AssetAssemblyPlugin plugin) {
+		logger.debug("Adding asset assembly plugin {}", plugin.getClass());
+		this.assetAssemblyPipeline.add(plugin);
+		return this;
+	}
+
+	public Oar withIssueCompletedListener(IssueAssemblyPlugin plugin) {
+		logger.debug("Adding issue assembly plugin {}", plugin.getClass());
+		this.issueAssemblyPipeline.add(plugin);
+		return this;
+	}
+
+	public Oar withPortalCompletedListener(PortalAssemblyPlugin plugin) {
+		logger.debug("Adding portal assembly plugin {}", plugin.getClass());
+		this.portalAssemblyPipeline.add(plugin);
+		return this;
+	}
+
+	private void logPipelines() {
+		if(logger.isInfoEnabled()) {
+			logger.info(this.assetAssemblyPipeline.toString());
+			logger.info(this.issueAssemblyPipeline.toString());
+			logger.info(this.portalAssemblyPipeline.toString());
+		}
+	}
 
 	public static void main(String[] args) {
 		CommandLineConfiguration commandLineConfiguration = new CommandLineConfiguration();
@@ -117,7 +146,9 @@ public class Oar {
 
 			Oar oar = new Oar(configuration);
 
-			oar.addPlugin(new IssueAssetPlugin(configuration));
+
+			oar.addPlugin(new AssetPlugin(configuration));
+			oar.addPlugin(new ArticlePlugin(configuration));
 
 			oar.addPlugin(new IssueIndexBuilder(configuration));
 
@@ -156,6 +187,8 @@ public class Oar {
 
 			TipueSearchPlugin tipueSearchPlugin = new TipueSearchPlugin(configuration);
 			oar.addPlugin(tipueSearchPlugin);
+
+			oar.logPipelines();
 
 			oar.publish();
 		} catch (CmdLineException e) {

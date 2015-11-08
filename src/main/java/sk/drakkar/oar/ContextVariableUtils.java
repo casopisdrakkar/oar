@@ -28,7 +28,15 @@ public class ContextVariableUtils {
         return root;
     }
 
-
+    public static String getVariableName(GlobalContextVariables.Variable<?> variable) {
+        String className = variable.getClass().getName();
+        String[] nestedClasses = className.split("\\$");
+        if(nestedClasses.length < 1) {
+            throw new IllegalArgumentException("Bad naming convention for " + className);
+        }
+        String capitalizedVariableName = nestedClasses[nestedClasses.length - 1].replace("Variable", "");
+        return capitalizedVariableName;
+    }
 
     public static String getContextVariableExpression(GlobalContextVariables.Variable<?> variable) {
         String className = variable.getClass().getName();
