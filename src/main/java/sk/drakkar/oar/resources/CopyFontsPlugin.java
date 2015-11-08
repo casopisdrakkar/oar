@@ -35,16 +35,16 @@ public class CopyFontsPlugin extends ConfigurationSupport implements PortalAssem
 
     @Override
     public void publicationComplete(Context context) {
-        File cssOutputFolder = getConfiguration().getOrCreateOutputSubfolder(FONTS_FOLDER_NAME);
+        File fontOutputFolder = getConfiguration().getOrCreateOutputSubfolder(FONTS_FOLDER_NAME);
 
-        for (String cssFileName : getCssFiles()) {
+        for (String fontFileName : getFontFiles()) {
             try {
-                String cssResourceFullName = addRootPrefix(cssFileName);
-                InputStream cssStream = CopyCssPlugin.class.getResourceAsStream(cssResourceFullName);
-                Path cssOutputPath = cssOutputFolder.toPath().resolve(getBaseName(cssFileName));
-                Files.copy(cssStream, cssOutputPath, StandardCopyOption.REPLACE_EXISTING);
+                String fontResourceFullName = addRootPrefix(fontFileName);
+                InputStream fontStream = CopyCssPlugin.class.getResourceAsStream(fontResourceFullName);
+                Path fontOutputPath = fontOutputFolder.toPath().resolve(getBaseName(fontFileName));
+                Files.copy(fontStream, fontOutputPath, StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
-                throw new ResourceException("Unable to copy resource to target folder", e);
+                throw new ResourceException("Unable to copy font resource to target folder", e);
             }
         }
     }
@@ -60,7 +60,7 @@ public class CopyFontsPlugin extends ConfigurationSupport implements PortalAssem
                 .setScanners(new ResourcesScanner()));
     }
 
-    public Set<String> getCssFiles() {
+    public Set<String> getFontFiles() {
         return reflections.getResources(Pattern.compile(".*\\.woff2"));
     }
 
