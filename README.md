@@ -16,7 +16,18 @@ Build a jar file.
 
 ### Generating the web page
 
-Run the jarfile, it expects directory with issue sources.
+Run the jarfile. There are following parameters:
+
+*   required path to the Drakkar sources. Point it to the directory
+    with cloned Git repo, such as `/home/drakkar/clanky`. Note
+    that this directory must contain the `content` subfolder with
+    directories that correspond to the issue numbers.
+*   optional directory that will contain the generated site.
+    
+Example usage:
+
+    java -jar ./target/oar-0.2-SNAPSHOT-jar-with-dependencies.jar /home/drakkar/clanky
+
 
 # Architecture
 
