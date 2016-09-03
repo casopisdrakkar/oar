@@ -23,8 +23,14 @@ public class ArticleSummaryPartitioner {
 
 	public List<Summary> convert(String summary) {
 		Scanner scanner = new Scanner(summary);
+		int lineNumber = 0;
 		while(scanner.hasNextLine()) {
-			processLine(scanner.nextLine());
+			try {
+				processLine(scanner.nextLine());
+				lineNumber++;
+			} catch (Exception e) {
+				throw new ArticleSummaryException("Cannot process line " + lineNumber + " for article summary", e);
+			}
 		}
 		// handle last line in file
 		summaries.add(currentSummary);
