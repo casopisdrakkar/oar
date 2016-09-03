@@ -20,7 +20,9 @@ import java.util.List;
 public class IssueOverviewForm extends JFrame {
 	public static final String DEFAULT_TEXT = "---\nNázev\n\nautor\n\nbarva\n\ntag, tag\n\nperex";
 
-	private JLabel targetFolderLabel = new JLabel("Target Folder:");
+    public static final String DEFAULT_EDITORIAL = "vložte úvodník\n\nve formátu\n\nMarkdown";
+
+	private JLabel targetFolderLabel = new JLabel("Cílový adresář:");
 	
 	private JTextField targetFolderTextField = new JTextField("C:\\Temp", 50);
 	
@@ -37,10 +39,14 @@ public class IssueOverviewForm extends JFrame {
 	private SummaryExporter summaryExporter = new SummaryExporter();
 
 	private JScrollPane metadataScrollPane;
-	
-	private File issueFile;
 
-	public IssueOverviewForm() {
+    private JPanel editorialTypePanel;
+
+    private File issueFile;
+
+    private EditorialType editorialType = EditorialType.HAIKU;
+
+    public IssueOverviewForm() {
 		setTitle("Drakkar");
 		
 		initializeTopPanel();
@@ -51,7 +57,7 @@ public class IssueOverviewForm extends JFrame {
 		metadataScrollPane = new JScrollPane(metadataTextField);		
 		add(metadataScrollPane, BorderLayout.CENTER);
 		
-		convertButton = new JButton("Convert");
+		convertButton = new JButton("Převést!");
 		convertButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -89,15 +95,49 @@ public class IssueOverviewForm extends JFrame {
 		editorialTextField.setBorder(BorderFactory.createEtchedBorder());
 		editorialTextField.setLineWrap(true);
 		editorialTextField.setWrapStyleWord(true);
+        editorialTextField.setText(DEFAULT_EDITORIAL);
 
 		editorialScrollPane = new JScrollPane(editorialTextField);
 
-		JPanel editorialPanel = new JPanel();
-		editorialPanel.add(editorialScrollPane);
+        initializeEditorialTypePanel();
+
+		JPanel editorialPanel = new JPanel(new BorderLayout());
+        editorialPanel.add(editorialTypePanel, BorderLayout.NORTH);
+        editorialPanel.add(editorialScrollPane, BorderLayout.CENTER);
 		add(editorialPanel, BorderLayout.WEST);
 	}
 
-	protected void onConvertButtonActionPerformed(ActionEvent e) {
+	private void initializeEditorialTypePanel() {
+        editorialTypePanel = new JPanel();
+
+        JLabel editorialTypeLabel = new JLabel("Typ úvodníku");
+        editorialTypePanel.add(editorialTypeLabel);
+
+        ButtonGroup editorialTypeButtonGroup = new ButtonGroup();
+        JRadioButton defaultEditorialTypeRadioButton = new JRadioButton("běžný");
+        defaultEditorialTypeRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                IssueOverviewForm.this.onDefaultEditorialTypeRadioButtonActionPerformed(e);
+            }
+        });
+        editorialTypeButtonGroup.add(defaultEditorialTypeRadioButton);
+        editorialTypePanel.add(defaultEditorialTypeRadioButton);
+
+        JRadioButton haikuEditorialTypeRadioButton = new JRadioButton("haiku");
+        haikuEditorialTypeRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                IssueOverviewForm.this.onHaikuEditorialTypeRadioButtonActionPerformed(e);
+            }
+        });
+        editorialTypeButtonGroup.add(haikuEditorialTypeRadioButton);
+        editorialTypePanel.add(haikuEditorialTypeRadioButton);
+
+        editorialTypeButtonGroup.setSelected(haikuEditorialTypeRadioButton.getModel(), true);
+    }
+
+    protected void onConvertButtonActionPerformed(ActionEvent e) {
 		if(this.issueFile == null) {
 			JOptionPane.showMessageDialog(this, "PDF soubor Drakkaru nebyl nastaven!");
 		}
@@ -117,15 +157,30 @@ public class IssueOverviewForm extends JFrame {
 		
 	}
 
-	private void addEditorial(List<Summary> summaries) {
-		Summary summary = new Summary();
-		summary.setTitle("Úvodník");
-		summary.setAuthors("redakce");
-		summary.setTags("úvodník");
-		summary.setShortSummary("Úvodní slovo");
-		summary.setColor("gray");
-		summary.setSummary(this.editorialTextField.getText());
+    private void onHaikuEditorialTypeRadioButtonActionPerformed(ActionEvent e) {
+        editorialType = EditorialType.HAIKU;
+    }
 
+    private void onDefaultEditorialTypeRadioButtonActionPerformed(ActionEvent e) {
+        editorialType = EditorialType.DEFAULT;
+    }
+
+
+	private void addEditorial(List<Summary> summaries) {
+        Summary summary = new Summary();
+        summary.setAuthors("redakce");
+        summary.setColor("gray");
+        summary.setSummary(this.editorialTextField.getText());
+
+	    if(this.editorialType == EditorialType.DEFAULT) {
+            summary.setTitle("Úvodník");
+            summary.setTags("úvodník");
+            summary.setShortSummary("Úvodní slovo");
+        } else {
+            summary.setTitle("Úvodní haiku");
+            summary.setTags("úvodní haiku, úvodník");
+            summary.setShortSummary("Úvodní haiku");
+        }
 		summaries.add(0, summary);
 	}
 
@@ -189,6 +244,11 @@ public class IssueOverviewForm extends JFrame {
 		
 		return components[2];
 	}
+
+	private enum EditorialType {
+	    DEFAULT,
+        HAIKU
+    }
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
