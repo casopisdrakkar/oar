@@ -18,6 +18,8 @@ import java.text.ParseException;
 import java.util.List;
 
 public class IssueOverviewForm extends JFrame {
+	public static final String DEFAULT_TEXT = "---\nNázev\n\nautor\n\nbarva\n\ntag, tag\n\nperex";
+
 	private JLabel targetFolderLabel = new JLabel("Target Folder:");
 	
 	private JTextField targetFolderTextField = new JTextField("C:\\Temp", 50);
@@ -43,12 +45,8 @@ public class IssueOverviewForm extends JFrame {
 		
 		initializeTopPanel();
 		enableDropSupport();
-		
-		metadataTextField = new JTextArea();
-		metadataTextField.setBorder(BorderFactory.createEtchedBorder());
-		metadataTextField.setLineWrap(true);
-		metadataTextField.setWrapStyleWord(true);
-		metadataTextField.setBorder(BorderFactory.createEtchedBorder());
+
+		initializeMetadataTextField();
 		
 		metadataScrollPane = new JScrollPane(metadataTextField);		
 		add(metadataScrollPane, BorderLayout.CENTER);
@@ -62,18 +60,22 @@ public class IssueOverviewForm extends JFrame {
 		});
 		add(convertButton, BorderLayout.SOUTH);
 
-		editorialTextField.setBorder(BorderFactory.createEtchedBorder());
-		editorialTextField.setLineWrap(true);
-		editorialTextField.setWrapStyleWord(true);
-		
-		editorialScrollPane = new JScrollPane(editorialTextField);
-		add(editorialScrollPane, BorderLayout.WEST);
+		initializeEditorialPanel();
 
 		setPreferredSize(new Dimension(800, 600));
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
-	
+
+	private void initializeMetadataTextField() {
+		metadataTextField = new JTextArea();
+		metadataTextField.setBorder(BorderFactory.createEtchedBorder());
+		metadataTextField.setLineWrap(true);
+		metadataTextField.setWrapStyleWord(true);
+		metadataTextField.setBorder(BorderFactory.createEtchedBorder());
+		metadataTextField.setText(DEFAULT_TEXT);
+	}
+
 	private void initializeTopPanel() {
 		JPanel topPanel = new JPanel();
 		topPanel.add(targetFolderLabel);
@@ -83,7 +85,23 @@ public class IssueOverviewForm extends JFrame {
 		add(topPanel, BorderLayout.NORTH);
 	}
 
+	private void initializeEditorialPanel() {
+		editorialTextField.setBorder(BorderFactory.createEtchedBorder());
+		editorialTextField.setLineWrap(true);
+		editorialTextField.setWrapStyleWord(true);
+
+		editorialScrollPane = new JScrollPane(editorialTextField);
+
+		JPanel editorialPanel = new JPanel();
+		editorialPanel.add(editorialScrollPane);
+		add(editorialPanel, BorderLayout.WEST);
+	}
+
 	protected void onConvertButtonActionPerformed(ActionEvent e) {
+		if(this.issueFile == null) {
+			JOptionPane.showMessageDialog(this, "PDF soubor Drakkaru nebyl nastaven!");
+		}
+
 		File targetFolder = new File(targetFolderTextField.getText() + File.separator + issueNumberTextField.getText());
 		if(! targetFolder.exists()) {
 			targetFolder.mkdirs();
