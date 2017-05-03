@@ -1,4 +1,8 @@
 package sk.drakkar.oar.conversion;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class Summary {
 	public static final String DEFAULT_COLOR = "gray";
 
@@ -12,14 +16,18 @@ public class Summary {
 	
 	private String tags = "článek";
 
-	private String shortSummary;
-	
+	private String shortSummary = "článek";
+
+	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
 	public String getTitle() {
 		return title;
 	}
 
 	public void setTitle(String title) {
+		String oldTitle = this.title;
 		this.title = title;
+		propertyChangeSupport.firePropertyChange("title", oldTitle, title);
 	}
 
 	public String getAuthors() {
@@ -27,7 +35,9 @@ public class Summary {
 	}
 
 	public void setAuthors(String authors) {
+		String oldAuthors = this.authors;
 		this.authors = authors;
+		propertyChangeSupport.firePropertyChange("authors", oldAuthors, authors);
 	}
 
 	public void appendSummaryLine(String line) {
@@ -43,7 +53,9 @@ public class Summary {
 	}
 
 	public void setSummary(String summary) {
+		String oldSummary = this.summary;
 		this.summary = summary;
+		propertyChangeSupport.firePropertyChange("summary", oldSummary, summary);
 	}
 
 	public String getColor() {
@@ -51,11 +63,14 @@ public class Summary {
 	}
 
 	public void setColor(String color) {
+		String oldColor = this.color;
+
 		if(color == null || "-".equals(color) || color.trim().isEmpty()) {
 			this.color = DEFAULT_COLOR;
 		} else {
 			this.color = color;
 		}
+		propertyChangeSupport.firePropertyChange("color", oldColor, color);
 	}
 	
 	public String getTags() {
@@ -63,7 +78,9 @@ public class Summary {
 	}
 	
 	public void setTags(String tags) {
+		String oldTags = this.tags;
 		this.tags = tags;
+		propertyChangeSupport.firePropertyChange("tags", oldTags, tags);
 	}
 
 	public String getShortSummary() {
@@ -71,10 +88,24 @@ public class Summary {
 	}
 
 	public void setShortSummary(String shortSummary) {
+		String oldShortSummary = this.shortSummary;
 		this.shortSummary = shortSummary;
+		propertyChangeSupport.firePropertyChange("shortSummary", oldShortSummary, shortSummary);
 	}
 	
 	public boolean hasShortSummary() {
 		return this.shortSummary != null;
+	}
+
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		this.propertyChangeSupport.addPropertyChangeListener(listener);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		this.propertyChangeSupport.removePropertyChangeListener(listener);
+	}
+
+	public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+		this.propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
 	}
 }
