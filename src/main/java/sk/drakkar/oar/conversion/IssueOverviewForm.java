@@ -110,11 +110,8 @@ public class IssueOverviewForm extends JFrame {
 	private void initializeEditorialTypePanel() {
         editorialTypePanel = new JPanel();
 
-        JLabel editorialTypeLabel = new JLabel("Typ úvodníku");
-        editorialTypePanel.add(editorialTypeLabel);
-
         ButtonGroup editorialTypeButtonGroup = new ButtonGroup();
-        JRadioButton defaultEditorialTypeRadioButton = new JRadioButton("běžný");
+        JRadioButton defaultEditorialTypeRadioButton = new JRadioButton("běžný úvodník");
         defaultEditorialTypeRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,7 +121,7 @@ public class IssueOverviewForm extends JFrame {
         editorialTypeButtonGroup.add(defaultEditorialTypeRadioButton);
         editorialTypePanel.add(defaultEditorialTypeRadioButton);
 
-        JRadioButton haikuEditorialTypeRadioButton = new JRadioButton("haiku");
+        JRadioButton haikuEditorialTypeRadioButton = new JRadioButton("úvodník-haiku");
         haikuEditorialTypeRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
