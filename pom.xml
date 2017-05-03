@@ -66,6 +66,23 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.8.3</version>
 		</dependency>
+		<dependency>
+			<groupId>com.miglayout</groupId>
+			<artifactId>miglayout-swing</artifactId>
+			<version>4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdesktop</groupId>
+			<artifactId>beansbinding</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>bulenkov.github.com</groupId>
+			<artifactId>darcula</artifactId>
+			<version>2017-02-17</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/darcula.jar</systemPath>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.text.Font?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.112" fx:controller="sk.drakkar.oar.gui.javafx.MainController">
+    <HBox>
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+        <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
+            <HBox>
+                <Label fx:id="drakkarLabel" text="Drakkar #" minHeight="70">
+                    <font>
+                        <Font size="24" />
+                    </font>
+                </Label>
+
+                <Label fx:id="drakkarNumberLabel" text="???" textAlignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" minHeight="70" textFill="gainsboro">
+                    <font>
+                        <Font size="24" />
+                    </font>
+                </Label>
+
+            </HBox>
+            <HBox>
+                <Label fx:id="targetFolderLabel" />
+            </HBox>
+        </VBox>
+        <HBox minWidth="200">
+            <Label fx:id="dropZoneArea" text="Přetáhněte sem PDF Drakkaru" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-border-color: #aeaeae" minHeight="70"/>
+        </HBox>
+    </HBox>
+    <HBox>
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+        <Button fx:id="exportButton" onAction="#onExportButtonClick" text="Exportovat" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+    </HBox>
+
+    <TableView fx:id="articleSummaryTableView">
+        <placeholder>
+            <Label text="Žádné články" />
+        </placeholder>
+        <columns>
+            <TableColumn fx:id="shortSummaryTableColumn" text="Typ" />
+
+            <TableColumn text="Autor">
+                <cellValueFactory><PropertyValueFactory property="authors" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Název">
+                <cellValueFactory><PropertyValueFactory property="title" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Barva">
+                <cellValueFactory><PropertyValueFactory property="color" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Tagy">
+                <cellValueFactory><PropertyValueFactory property="tags" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Perex">
+                <cellValueFactory><PropertyValueFactory property="summary" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <fx:include fx:id="summary" source="SummaryPanel.fxml" />
+
+</VBox>
