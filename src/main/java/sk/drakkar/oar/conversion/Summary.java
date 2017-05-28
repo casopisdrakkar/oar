@@ -20,6 +20,23 @@ public class Summary {
 
 	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
+	public Summary() {
+		// empty constructor
+	}
+
+	/**
+	 * A copy constructor.
+	 * @param summary an existing summary
+	 */
+	public Summary(Summary summary) {
+		this.title = summary.getTitle();
+		this.authors = summary.getAuthors();
+		this.summary = summary.getSummary();
+		this.color = summary.getColor();
+		this.tags = summary.getTags();
+		this.shortSummary = summary.getShortSummary();
+	}
+
 	public String getTitle() {
 		return title;
 	}

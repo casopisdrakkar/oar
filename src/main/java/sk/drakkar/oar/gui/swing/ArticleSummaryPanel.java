@@ -120,7 +120,7 @@ public class ArticleSummaryPanel extends JPanel {
     }
 
     private void templateComboBoxItemSelected(ActionEvent event) {
-        Summary selectedSummary = (Summary) this.templateComboBox.getSelectedItem();
+        Summary selectedSummary = new Summary((Summary) this.templateComboBox.getSelectedItem());
         setSummary(selectedSummary);
         setEditMode(EditMode.CREATE);
     }
