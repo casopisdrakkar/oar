@@ -142,7 +142,8 @@ public class ArticleSummaryPanel extends JPanel {
     private void bindToModel() {
         this.summary.setTitle(this.titleTextField.getText());
         this.summary.setAuthors(this.authorsTextField.getText());
-        this.summary.setColor(this.colorComboBox.getSelectedItem().toString());
+        ColorGenerator.Color color = (ColorGenerator.Color) this.colorComboBox.getSelectedItem();
+        this.summary.setColor(color.toString().toLowerCase());
         this.summary.setTags(this.tagsTextField.getText());
         this.summary.setSummary(this.summaryTextArea.getText());
     }

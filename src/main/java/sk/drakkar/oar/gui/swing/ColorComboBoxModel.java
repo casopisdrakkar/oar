@@ -21,7 +21,7 @@ public class ColorComboBoxModel extends AbstractListModel<ColorGenerator.Color> 
     }
 
     @Override
-    public Object getSelectedItem() {
+    public ColorGenerator.Color getSelectedItem() {
         return this.selectedColor;
     }
 
