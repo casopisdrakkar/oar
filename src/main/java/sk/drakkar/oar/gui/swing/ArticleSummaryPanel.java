@@ -80,6 +80,7 @@ public class ArticleSummaryPanel extends JPanel {
         add(colorLabel);
 
         add(colorComboBox);
+        colorComboBox.setSelectedItem(ColorGenerator.Color.GRAY);
         colorComboBox.setRenderer(new ColorComboBoxModel());
         onEnterSwitchBetween(colorComboBox, tagsTextField);
 
@@ -134,7 +135,7 @@ public class ArticleSummaryPanel extends JPanel {
     private void bindFromModel() {
         this.titleTextField.setText(this.summary.getTitle());
         this.authorsTextField.setText(this.summary.getAuthors());
-        this.colorComboBox.setSelectedItem(this.summary.getColor());
+        this.colorComboBox.setSelectedItem(ColorGenerator.Color.valueOf(this.summary.getColor().toUpperCase()));
         this.tagsTextField.setText(this.summary.getTags());
         this.summaryTextArea.setText(this.summary.getSummary());
     }

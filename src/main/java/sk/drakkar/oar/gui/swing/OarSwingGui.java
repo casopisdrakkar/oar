@@ -116,9 +116,12 @@ public class OarSwingGui extends JFrame implements ArticleSummaryPanel.SummaryAd
         this.summaryTableModel.refresh();
     }
 
-    private void summaryTableListSelectionChanged(ListSelectionEvent listSelectionEvent) {
+    private void summaryTableListSelectionChanged(ListSelectionEvent event) {
+        if(event.getValueIsAdjusting()) {
+            return;
+        }
         try {
-            int index = listSelectionEvent.getFirstIndex();
+            int index = this.summaryTable.getSelectedRow();
             Summary summary = this.summaryTableModel.getSummary(index);
             this.articleSummaryPanel.setSummary(summary);
         } catch (IndexOutOfBoundsException e) {

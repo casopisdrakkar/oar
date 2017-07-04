@@ -17,7 +17,13 @@ public class ColorComboBoxModel extends AbstractListModel<ColorGenerator.Color> 
 
     @Override
     public void setSelectedItem(Object color) {
-        this.selectedColor = (ColorGenerator.Color) color;
+        if(color instanceof ColorGenerator.Color) {
+            this.selectedColor = (ColorGenerator.Color) color;
+        } else {
+            String colorName = ((String) color).toUpperCase();
+            this.selectedColor = ColorGenerator.Color.valueOf(colorName);
+        }
+        this.fireContentsChanged(this, -1, -1);
     }
 
     @Override
