@@ -16,7 +16,7 @@ public class Summary {
 	
 	private String tags = "článek";
 
-	private String shortSummary = "článek";
+	private String shortSummary;
 
 	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
