@@ -42,7 +42,7 @@ public class ArticleSummaryPanel extends JPanel {
 
     private JButton saveSummaryButton = new JButton("Zaevidovat článek");
 
-    private JButton newSummaryButton = new JButton("Nový článek");
+    private JButton newSummaryButton = new JButton("Vyčistit formulář");
 
     private JButton updateSummaryButton = new JButton("Uložit změny");
 
