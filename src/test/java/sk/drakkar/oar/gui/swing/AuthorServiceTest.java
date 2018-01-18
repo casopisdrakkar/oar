@@ -17,7 +17,7 @@ public class AuthorServiceTest {
         List<Author> authors = authorService.listAuthors();
 
         Assert.assertEquals(1, authors.size());
-        Assert.assertEquals("Michal „Architrav“ Horváth", authors.get(0));
+        Assert.assertEquals("Michal „Architrav“ Horváth", authors.get(0).getFullName());
 
     }
 }

@@ -53,6 +53,8 @@ public class OarSwingGui extends JFrame implements ArticleSummaryPanel.SummaryAd
 
         this.articleSummaryPanel.setSummaryAddedListener(this);
         this.articleSummaryPanel.setSummaryUpdatedListener(this);
+        this.headerPanel.setFileDroppedListener(this.articleSummaryPanel);
+
         add(this.articleSummaryPanel);
 
         setBounds(0, 0, 800, 600);

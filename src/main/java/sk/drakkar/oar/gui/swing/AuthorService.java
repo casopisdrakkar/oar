@@ -11,8 +11,13 @@ import sk.drakkar.oar.authors.Author;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static sk.drakkar.oar.pages.PagePlugin.MARKDOWN_FILE_SUFFIX;
 
@@ -38,9 +43,18 @@ public class AuthorService {
             for (File issueFolder : issueFolders) {
                 processIssueFolder(issueFolder);
             }
+            sortAndUnique(this.cachedAuthors);
+
         } catch (IOException e) {
             logger.error("Unable to load authors from the issue folder", e);
         }
+    }
+
+    private void sortAndUnique(List<Author> cachedAuthors) {
+        Set<Author> uniqueAuthors = new LinkedHashSet<>(cachedAuthors);
+        List<Author> sortedAuthors = new ArrayList<>(uniqueAuthors);
+        Collections.sort(sortedAuthors, Comparator.comparing(Author::getFullName));
+        this.cachedAuthors = sortedAuthors;
     }
 
     private void processIssueFolder(File issueFolder) {

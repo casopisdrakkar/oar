@@ -1,7 +1,11 @@
 package sk.drakkar.oar.gui.swing;
 
 import net.miginfocom.swing.MigLayout;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sk.drakkar.oar.ColorGenerator;
+import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.authors.Author;
 import sk.drakkar.oar.conversion.Summary;
 
 import javax.swing.JButton;
@@ -11,9 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.List;
 
-public class ArticleSummaryPanel extends JPanel {
+public class ArticleSummaryPanel extends JPanel implements FileDroppedListener {
+    public final Logger logger = LoggerFactory.getLogger(getClass());
+
     private JLabel articleTypeLabel = new JLabel("Šablona");
 
     private JComboBox<Summary> templateComboBox = new JComboBox<>();
@@ -24,7 +33,7 @@ public class ArticleSummaryPanel extends JPanel {
 
     private JLabel authorsLabel = new JLabel("Autoři");
 
-    private JTextField authorsTextField = new JTextField();
+    private JComboBox<String> authorsComboBox = new JComboBox<>();
 
     private JLabel colorLabel = new JLabel("Barva");
 
@@ -71,11 +80,13 @@ public class ArticleSummaryPanel extends JPanel {
 
         add(titleLabel);
         add(titleTextField);
-        onEnterSwitchBetween(titleTextField, authorsTextField);
+        onEnterSwitchBetween(titleTextField, authorsComboBox);
 
         add(authorsLabel);
-        add(authorsTextField);
-        onEnterSwitchBetween(authorsTextField, colorComboBox);
+
+        this.authorsComboBox.setEditable(true);
+        add(this.authorsComboBox);
+        onEnterSwitchBetween(this.authorsComboBox, this.colorComboBox);
 
         add(colorLabel);
 
@@ -116,6 +127,10 @@ public class ArticleSummaryPanel extends JPanel {
         from.addActionListener(event -> to.requestFocus());
     }
 
+    private void onEnterSwitchBetween(JComboBox from, JComboBox to) {
+        from.addActionListener(event -> to.requestFocus());
+    }
+
     private void onEnterSwitchBetween(JTextField from, JComboBox to) {
         from.addActionListener(event -> to.requestFocus());
     }
@@ -134,7 +149,7 @@ public class ArticleSummaryPanel extends JPanel {
 
     private void bindFromModel() {
         this.titleTextField.setText(this.summary.getTitle());
-        this.authorsTextField.setText(this.summary.getAuthors());
+        this.authorsComboBox.getEditor().setItem(this.summary.getAuthors());
         this.colorComboBox.setSelectedItem(ColorGenerator.Color.valueOf(this.summary.getColor().toUpperCase()));
         this.tagsTextField.setText(this.summary.getTags());
         this.summaryTextArea.setText(this.summary.getSummary());
@@ -142,7 +157,7 @@ public class ArticleSummaryPanel extends JPanel {
 
     private void bindToModel() {
         this.summary.setTitle(this.titleTextField.getText());
-        this.summary.setAuthors(this.authorsTextField.getText());
+        this.summary.setAuthors(this.authorsComboBox.getEditor().getItem().toString());
         ColorGenerator.Color color = (ColorGenerator.Color) this.colorComboBox.getSelectedItem();
         this.summary.setColor(color.toString().toLowerCase());
         this.summary.setTags(this.tagsTextField.getText());
@@ -190,6 +205,34 @@ public class ArticleSummaryPanel extends JPanel {
             this.saveSummaryButton.setEnabled(false);
             this.updateSummaryButton.setEnabled(true);
         }
+    }
+
+    @Override
+    public void onFileDropped(File droppedFile) {
+        File projectFolder = droppedFile.getParentFile().getParentFile().getParentFile();
+        Configuration configuration = new Configuration(projectFolder);
+        AuthorService authorService = new AuthorService(configuration);
+        SwingWorker<List<Author>, Void> worker = new SwingWorker<List<Author>, Void>() {
+            @Override
+            protected List<Author> doInBackground() throws Exception {
+                authorService.initialize();
+                return authorService.listAuthors();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Author> authors = get();
+                    authorsComboBox.removeAllItems();
+                    for (Author author : authors) {
+                        authorsComboBox.addItem(author.getFullName());
+                    }
+                } catch (Exception e) {
+                    logger.error("Unable to load authors", e);
+                }
+            }
+        };
+        worker.execute();
     }
 
     public interface SummaryAddedListener {

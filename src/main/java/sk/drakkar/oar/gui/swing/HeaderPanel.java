@@ -32,6 +32,8 @@ public class HeaderPanel extends JPanel {
     private JLabel dropZoneLabel = new JLabel("Přetáhněte sem PDF Drakkaru");
     private JButton exportButton = new JButton("Exportovat");
 
+    private FileDroppedListener fileDroppedListener = FileDroppedListener.EMPTY;
+
     private File issueFile;
 
     private String targetFolder;
@@ -111,6 +113,8 @@ public class HeaderPanel extends JPanel {
 
             this.drakkarNumberLabel.setText(this.issueNumber);
             this.targetFolderLabel.setText(this.targetFolder);
+
+            this.fileDroppedListener.onFileDropped(droppedFile);
         } catch (ParseException e) {
             JOptionPane.showConfirmDialog(this, "Zlý názov súboru s PDF", "Chyba", JOptionPane.ERROR_MESSAGE);
         }
@@ -143,4 +147,7 @@ public class HeaderPanel extends JPanel {
         this.exportButton.addActionListener(listener);
     }
 
+    public void setFileDroppedListener(FileDroppedListener fileDroppedListener) {
+        this.fileDroppedListener = fileDroppedListener;
+    }
 }
