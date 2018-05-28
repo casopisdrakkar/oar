@@ -19,11 +19,10 @@
 			  <h1>Štítky článků</h1>
 	      </div> 		
 		<div class="row">
-			<#list tags?keys as tag>
+			<#list tags as tag>
 				<div class="col-sm-6 col-md-4 tag-box ${colorize(tag)}">
-					<h2 class="tag-name">#<a href="tags/${slugify(tag)}.html">${tag}</a></h2>
-					<#assign articles = tags[tag]>
-					<#list articles[0..*5] as article>
+					<h2 class="tag-name">#<a href="tags/${tag.slug}.html">${tag}</a></h2>
+					<#list tag.topArticles as article>
        					<span class="article-title">
        						<a href="${article.issue.number}/${article.slug}.html">
        							${article.metadata.title} (#${article.issue.number})
@@ -31,8 +30,8 @@
        					</span>
        					<#sep> | </#sep>
 					</#list>  						
-					<#if (articles?size >= 5) >
-						<span> | <a href="tags/${slugify(tag)}.html" class="tags-articles-more">Další ...</a></span>
+					<#if tag.hasManyArticles() >
+						<span> | <a href="tags/${tag.slug}.html" class="tags-articles-more">Další ...</a></span>
 					</#if>					
 				</div>
 			</#list>  				

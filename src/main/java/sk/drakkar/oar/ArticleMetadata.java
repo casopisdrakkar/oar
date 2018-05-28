@@ -7,13 +7,14 @@ import sk.drakkar.oar.authors.Author;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ArticleMetadata {
 	private String title;
 	
 	private List<Author> authors = new LinkedList<Author>();
 	
-	private List<String> tags = new LinkedList<String>();
+	private List<Tag> tags = new LinkedList<Tag>();
 
 	private String summary;
 	
@@ -51,7 +52,7 @@ public class ArticleMetadata {
 		this.summary = summary;
 	}
 	
-	public List<String> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
@@ -62,7 +63,14 @@ public class ArticleMetadata {
 		return Joiner.on(", ").join(this.tags).toString();
 	}
 
-	public void setTags(List<String> tags) {
+	public void setTagValues(List<String> tagValues) {
+		List<Tag> tags = tagValues.stream()
+				.map(Tag::new)
+				.collect(Collectors.toList());
+		setTags(tags);
+	}
+
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 	

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ArticleParser {
 	
@@ -93,10 +94,15 @@ public class ArticleParser {
 		return authors;
 	}
 
-	private List<String> parseTags(Map<String, Object> metadata) {
+	private List<Tag> parseTags(Map<String, Object> metadata) {
 		String tagsString = (String) metadata.get("Tags");
-		List<String> tags = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(tagsString.toLowerCase());
-		return tags;
+		return Splitter.on(",")
+				.omitEmptyStrings()
+				.trimResults()
+				.splitToList(tagsString.toLowerCase())
+				.stream()
+				.map(Tag::new)
+				.collect(Collectors.toList());
 	}
 	private String toString(List<String> articleMarkdownSourceLines) {
 		return Joiner.on("\n").join(articleMarkdownSourceLines);

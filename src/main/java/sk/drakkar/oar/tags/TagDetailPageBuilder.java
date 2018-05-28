@@ -6,7 +6,11 @@ import com.google.common.collect.MultimapBuilder;
 import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.drakkar.oar.*;
+import sk.drakkar.oar.Article;
+import sk.drakkar.oar.ArticleByIssueComparator;
+import sk.drakkar.oar.Configuration;
+import sk.drakkar.oar.Tag;
+import sk.drakkar.oar.TagCollator;
 import sk.drakkar.oar.authors.AuthorListBuildingException;
 import sk.drakkar.oar.pipeline.Context;
 import sk.drakkar.oar.plugin.ConfigurableArticleAssemblyPlugin;
@@ -14,7 +18,6 @@ import sk.drakkar.oar.plugin.PortalAssemblyPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.Collator;
 import java.util.Collection;
 import java.util.Map;
 
@@ -25,11 +28,7 @@ public class TagDetailPageBuilder extends ConfigurableArticleAssemblyPlugin impl
 
     private TagDetailPageTemplater tagDetailPageTemplater = new TagDetailPageTemplater();
 
-    private Collator tagCollator = CzechCollatorUtils.getCaseInsensitiveCzechCollator();
-
-    private Slugger slugger = new Slugger();
-
-    private Multimap<String, Article> tagMap;
+    private Multimap<Tag, Article> tagMap;
 
     private File tagPagesFolder;
 
@@ -37,7 +36,7 @@ public class TagDetailPageBuilder extends ConfigurableArticleAssemblyPlugin impl
         super(configuration);
 
         this.tagMap = MultimapBuilder.ListMultimapBuilder
-                .treeKeys(tagCollator)
+                .treeKeys(TagCollator.INSTANCE)
                 .arrayListValues()
                 .build();
 
@@ -46,15 +45,15 @@ public class TagDetailPageBuilder extends ConfigurableArticleAssemblyPlugin impl
 
     @Override
     public void articleProcessed(Article article, Context context) {
-        for(String tag : article.getMetadata().getTags()) {
+        for(Tag tag : article.getMetadata().getTags()) {
             tagMap.put(tag, article);
         }
     }
 
     @Override
     public void publicationComplete(Context context) {
-        for (Map.Entry<String, Collection<Article>> entry : tagMap.asMap().entrySet()) {
-            String tag = entry.getKey();
+        for (Map.Entry<Tag, Collection<Article>> entry : tagMap.asMap().entrySet()) {
+            Tag tag = entry.getKey();
             Collection<Article> articles = sortByIssue(entry.getValue());
 
             writeTagDetailPage(tag, articles);
@@ -66,20 +65,18 @@ public class TagDetailPageBuilder extends ConfigurableArticleAssemblyPlugin impl
         return ArticleByIssueComparator.sortByIssue(articles);
     }
 
-    private void writeTagDetailPage(String tag, Collection<Article> articles) {
+    private void writeTagDetailPage(Tag tag, Collection<Article> articles) {
         String html = this.tagDetailPageTemplater.convert(tag, articles);
-        String tagSlug = this.slugger.toSlug(tag);
-
-        write(tagSlug, html);
+        write(tag, html);
     }
 
 
-    private void write(String authorSlug, String html) {
+    private void write(Tag tag, String html) {
         try {
-            File outputFile = new File(this.tagPagesFolder, authorSlug + ".html");
+            File outputFile = new File(this.tagPagesFolder, tag.getSlug() + ".html");
             Files.write(html, outputFile, Charsets.UTF_8);
 
-            logger.debug("Written profile page for '" + authorSlug + "'");
+            logger.debug("Written tag page for '" + tag + "'");
         } catch (IOException e) {
             throw new AuthorListBuildingException("Unable to write author list", e);
         }
