@@ -16,8 +16,11 @@
 	font-size: 12pt;	
 }
 
-.article-text {
+.article-text-separator-line {
 	border-top: 6pt solid black;
+}
+
+.article-text {
 	padding-top: 24pt;
 	text-align: justify;
 
@@ -46,6 +49,13 @@
 	font-weight: normal;
 	font-size: 13pt;
 	font-family: 'Source Sans pro', sans-serif;	
+}
+
+.article-summary {
+	background-color: #EDEDEF;
+	margin-bottom: -12pt;
+	padding-top: 12pt;
+	padding-bottom: 12pt;
 }
 
 .article-tag {
