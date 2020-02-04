@@ -2,6 +2,12 @@
 
 Oar is a static site generator for RPG web-zine Drakkar.sk
 
+## Deprecation Notice
+
+As of January 2020, Drakkar.sk has been migrated from offline Oar-based generation to GitHub pages and [Prose](https://github.com/prose/prose) authoring environment.
+
+No further development is expected on *Oar*.
+
 ## Usage
 
 ### Data
